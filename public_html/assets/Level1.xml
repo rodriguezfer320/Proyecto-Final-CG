@@ -129,16 +129,35 @@
     <Wall PosX = "-8" PosY = "-24" type="top_tile"/>
     <Wall PosX = "-12" PosY = "-24" type="top_tile"/>
     <Wall PosX = "-16" PosY = "-24" type="top_tile"/>
-    <Wall PosX = "-20" PosY = "-24" type="top_tile"/>
+    <Wall PosX = "-20" PosY = "-24" type="top_left_edge"/>
 
     <Wall PosX = "-32" PosY = "-24" type="platform_single"/>
 
+    <Wall PosX = "-40" PosY = "-12" type="top_right_edge"/>
+    <Wall PosX = "-44" PosY = "-12" type="top_tile"/>
 
+    <Wall PosX = "-28" PosY = "0" type="top_left_edge"/>
+    <Wall PosX = "-24" PosY = "0" type="top_tile"/>
+    <Wall PosX = "-20" PosY = "0" type="top_tile"/>
+    <Wall PosX = "-16" PosY = "0" type="top_right_edge"/>
+
+    <Wall PosX = "-4" PosY = "-8" type="platform_single"/>
+
+    <Wall PosX = "8" PosY = "0" type="top_left_edge"/>
+    <Wall PosX = "12" PosY = "0" type="top_tile"/>
+    <Wall PosX = "16" PosY = "0" type="top_tile"/>
+    <Wall PosX = "20" PosY = "0" type="top_tile"/>
+    <Wall PosX = "24" PosY = "0" type="top_tile"/>
+    <Wall PosX = "28" PosY = "0" type="top_tile"/>
+    <Wall PosX = "32" PosY = "0" type="top_tile"/>
+    <Wall PosX = "36" PosY = "0" type="top_right_edge"/>
 
     <Flame PosX = "-30" PosY = "-32"/>
-     <Flame PosX = "-2" PosY = "-32"/>
+    <Flame PosX = "-2" PosY = "-32"/>
     <Flame PosX = "14" PosY = "-10"/>
     <Flame PosX = "34" PosY = "-10"/>
+    <Flame PosX = "-42" PosY = "2"/>
+    <Flame PosX = "-4" PosY = "12"/>
 
 
 
