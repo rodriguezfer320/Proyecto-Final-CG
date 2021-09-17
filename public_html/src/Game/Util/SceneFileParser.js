@@ -291,12 +291,28 @@ SceneFileParser.prototype.parseFlame = function(texture){
     var h = 8;
 
     for (let index = 0; index < elm.length; index++) {
-        cx = Number(elm[index].getAttribute("PosX"));
-        cy = Number(elm[index].getAttribute("PosY"));
+        cx = Number(elm[index].getAttribute("posX"));
+        cy = Number(elm[index].getAttribute("posY"));
         var mFlame = new Flame(cx, cy, w, h, texture);
         gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mFlame);
     }
+};
 
+SceneFileParser.prototype.parseDoor = function(texture){    
+    var elm = this._getElm("Door");
+
+    var cx = null;
+    var cy = null;
+    var w = null;
+    var h = null;
+
+    cx = Number(elm[0].getAttribute("posX"));
+    cy = Number(elm[0].getAttribute("posY"));
+    w = Number(elm[0].getAttribute("weight"));
+    h = Number(elm[0].getAttribute("height"));
+    var mDoor = new Door(cx, cy, w, h, texture);
+    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mDoor);
+    
 };
 
 SceneFileParser.prototype.parseWall = function(textures){
@@ -304,8 +320,8 @@ SceneFileParser.prototype.parseWall = function(textures){
 
     var allWalls = [];
     for (var index = 0; index < elm.length; index++) {
-        var x = Number(elm.item(index).attributes.getNamedItem("PosX").value);
-        var y = Number(elm.item(index).attributes.getNamedItem("PosY").value);
+        var x = Number(elm.item(index).attributes.getNamedItem("posX").value);
+        var y = Number(elm.item(index).attributes.getNamedItem("posY").value);
 
         var typeWall = elm[index].getAttribute("type");
 

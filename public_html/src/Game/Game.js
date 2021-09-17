@@ -38,6 +38,7 @@ function Game() {
 
     //Objects
     this.kFlame = "assets/flame.png";
+    this.kDoor = "assets/door.png"
 
     //Characters
     this.kWaterCharacter = "assets/water_character.png";
@@ -71,6 +72,8 @@ Game.prototype.loadScene = function () {
 
     gEngine.Textures.loadTexture(this.kFlame);
 
+    gEngine.Textures.loadTexture(this.kDoor);
+
     gEngine.TextFileLoader.loadTextFile(this.fileLevel, gEngine.TextFileLoader.eTextFileType.eXMLFile);
 
 
@@ -90,14 +93,16 @@ Game.prototype.unloadScene = function () {
 
     gEngine.Textures.unloadTexture(this.kFlame);
 
+    gEngine.Textures.unloadTexture(this.kDoor);
+
     gEngine.TextFileLoader.unloadTextFile(this.fileLevel);
 
 };
 
 Game.prototype.initialize = function () {
 
-     //initialize parser
-     var parser = new SceneFileParser(this.fileLevel);
+    //initialize parser
+    var parser = new SceneFileParser(this.fileLevel);
    
     // set ambient lighting
     gEngine.DefaultResources.setGlobalAmbientColor([1, 1, 1, 1]);
@@ -122,8 +127,11 @@ Game.prototype.initialize = function () {
         this.mAllWalls.addToSet(walls[index]);
     }
     
-    //Añadir flame
+    //Añadir flames
     parser.parseFlame(this.kFlame);
+
+    //Añadir door
+    parser.parseDoor(this.kDoor);
 
     this.mWaterCharacter = new Character(-40, 32, 5, 8, this.kWaterCharacter, 1);
 
