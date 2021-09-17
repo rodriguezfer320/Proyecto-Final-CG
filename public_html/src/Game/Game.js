@@ -125,7 +125,7 @@ Game.prototype.initialize = function () {
     //Añadir flame
     parser.parseFlame(this.kFlame);
 
-    this.mWaterCharacter = new Character(-40, -40, 5, 8, this.kWaterCharacter, 1);
+    this.mWaterCharacter = new Character(-40, 32, 5, 8, this.kWaterCharacter, 1);
 
     gEngine.LayerManager.addToLayer(gEngine.eLayer.eBackground, background);
     gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, this.mWaterCharacter);

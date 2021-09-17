@@ -166,17 +166,50 @@
     <Wall PosX = "32" PosY = "0" type="top_tile"/>
     <Wall PosX = "36" PosY = "0" type="top_right_edge"/>
 
+    <!-- Path 13 -->
     <Wall PosX = "32" PosY = "20" type="top_right_edge"/>
     <Wall PosX = "28" PosY = "20" type="top_tile"/>
     <Wall PosX = "24" PosY = "20" type="top_tile"/>
     <Wall PosX = "20" PosY = "20" type="top_left_edge"/>
-    
+     
+    <!-- Path 14 -->
     <Wall PosX = "8" PosY = "20" type="top_right_edge"/>
     <Wall PosX = "4" PosY = "20" type="top_tile"/>
     <Wall PosX = "0" PosY = "20" type="top_tile"/>
     <Wall PosX = "-4" PosY = "20" type="top_left_edge"/>
 
+    <!-- Path 15 -->
     <Wall PosX = "-40" PosY = "20" type="platform_single"/>
+
+    <!-- Path 16 -->
+    <Wall PosX = "-32" PosY = "32" type="top_left_edge"/>
+    <Wall PosX = "-28" PosY = "32" type="top_right_edge"/>
+
+    <!-- Path 17 -->
+    <Wall PosX = "-20" PosY = "40" type="platform_single"/>
+
+    <!-- Path 18 -->
+    <Wall PosX = "-12" PosY = "32" type="top_left_edge"/>
+    <Wall PosX = "-8" PosY = "32" type="top_tile"/>
+    <Wall PosX = "-4" PosY = "32" type="top_right_edge"/>
+
+    <!-- Path 19 -->
+    <Wall PosX = "4" PosY = "32" type="platform_single"/>
+
+    <!-- Path 20 -->
+    <Wall PosX = "12" PosY = "40" type="platform_single"/>
+
+    <!-- Path 21 -->
+    <Wall PosX = "20" PosY = "32" type="platform_single"/>
+
+    <!-- Path 22 -->
+    <Wall PosX = "28" PosY = "32" type="platform_single"/>
+
+    <!-- Path 23 -->
+    <Wall PosX = "40" PosY = "32" type="inner_corner_bottom_left"/>
+    <Wall PosX = "44" PosY = "32" type="inner_corner_bottom_right"/>
+    <Wall PosX = "40" PosY = "36" type="inner_corner_top_left"/>
+    <Wall PosX = "44" PosY = "36" type="inner_corner_top_right"/>   
     
     <!-- Flames -->
     <Flame PosX = "-30" PosY = "-32"/> <!-- Flame 1 -->
@@ -185,7 +218,10 @@
     <Flame PosX = "34" PosY = "-10"/> <!-- Flame 4 -->
     <Flame PosX = "-42" PosY = "2"/> <!-- Flame 5 -->
     <Flame PosX = "-4" PosY = "12"/> <!-- Flame 6 -->
-     <Flame PosX = "40" PosY = "32"/> <!-- Flame 7 -->
+    <Flame PosX = "40" PosY = "22"/> <!-- Flame 7 -->
+    <Flame PosX = "-20" PosY = "26"/> <!-- Flame 8 -->
+
+
 
 
 </Level>
