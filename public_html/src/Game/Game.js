@@ -57,7 +57,14 @@ function Game() {
     // The camera to view the scene
     this.mCamera = null;
 
+    this.mCollide = null;
+
+    this.objectDoor = null;
+
+    this.cont = 0;
+
     this.fileLevel = "assets/Level1.xml";
+    
 }
 gEngine.Core.inheritPrototype(Game, Scene);
 
@@ -131,9 +138,12 @@ Game.prototype.initialize = function () {
     parser.parseFlame(this.kFlame);
 
     //Añadir door
-    parser.parseDoor(this.kDoor);
+   
+    this.objectDoor =  parser.parseDoor(this.kDoor);
 
-    this.mWaterCharacter = new Character(-40, 32, 5, 8, this.kWaterCharacter, 1);
+    this.mCollide = this.mWaterCharacter;
+
+    this.mWaterCharacter = new Character(28, 40, 5, 8, this.kWaterCharacter, 1);
 
     gEngine.LayerManager.addToLayer(gEngine.eLayer.eBackground, background);
     gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, this.mWaterCharacter);
@@ -155,4 +165,26 @@ Game.prototype.update = function () {
     this.mCamera.update();
     gEngine.LayerManager.updateAllLayers();
     gEngine.Physics.processObjSet(this.mWaterCharacter, this.mAllWalls);
+
+
+    var platBox;
+    var collided = false;
+    var collisionInfo = new CollisionInfo();
+    var platBox = this.objectDoor.getPhysicsComponent();
+
+    collided = this.mWaterCharacter.getPhysicsComponent().collided(platBox, collisionInfo);
+    if (collided && !(this.objectDoor.getStatus())) {
+        this.objectDoor.activateAnimation();
+        this.objectDoor.setStatus(true);
+    }
+
+    if (this.objectDoor.getStatus() && (this.cont < 50)) {
+        this.cont++;
+    }
+
+    if(this.cont == 50){
+        this.objectDoor.desactivateAnimation();
+        this.mWaterCharacter.setVisibility(false);
+    }
+    
 }

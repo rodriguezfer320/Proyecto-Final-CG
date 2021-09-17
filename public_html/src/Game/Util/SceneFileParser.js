@@ -312,6 +312,8 @@ SceneFileParser.prototype.parseDoor = function(texture){
     h = Number(elm[0].getAttribute("height"));
     var mDoor = new Door(cx, cy, w, h, texture);
     gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mDoor);
+
+    return mDoor;
     
 };
 
