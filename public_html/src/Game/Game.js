@@ -33,10 +33,13 @@ function Game() {
     this.kWaterCharacter = "assets/water_character.png";
     this.kFireCharacter = "assets/fire_character.png";
     this.kBackground = "assets/background.png";
+    this.kFlame = "assets/flame.png";
 
     this.mAllWalls = new GameObjectSet();
     this.mWaterCharacter = null;
     this.mFireCharacter = null;
+
+    this.mFlame = null;
 
     // The camera to view the scene
     this.mCamera = null;
@@ -65,6 +68,8 @@ Game.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kWaterCharacter);
     gEngine.Textures.loadTexture(this.kFireCharacter);
     gEngine.Textures.loadTexture(this.kBackground);
+
+    gEngine.Textures.loadTexture(this.kFlame);
 };
 
 Game.prototype.unloadScene = function () {
@@ -90,6 +95,8 @@ Game.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kWaterCharacter);
     gEngine.Textures.unloadTexture(this.kFireCharacter);
     gEngine.Textures.unloadTexture(this.kBackground);
+
+    gEngine.Textures.unloadTexture(this.kFlame);
 };
 
 Game.prototype.initialize = function () {
@@ -116,6 +123,7 @@ Game.prototype.initialize = function () {
     var posY = 48;
     var w = 4;
     var h = 4;
+
 
     for(var i = 0; i < 96; i++){
         wall =  new Wall(posX, posY, w, h, urlWall);
@@ -220,10 +228,15 @@ Game.prototype.initialize = function () {
     gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wall);
     this.mAllWalls.addToSet(wall);
 
+    this.mFlame = new Flame(0, 0, 2, 8, this.kFlame);
+
+    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, this.mFlame);
+
     this.mWaterCharacter = new Character(-40, -40, 5, 8, this.kWaterCharacter, 1);
 
     gEngine.LayerManager.addToLayer(gEngine.eLayer.eBackground, background);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, this.mWaterCharacter);
+    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, this.mWaterCharacter); 
+
     
 };
 
