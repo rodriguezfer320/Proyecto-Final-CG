@@ -10,21 +10,25 @@
     <!-- WC for level 1 is:  -->
     <!-- Viewport: x, y, w, h -->
 
+    <!-- first stage-->
     <Wall PosX = "-48" PosY = "-48" type="color"/>
     <Wall PosX = "-44" PosY = "-48" type="top_tile"/>
     <Wall PosX = "-40" PosY = "-48" type="top_tile"/>
     <Wall PosX = "-36" PosY = "-48" type="top_tile"/>
-    <Wall PosX = "-32" PosY = "-48" type="top_tile"/>
-    <Wall PosX = "-28" PosY = "-48" type="top_tile"/>
     <Wall PosX = "-24" PosY = "-48" type="top_tile"/>
     <Wall PosX = "-20" PosY = "-48" type="top_tile"/>
     <Wall PosX = "-16" PosY = "-48" type="top_tile"/>
     <Wall PosX = "-12" PosY = "-48" type="top_tile"/>
     <Wall PosX = "-8" PosY = "-48" type="top_tile"/>
-    <Wall PosX = "-4" PosY = "-48" type="top_tile"/>
-    <Wall PosX = "0" PosY = "-48" type="top_tile"/>
-    <Wall PosX = "4" PosY = "-48" type="top_tile"/>
-    <Wall PosX = "8" PosY = "-48" type="top_tile"/>
+
+  
+    <Wall PosX = "-4" PosY = "-44" type="inner_corner_top_left"/>
+    <Wall PosX = "0" PosY = "-44" type="inner_corner_top_right"/>
+    <Wall PosX = "-4" PosY = "-48" type="inner_corner_bottom_left"/>
+    <Wall PosX = "0" PosY = "-48" type="inner_corner_bottom_right"/>
+    <Wall PosX = "-4" PosY = "-40" type="top_tile"/>
+    <Wall PosX = "0" PosY = "-40" type="top_tile"/>
+
     <Wall PosX = "12" PosY = "-48" type="top_tile"/>
     <Wall PosX = "16" PosY = "-48" type="top_tile"/>
     <Wall PosX = "20" PosY = "-48" type="top_tile"/>
@@ -36,29 +40,29 @@
     <Wall PosX = "44" PosY = "-48" type="top_tile"/>
     <Wall PosX = "48" PosY = "-48" type="color"/>
 
-    <Wall PosX = "48" PosY = "-44" type="left_tile"/>
-    <Wall PosX = "48" PosY = "-40" type="left_tile"/>
-    <Wall PosX = "48" PosY = "-36" type="left_tile"/>
-    <Wall PosX = "48" PosY = "-32" type="left_tile"/>
-    <Wall PosX = "48" PosY = "-28" type="left_tile"/>
-    <Wall PosX = "48" PosY = "-24" type="left_tile"/>
-    <Wall PosX = "48" PosY = "-20" type="left_tile"/>
-    <Wall PosX = "48" PosY = "-16" type="left_tile"/>
-    <Wall PosX = "48" PosY = "-12" type="left_tile"/>
-    <Wall PosX = "48" PosY = "-8" type="left_tile"/>
-    <Wall PosX = "48" PosY = "-4" type="left_tile"/>
-    <Wall PosX = "48" PosY = "0" type="left_tile"/>
-    <Wall PosX = "48" PosY = "4" type="left_tile"/>
-    <Wall PosX = "48" PosY = "8" type="left_tile"/>
-    <Wall PosX = "48" PosY = "12" type="left_tile"/>
-    <Wall PosX = "48" PosY = "16" type="left_tile"/>
-    <Wall PosX = "48" PosY = "20" type="left_tile"/>
-    <Wall PosX = "48" PosY = "24" type="left_tile"/>
-    <Wall PosX = "48" PosY = "28" type="left_tile"/>
-    <Wall PosX = "48" PosY = "32" type="left_tile"/>
-    <Wall PosX = "48" PosY = "36" type="left_tile"/>
-    <Wall PosX = "48" PosY = "40" type="left_tile"/>
-    <Wall PosX = "48" PosY = "44" type="left_tile"/>
+    <Wall PosX = "48" PosY = "-44" type="color"/>
+    <Wall PosX = "48" PosY = "-40" type="color"/>
+    <Wall PosX = "48" PosY = "-36" type="color"/>
+    <Wall PosX = "48" PosY = "-32" type="color"/>
+    <Wall PosX = "48" PosY = "-28" type="color"/>
+    <Wall PosX = "48" PosY = "-24" type="color"/>
+    <Wall PosX = "48" PosY = "-20" type="color"/>
+    <Wall PosX = "48" PosY = "-16" type="color"/>
+    <Wall PosX = "48" PosY = "-12" type="color"/>
+    <Wall PosX = "48" PosY = "-8" type="color"/>
+    <Wall PosX = "48" PosY = "-4" type="color"/>
+    <Wall PosX = "48" PosY = "0" type="color"/>
+    <Wall PosX = "48" PosY = "4" type="color"/>
+    <Wall PosX = "48" PosY = "8" type="color"/>
+    <Wall PosX = "48" PosY = "12" type="color"/>
+    <Wall PosX = "48" PosY = "16" type="color"/>
+    <Wall PosX = "48" PosY = "20" type="color"/>
+    <Wall PosX = "48" PosY = "24" type="color"/>
+    <Wall PosX = "48" PosY = "28" type="color"/>
+    <Wall PosX = "48" PosY = "32" type="color"/>
+    <Wall PosX = "48" PosY = "36" type="color"/>
+    <Wall PosX = "48" PosY = "40" type="color"/>
+    <Wall PosX = "48" PosY = "44" type="color"/>
     <Wall PosX = "48" PosY = "48" type="color"/>
 
     <Wall PosX = "-48" PosY = "48" type="color"/>
@@ -86,41 +90,55 @@
     <Wall PosX = "40" PosY = "48" type="bottom_tile"/>
     <Wall PosX = "44" PosY = "48" type="bottom_tile"/>
 
-    <Wall PosX = "-48" PosY = "-44" type="right_tile"/>
-    <Wall PosX = "-48" PosY = "-40" type="right_tile"/>
-    <Wall PosX = "-48" PosY = "-36" type="right_tile"/>
-    <Wall PosX = "-48" PosY = "-32" type="right_tile"/>
-    <Wall PosX = "-48" PosY = "-28" type="right_tile"/>
-    <Wall PosX = "-48" PosY = "-24" type="right_tile"/>
-    <Wall PosX = "-48" PosY = "-20" type="right_tile"/>
-    <Wall PosX = "-48" PosY = "-16" type="right_tile"/>
-    <Wall PosX = "-48" PosY = "-12" type="right_tile"/>
-    <Wall PosX = "-48" PosY = "-8" type="right_tile"/>
-    <Wall PosX = "-48" PosY = "-4" type="right_tile"/>
-    <Wall PosX = "-48" PosY = "0" type="right_tile"/>
-    <Wall PosX = "-48" PosY = "4" type="right_tile"/>
-    <Wall PosX = "-48" PosY = "8" type="right_tile"/>
-    <Wall PosX = "-48" PosY = "12" type="right_tile"/>
-    <Wall PosX = "-48" PosY = "16" type="right_tile"/>
-    <Wall PosX = "-48" PosY = "20" type="right_tile"/>
-    <Wall PosX = "-48" PosY = "24" type="right_tile"/>
-    <Wall PosX = "-48" PosY = "28" type="right_tile"/>
-    <Wall PosX = "-48" PosY = "32" type="right_tile"/>
-    <Wall PosX = "-48" PosY = "36" type="right_tile"/>
-    <Wall PosX = "-48" PosY = "40" type="right_tile"/>
-    <Wall PosX = "-48" PosY = "44" type="right_tile"/>
+    <Wall PosX = "-48" PosY = "-44" type="color"/>
+    <Wall PosX = "-48" PosY = "-40" type="color"/>
+    <Wall PosX = "-48" PosY = "-36" type="color"/>
+    <Wall PosX = "-48" PosY = "-32" type="color"/>
+    <Wall PosX = "-48" PosY = "-28" type="color"/>
+    <Wall PosX = "-48" PosY = "-24" type="color"/>
+    <Wall PosX = "-48" PosY = "-20" type="color"/>
+    <Wall PosX = "-48" PosY = "-16" type="color"/>
+    <Wall PosX = "-48" PosY = "-12" type="color"/>
+    <Wall PosX = "-48" PosY = "-8" type="color"/>
+    <Wall PosX = "-48" PosY = "-4" type="color"/>
+    <Wall PosX = "-48" PosY = "0" type="color"/>
+    <Wall PosX = "-48" PosY = "4" type="color"/>
+    <Wall PosX = "-48" PosY = "8" type="color"/>
+    <Wall PosX = "-48" PosY = "12" type="color"/>
+    <Wall PosX = "-48" PosY = "16" type="color"/>
+    <Wall PosX = "-48" PosY = "20" type="color"/>
+    <Wall PosX = "-48" PosY = "24" type="color"/>
+    <Wall PosX = "-48" PosY = "28" type="color"/>
+    <Wall PosX = "-48" PosY = "32" type="color"/>
+    <Wall PosX = "-48" PosY = "36" type="color"/>
+    <Wall PosX = "-48" PosY = "40" type="color"/>
+    <Wall PosX = "-48" PosY = "44" type="color"/>
     <Wall PosX = "-48" PosY = "48" type="color"/>
     
-    <Wall PosX = "36" PosY = "-36" type="top_tile"/>
-    <Wall PosX = "32" PosY = "-36" type="top_tile"/>
-    <Wall PosX = "28" PosY = "-36" type="top_tile"/>
-    <Wall PosX = "24" PosY = "-36" type="top_tile"/>
-    <Wall PosX = "20" PosY = "-36" type="top_tile"/>
-    <Wall PosX = "16" PosY = "-36" type="top_tile"/>
-    <Wall PosX = "14" PosY = "-36" type="top_tile"/>
-    <Wall PosX = "10" PosY = "-36" type="top_tile"/>
-    <Wall PosX = "6" PosY = "-36" type="top_tile"/>
-    <Wall PosX = "2" PosY = "-36" type="top_tile"/>
+    <Wall PosX = "36" PosY = "-36" type="top_right_edge"/>
+    <Wall PosX = "32" PosY = "-36" type="top_left_edge"/>
+
+    <Wall PosX = "28" PosY = "-26" type="top_right_edge"/>
+    <Wall PosX = "24" PosY = "-26" type="top_tile"/>
+    <Wall PosX = "20" PosY = "-26" type="top_left_edge"/>
+    
+    <Wall PosX = "8" PosY = "-26" type="top_tile"/>
+    <Wall PosX = "4" PosY = "-26" type="top_tile"/>
+    <Wall PosX = "0" PosY = "-26" type="color"/>
+    <Wall PosX = "-4" PosY = "-26" type="color"/>
+    <Wall PosX = "-8" PosY = "-26" type="color"/>
+    <Wall PosX = "-12" PosY = "-26" type="color"/>
+    <Wall PosX = "-16" PosY = "-26" type="color"/>
+    <Wall PosX = "-20" PosY = "-26" type="color"/>
+
+    <Wall PosX = "0" PosY = "-22" type="top_tile"/>
+    <Wall PosX = "-4" PosY = "-22" type="top_tile"/>
+    <Wall PosX = "-8" PosY = "-22" type="top_tile"/>
+    <Wall PosX = "-12" PosY = "-22" type="top_tile"/>
+    <Wall PosX = "-16" PosY = "-22" type="top_tile"/>
+    <Wall PosX = "-20" PosY = "-22" type="top_tile"/>
+
+
 
     <Flame PosX = "-10" PosY = "0"/>
     <Flame PosX = "10" PosY = "0"/>
