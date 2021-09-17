@@ -167,16 +167,16 @@
     <Wall PosX = "36" PosY = "0" type="top_right_edge"/>
 
     <!-- Path 13 -->
-    <Wall PosX = "32" PosY = "20" type="top_right_edge"/>
-    <Wall PosX = "28" PosY = "20" type="top_tile"/>
-    <Wall PosX = "24" PosY = "20" type="top_tile"/>
-    <Wall PosX = "20" PosY = "20" type="top_left_edge"/>
+    <Wall PosX = "32" PosY = "16" type="top_right_edge"/>
+    <Wall PosX = "28" PosY = "16" type="top_tile"/>
+    <Wall PosX = "24" PosY = "16" type="top_tile"/>
+    <Wall PosX = "20" PosY = "16" type="top_left_edge"/>
      
     <!-- Path 14 -->
-    <Wall PosX = "8" PosY = "20" type="top_right_edge"/>
-    <Wall PosX = "4" PosY = "20" type="top_tile"/>
-    <Wall PosX = "0" PosY = "20" type="top_tile"/>
-    <Wall PosX = "-4" PosY = "20" type="top_left_edge"/>
+    <Wall PosX = "8" PosY = "16" type="top_right_edge"/>
+    <Wall PosX = "4" PosY = "16" type="top_tile"/>
+    <Wall PosX = "0" PosY = "16" type="top_tile"/>
+    <Wall PosX = "-4" PosY = "16" type="top_left_edge"/>
 
     <!-- Path 15 -->
     <Wall PosX = "-40" PosY = "20" type="platform_single"/>
@@ -203,7 +203,7 @@
     <Wall PosX = "20" PosY = "32" type="platform_single"/>
 
     <!-- Path 22 -->
-    <Wall PosX = "28" PosY = "32" type="platform_single"/>
+    <Wall PosX = "28" PosY = "36" type="platform_single"/>
 
     <!-- Path 23 -->
     <Wall PosX = "40" PosY = "32" type="inner_corner_bottom_left"/>
