@@ -12,94 +12,89 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 function Game() {
-    this.kWallColor = "assets/platfotm_tileset/yellow_brown/color.png";
-    this.kWallRightTile = "assets/platfotm_tileset/yellow_brown/right_tile.png";
-    this.kWallTopTile = "assets/platfotm_tileset/yellow_brown/top_tile.png";
-    this.kWallLeftTile = "assets/platfotm_tileset/yellow_brown/left_tile.png";
-    this.kWallBottomTile = "assets/platfotm_tileset/yellow_brown/bottom_tile.png";
-    
-    this.kWallShallowSlopeLeft01 = "assets/platfotm_tileset/yellow_brown/shallow_slope_left_01.png";
-    this.kWallShallowSlopeLeft02 = "assets/platfotm_tileset/yellow_brown/shallow_slope_left_02.png";
-    this.kWallShallowSlopeLeft03 = "assets/platfotm_tileset/yellow_brown/shallow_slope_left_03.png";
-    this.kWallSteepSlopeLeft2 = "assets/platfotm_tileset/yellow_brown/steep_slope_left_2.png";
-    this.kWallSteepSlopeLeft3 = "assets/platfotm_tileset/yellow_brown/steep_slope_left_3.png";
 
-    this.kWallShallowSlopeRight01 = "assets/platfotm_tileset/yellow_brown/shallow_slope_right_01.png";
-    this.kWallShallowSlopeRight02 = "assets/platfotm_tileset/yellow_brown/shallow_slope_right_02.png";
-    this.kWallShallowSlopeRight03 = "assets/platfotm_tileset/yellow_brown/shallow_slope_right_03.png";
-    this.kWallSteepSlopeRight1 = "assets/platfotm_tileset/yellow_brown/steep_slope_right_1.png";
-    this.kWallSteepSlopeRight2 = "assets/platfotm_tileset/yellow_brown/steep_slope_right_2.png";
+    //Tileset
+    this.kWalls = {
+        bottom_left_edge: "assets/walls/bottom_left_edge.png",
+        bottom_right_edge: "assets/walls/bottom_right_edge.png",
+        bottom_tile: "assets/walls/bottom_tile.png",
+        color: "assets/walls/color.png",
+        inner_corner_bottom_left: "assets/walls/inner_corner_bottom_left.png",
+        inner_corner_bottom_right: "assets/walls/inner_corner_bottom_right.png",
+        inner_corner_bottom_right: "assets/walls/inner_corner_bottom_right.png",
+        inner_corner_top_right: "assets/walls/inner_corner_top_right.png",
+        left_edge_repeating: "assets/walls/left_edge_repeating.png",
+        left_tile: "assets/walls/left_tile.png",
+        right_edge_repeating: "assets/walls/right_edge_repeating.png",
+        right_tile: "assets/walls/right_tile.png",
+        top_left_edge: "assets/walls/top_left_edge.png",
+        top_right_edge: "assets/walls/top_right_edge.png",
+        top_tile: "assets/walls/top_tile.png"
+    };
 
-    this.kWaterCharacter = "assets/water_character.png";
-    this.kFireCharacter = "assets/fire_character.png";
-    this.kBackground = "assets/background.png";
+    //Objects
     this.kFlame = "assets/flame.png";
 
+    //Characters
+    this.kWaterCharacter = "assets/water_character.png";
+    //this.kFireCharacter = "assets/fire_character.png";
+
+    //background
+    this.kBackground = "assets/background.png";
+    
+    //Variable multiples muros 
     this.mAllWalls = new GameObjectSet();
+    
+    //Variable objetos personajes
     this.mWaterCharacter = null;
-    this.mFireCharacter = null;
-
-    this.mFlame = null;
-
+    //this.mFireCharacter = null;
+    
     // The camera to view the scene
     this.mCamera = null;
+
+    this.fileLevel = "assets/Level1.xml";
 }
 gEngine.Core.inheritPrototype(Game, Scene);
 
 Game.prototype.loadScene = function () {
-    gEngine.Textures.loadTexture(this.kWallColor);
-    gEngine.Textures.loadTexture(this.kWallRightTile);
-    gEngine.Textures.loadTexture(this.kWallTopTile);
-    gEngine.Textures.loadTexture(this.kWallLeftTile);
-    gEngine.Textures.loadTexture(this.kWallBottomTile);
-
-    gEngine.Textures.loadTexture(this.kWallShallowSlopeLeft01);
-    gEngine.Textures.loadTexture(this.kWallShallowSlopeLeft02);
-    gEngine.Textures.loadTexture(this.kWallShallowSlopeLeft03);
-    gEngine.Textures.loadTexture(this.kWallSteepSlopeLeft2);
-    gEngine.Textures.loadTexture(this.kWallSteepSlopeLeft3);
-
-    gEngine.Textures.loadTexture(this.kWallShallowSlopeRight01);
-    gEngine.Textures.loadTexture(this.kWallShallowSlopeRight02);
-    gEngine.Textures.loadTexture(this.kWallShallowSlopeRight03);
-    gEngine.Textures.loadTexture(this.kWallSteepSlopeRight1);
-    gEngine.Textures.loadTexture(this.kWallSteepSlopeRight2);
-
+    for (const key in this.kWalls) {
+        gEngine.Textures.loadTexture(this.kWalls[key]);
+    }
+    
     gEngine.Textures.loadTexture(this.kWaterCharacter);
-    gEngine.Textures.loadTexture(this.kFireCharacter);
+    //gEngine.Textures.loadTexture(this.kFireCharacter);
     gEngine.Textures.loadTexture(this.kBackground);
 
     gEngine.Textures.loadTexture(this.kFlame);
+
+    gEngine.TextFileLoader.loadTextFile(this.fileLevel, gEngine.TextFileLoader.eTextFileType.eXMLFile);
+
+
 };
 
 Game.prototype.unloadScene = function () {
+ 
     gEngine.LayerManager.cleanUp();
-    gEngine.Textures.unloadTexture(this.kWallColor);
-    gEngine.Textures.unloadTexture(this.kWallRightTile);
-    gEngine.Textures.unloadTexture(this.kWallTopTile);
-    gEngine.Textures.unloadTexture(this.kWallLeftTile);
-    gEngine.Textures.unloadTexture(this.kWallBottomTile);
 
-    gEngine.Textures.unloadTexture(this.kWallShallowSlopeLeft01);
-    gEngine.Textures.unloadTexture(this.kWallShallowSlopeLeft02);
-    gEngine.Textures.unloadTexture(this.kWallShallowSlopeLeft03);
-    gEngine.Textures.unloadTexture(this.kWallSteepSlopeLeft2);
-    gEngine.Textures.unloadTexture(this.kWallSteepSlopeLeft3);
-
-    gEngine.Textures.unloadTexture(this.kWallShallowSlopeRight01);
-    gEngine.Textures.unloadTexture(this.kWallShallowSlopeRight02);
-    gEngine.Textures.unloadTexture(this.kWallShallowSlopeRight03);
-    gEngine.Textures.unloadTexture(this.kWallSteepSlopeRight1);
-    gEngine.Textures.unloadTexture(this.kWallSteepSlopeRight2);
+    for (const key in this.kWalls) {
+        gEngine.Textures.unloadTexture(this.kWalls[key]);
+    }
 
     gEngine.Textures.unloadTexture(this.kWaterCharacter);
-    gEngine.Textures.unloadTexture(this.kFireCharacter);
+    //gEngine.Textures.unloadTexture(this.kFireCharacter);
     gEngine.Textures.unloadTexture(this.kBackground);
 
     gEngine.Textures.unloadTexture(this.kFlame);
+
+    gEngine.TextFileLoader.unloadTextFile(this.fileLevel);
+
 };
 
 Game.prototype.initialize = function () {
+
+     //initialize parser
+     var parser = new SceneFileParser(this.fileLevel);
+   
     // set ambient lighting
     gEngine.DefaultResources.setGlobalAmbientColor([1, 1, 1, 1]);
     gEngine.DefaultResources.setGlobalAmbientIntensity(1);
@@ -117,127 +112,20 @@ Game.prototype.initialize = function () {
     background.getXform().setSize(96, 96);
     background.getXform().setPosition(0,0);
 
-    var wall = null;
-    var urlWall = this.kWallColor;
-    var posX = -48;
-    var posY = 48;
-    var w = 4;
-    var h = 4;
-
-
-    for(var i = 0; i < 96; i++){
-        wall =  new Wall(posX, posY, w, h, urlWall);
-        gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wall);
-        this.mAllWalls.addToSet(wall);
-
-        if(i < 24){
-            posY -= h;
-        } else if(i < 48){
-            if(i == 47 || (i > 28 && i < 42)){
-                urlWall = this.kWallColor;
-            }else if(i == 28){
-                urlWall = this.kWallShallowSlopeLeft01;
-            }else if(i == 42){
-                urlWall = this.kWallShallowSlopeRight01;
-            }else{
-                urlWall = this.kWallTopTile;
-            }
-
-            posX += w;
-        } else if(i < 72){
-            urlWall = this.kWallColor;
-            posY += h;
-        } else{
-            posX -= w;
-        }
+    //Añadir walls
+    var walls = parser.parseWall(this.kWalls);
+    for (let index = 0; index < walls.length; index++) {
+        this.mAllWalls.addToSet(walls[index]);
     }
-
-    wall =  new Wall(-28, -44, w, h, this.kWallShallowSlopeLeft02);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wall);
-    this.mAllWalls.addToSet(wall);
-
-    wall =  new Wall(-24, -44, w, h, this.kWallShallowSlopeLeft03);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wall);
-    this.mAllWalls.addToSet(wall);
-
-    wall =  new Wall(-20, -44, w, h, this.kWallTopTile);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wall);
-    this.mAllWalls.addToSet(wall);
-
-    wall =  new Wall(-16, -44, w, h, this.kWallTopTile);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wall);
-    this.mAllWalls.addToSet(wall);
-
-    wall =  new Wall(-12, -44, w, h, this.kWallSteepSlopeLeft3);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wall);
-    this.mAllWalls.addToSet(wall);
-
-    wall =  new Wall(-12, -40, w, h, this.kWallSteepSlopeLeft2);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wall);
-    this.mAllWalls.addToSet(wall);
-
-    wall =  new Wall(-8, -40, w, h, this.kWallSteepSlopeLeft3);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wall);
-    this.mAllWalls.addToSet(wall);
-
-    wall =  new Wall(-8, -36, w, h, this.kWallSteepSlopeLeft2);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wall);
-    this.mAllWalls.addToSet(wall);
-
-    wall =  new Wall(-4, -36, w, h, this.kWallTopTile);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wall);
-    this.mAllWalls.addToSet(wall);
-
-    wall =  new Wall(0, -36, w, h, this.kWallTopTile);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wall);
-    this.mAllWalls.addToSet(wall);
-
-    wall =  new Wall(4, -36, w, h, this.kWallTopTile);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wall);
-    this.mAllWalls.addToSet(wall);
-
-    wall =  new Wall(8, -36, w, h, this.kWallSteepSlopeRight2);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wall);
-    this.mAllWalls.addToSet(wall);
-
-    wall =  new Wall(8, -40, w, h, this.kWallSteepSlopeRight1);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wall);
-    this.mAllWalls.addToSet(wall);
-
-    wall =  new Wall(12, -40, w, h, this.kWallSteepSlopeRight2);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wall);
-    this.mAllWalls.addToSet(wall);
-
-    wall =  new Wall(12, -44, w, h, this.kWallSteepSlopeRight1);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wall);
-    this.mAllWalls.addToSet(wall);
-
-    wall =  new Wall(16, -44, w, h, this.kWallTopTile);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wall);
-    this.mAllWalls.addToSet(wall);
-
-    wall =  new Wall(20, -44, w, h, this.kWallTopTile);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wall);
-    this.mAllWalls.addToSet(wall);
-
-    wall =  new Wall(24, -44, w, h, this.kWallShallowSlopeRight03);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wall);
-    this.mAllWalls.addToSet(wall);
-
-    wall =  new Wall(28, -44, w, h, this.kWallShallowSlopeRight02);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wall);
-    this.mAllWalls.addToSet(wall);
-
-    this.mFlame = new Flame(0, 0, 2, 8, this.kFlame);
-
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, this.mFlame);
+    
+    //Añadir flame
+    parser.parseFlame(this.kFlame);
 
     this.mWaterCharacter = new Character(-40, -40, 5, 8, this.kWaterCharacter, 1);
 
     gEngine.LayerManager.addToLayer(gEngine.eLayer.eBackground, background);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, this.mWaterCharacter); 
-
-    
+    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, this.mWaterCharacter);
+   
 };
 
 // This is the draw function, make sure to setup proper drawing environment, and more

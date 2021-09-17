@@ -12,13 +12,6 @@ function SceneFileParser(sceneFilePath) {
     this.mSceneXml = gEngine.ResourceMap.retrieveAsset(sceneFilePath);
 }
 
-SceneFileParser.prototype._convertToNum = function (a) {
-    var j;
-    for (j = 0; j < a.length; j++) {
-        a[j] = Number(a[j]);
-    }
-};
-
 SceneFileParser.prototype._getElm = function (tagElm) {
     var theElm = this.mSceneXml.getElementsByTagName(tagElm);
     if (theElm.length === 0) {
@@ -26,6 +19,15 @@ SceneFileParser.prototype._getElm = function (tagElm) {
     }
     return theElm;
 };
+
+/* 
+SceneFileParser.prototype._convertToNum = function (a) {
+    var j;
+    for (j = 0; j < a.length; j++) {
+        a[j] = Number(a[j]);
+    }
+};
+
 
 SceneFileParser.prototype.parseCamera = function () {
     var camElm = this._getElm("Camera");
@@ -277,7 +279,42 @@ SceneFileParser.prototype.parseBackground = function (level, refCam, lightSet) {
 
 };
 
-SceneFileParser.prototype.parseNextLevel = function () {
-    var elm = this._getElm("NextLevel");
-    return elm[0].getAttribute("Next");
+
+*/
+
+SceneFileParser.prototype.parseFlame = function(texture){    
+    var elm = this._getElm("Flame");
+
+    var cx = null;
+    var cy = null;
+    var w = 2;
+    var h = 8;
+
+    for (let index = 0; index < elm.length; index++) {
+        cx = Number(elm[index].getAttribute("PosX"));
+        cy = Number(elm[index].getAttribute("PosY"));
+        var mFlame = new Flame(cx, cy, w, h, texture);
+        gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mFlame);
+    }
+
+};
+
+SceneFileParser.prototype.parseWall = function(textures){
+    var elm = this._getElm("Wall");
+
+    var allWalls = [];
+    for (var index = 0; index < elm.length; index++) {
+        var x = Number(elm.item(index).attributes.getNamedItem("PosX").value);
+        var y = Number(elm.item(index).attributes.getNamedItem("PosY").value);
+
+        var typeWall = elm[index].getAttribute("type");
+
+        var wall = new Wall(x, y, 4, 4, textures[typeWall]);
+        gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wall);
+
+        allWalls.push(wall);
+    }
+
+    return allWalls;
+    
 };
