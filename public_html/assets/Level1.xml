@@ -10,36 +10,8 @@
     <!-- WC for level 1 is:  -->
     <!-- Viewport: x, y, w, h -->
 
-    <!-- first stage-->
-    <Wall PosX = "-48" PosY = "-48" type="color"/>
-    
-    <Wall PosX = "-44" PosY = "-48" type="top_tile"/>
-    <Wall PosX = "-40" PosY = "-48" type="top_tile"/>    
-    <Wall PosX = "-36" PosY = "-48" type="top_right_edge"/>
-
-    <Wall PosX = "-24" PosY = "-48" type="top_tile"/>
-    <Wall PosX = "-20" PosY = "-48" type="top_tile"/>
-    <Wall PosX = "-16" PosY = "-48" type="top_tile"/>
-    <Wall PosX = "-12" PosY = "-48" type="top_tile"/>
-    <Wall PosX = "-8" PosY = "-48" type="top_tile"/>
-
-  
-    <Wall PosX = "-4" PosY = "-44" type="inner_corner_top_left"/>
-    <Wall PosX = "0" PosY = "-44" type="inner_corner_top_right"/>
-    <Wall PosX = "-4" PosY = "-48" type="inner_corner_bottom_left"/>
-    <Wall PosX = "0" PosY = "-48" type="inner_corner_bottom_right"/>
-
-    <Wall PosX = "12" PosY = "-48" type="top_tile"/>
-    <Wall PosX = "16" PosY = "-48" type="top_tile"/>
-    <Wall PosX = "20" PosY = "-48" type="top_tile"/>
-    <Wall PosX = "24" PosY = "-48" type="top_tile"/>
-    <Wall PosX = "28" PosY = "-48" type="top_tile"/>
-    <Wall PosX = "32" PosY = "-48" type="top_tile"/>
-    <Wall PosX = "36" PosY = "-48" type="top_tile"/>
-    <Wall PosX = "40" PosY = "-48" type="top_tile"/>
-    <Wall PosX = "44" PosY = "-48" type="top_tile"/>
+    <!-- Right wall -->
     <Wall PosX = "48" PosY = "-48" type="color"/>
-
     <Wall PosX = "48" PosY = "-44" type="color"/>
     <Wall PosX = "48" PosY = "-40" type="color"/>
     <Wall PosX = "48" PosY = "-36" type="color"/>
@@ -65,6 +37,7 @@
     <Wall PosX = "48" PosY = "44" type="color"/>
     <Wall PosX = "48" PosY = "48" type="color"/>
 
+    <!-- Bottom wall -->
     <Wall PosX = "-48" PosY = "48" type="color"/>
     <Wall PosX = "-44" PosY = "48" type="bottom_tile"/>
     <Wall PosX = "-40" PosY = "48" type="bottom_tile"/>
@@ -89,7 +62,9 @@
     <Wall PosX = "36" PosY = "48" type="bottom_tile"/>
     <Wall PosX = "40" PosY = "48" type="bottom_tile"/>
     <Wall PosX = "44" PosY = "48" type="bottom_tile"/>
-
+    
+    <!-- Left wall -->
+    <Wall PosX = "-48" PosY = "-48" type="color"/>
     <Wall PosX = "-48" PosY = "-44" type="color"/>
     <Wall PosX = "-48" PosY = "-40" type="color"/>
     <Wall PosX = "-48" PosY = "-36" type="color"/>
@@ -115,13 +90,47 @@
     <Wall PosX = "-48" PosY = "44" type="color"/>
     <Wall PosX = "-48" PosY = "48" type="color"/>
     
+    <!-- World Level 1 -->
+
+    <!-- Path 1 -->
+    <Wall PosX = "-44" PosY = "-48" type="top_tile"/>
+    <Wall PosX = "-40" PosY = "-48" type="top_tile"/>    
+    <Wall PosX = "-36" PosY = "-48" type="top_right_edge"/>
+
+    <!-- Path 2 -->
+    <Wall PosX = "-24" PosY = "-48" type="top_left_edge"/>
+    <Wall PosX = "-20" PosY = "-48" type="top_tile"/>
+    <Wall PosX = "-16" PosY = "-48" type="top_tile"/>
+    <Wall PosX = "-12" PosY = "-48" type="top_tile"/>
+    <Wall PosX = "-8" PosY = "-48" type="top_tile"/>
+
+    <!-- Path 3 block -->
+    <Wall PosX = "-4" PosY = "-44" type="inner_corner_top_left"/>
+    <Wall PosX = "0" PosY = "-44" type="inner_corner_top_right"/>
+    <Wall PosX = "-4" PosY = "-48" type="inner_corner_bottom_left"/>
+    <Wall PosX = "0" PosY = "-48" type="inner_corner_bottom_right"/>
+
+    <!-- Path 4 -->
+    <Wall PosX = "12" PosY = "-48" type="top_tile"/>
+    <Wall PosX = "16" PosY = "-48" type="top_tile"/>
+    <Wall PosX = "20" PosY = "-48" type="top_tile"/>
+    <Wall PosX = "24" PosY = "-48" type="top_tile"/>
+    <Wall PosX = "28" PosY = "-48" type="top_tile"/>
+    <Wall PosX = "32" PosY = "-48" type="top_tile"/>
+    <Wall PosX = "36" PosY = "-48" type="top_tile"/>
+    <Wall PosX = "40" PosY = "-48" type="top_tile"/>
+    <Wall PosX = "44" PosY = "-48" type="top_tile"/>
+    
+    <!-- Path 5 -->
     <Wall PosX = "36" PosY = "-36" type="top_right_edge"/>
     <Wall PosX = "32" PosY = "-36" type="top_left_edge"/>
 
-    <Wall PosX = "28" PosY = "-24" type="top_right_edge"/>
+    <!-- Path 6 -->
+    <Wall PosX = "28" PosY = "-24" type="top_right_edge"/>    
     <Wall PosX = "24" PosY = "-24" type="top_tile"/>
     <Wall PosX = "20" PosY = "-24" type="top_left_edge"/>
     
+    <!-- Path 7 -->
     <Wall PosX = "8" PosY = "-24" type="top_right_edge"/>
     <Wall PosX = "4" PosY = "-24" type="top_tile"/>
     <Wall PosX = "0" PosY = "-24" type="top_tile"/>
@@ -131,18 +140,23 @@
     <Wall PosX = "-16" PosY = "-24" type="top_tile"/>
     <Wall PosX = "-20" PosY = "-24" type="top_left_edge"/>
 
+    <!-- Path 8 -->
     <Wall PosX = "-32" PosY = "-24" type="platform_single"/>
 
+    <!-- Path 9 -->
     <Wall PosX = "-40" PosY = "-12" type="top_right_edge"/>
     <Wall PosX = "-44" PosY = "-12" type="top_tile"/>
 
+    <!-- Path 10 -->
     <Wall PosX = "-28" PosY = "0" type="top_left_edge"/>
     <Wall PosX = "-24" PosY = "0" type="top_tile"/>
     <Wall PosX = "-20" PosY = "0" type="top_tile"/>
     <Wall PosX = "-16" PosY = "0" type="top_right_edge"/>
 
+    <!-- Path 11 -->
     <Wall PosX = "-4" PosY = "-8" type="platform_single"/>
 
+    <!-- Path 12 -->
     <Wall PosX = "8" PosY = "0" type="top_left_edge"/>
     <Wall PosX = "12" PosY = "0" type="top_tile"/>
     <Wall PosX = "16" PosY = "0" type="top_tile"/>
@@ -152,12 +166,13 @@
     <Wall PosX = "32" PosY = "0" type="top_tile"/>
     <Wall PosX = "36" PosY = "0" type="top_right_edge"/>
 
-    <Flame PosX = "-30" PosY = "-32"/>
-    <Flame PosX = "-2" PosY = "-32"/>
-    <Flame PosX = "14" PosY = "-10"/>
-    <Flame PosX = "34" PosY = "-10"/>
-    <Flame PosX = "-42" PosY = "2"/>
-    <Flame PosX = "-4" PosY = "12"/>
+    <!-- Flames -->
+    <Flame PosX = "-30" PosY = "-32"/> <!-- Flame 1 -->
+    <Flame PosX = "-2" PosY = "-32"/> <!-- Flame 2 -->
+    <Flame PosX = "14" PosY = "-10"/> <!-- Flame 3 -->
+    <Flame PosX = "34" PosY = "-10"/> <!-- Flame 4 -->
+    <Flame PosX = "-42" PosY = "2"/> <!-- Flame 5 -->
+    <Flame PosX = "-4" PosY = "12"/> <!-- Flame 6 -->
 
 
 
