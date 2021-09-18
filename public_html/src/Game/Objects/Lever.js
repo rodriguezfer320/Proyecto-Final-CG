@@ -47,6 +47,10 @@ Lever.prototype.getCont = function(){
     return this.cont;
 }
 
+Lever.prototype.setCont = function(cont){
+    this.cont = cont;
+}
+
 Lever.prototype.increment = function(){
    this.cont ++; 
 }

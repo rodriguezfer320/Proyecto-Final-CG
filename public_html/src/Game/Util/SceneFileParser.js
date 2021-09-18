@@ -20,35 +20,12 @@ SceneFileParser.prototype._getElm = function (tagElm) {
     return theElm;
 };
 
-/* 
 SceneFileParser.prototype._convertToNum = function (a) {
     var j;
     for (j = 0; j < a.length; j++) {
         a[j] = Number(a[j]);
     }
 };
-
-
-SceneFileParser.prototype.parseCamera = function () {
-    var camElm = this._getElm("Camera");
-    var cx = Number(camElm[0].getAttribute("CenterX"));
-    var cy = Number(camElm[0].getAttribute("CenterY"));
-    var w = Number(camElm[0].getAttribute("Width"));
-    var viewport = camElm[0].getAttribute("Viewport").split(" ");
-    var bgColor = camElm[0].getAttribute("BgColor").split(" ");
-    // make sure viewport and color are number
-    this._convertToNum(bgColor);
-    this._convertToNum(viewport);
-
-    var cam = new Camera(
-            vec2.fromValues(cx, cy), // position of the camera
-            w, // width of camera
-            viewport                  // viewport (orgX, orgY, width, height)
-            );
-    cam.setBackgroundColor(bgColor);
-    return cam;
-};
-
 
 SceneFileParser.prototype.parseLights = function () {
     var lightSet = new LightSet();
@@ -94,193 +71,6 @@ SceneFileParser.prototype.parseLights = function () {
     return lightSet;
 };
 
-SceneFileParser.prototype.parsePlatform = function (texture, normal, lightSet) {
-    var elm = this._getElm("Platform");
-    var i, j, x, y, v, r, p;
-    var allPlatforms = [];
-    for (i = 0; i < elm.length; i++) {
-        x = Number(elm.item(i).attributes.getNamedItem("PosX").value);
-        y = Number(elm.item(i).attributes.getNamedItem("PosY").value);
-        v = elm.item(i).attributes.getNamedItem("Velocity").value.split(" ");
-        r = Number(elm.item(i).attributes.getNamedItem("MovementRange").value);
-        // make sure color array contains numbers
-        this._convertToNum(v);
-
-        p = new Platform(x, y, v, r, texture, normal, lightSet);
-        gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, p);
-        gEngine.LayerManager.addAsShadowCaster(p);
-
-        allPlatforms.push(p);
-    }
-
-    return allPlatforms;
-};
-
-
-SceneFileParser.prototype.parseMinions = function (texture, normal, lightSet) {
-    var elm = this._getElm("Minion");
-    var i, j, x, y, v, r, t, w, h, m;
-    var allMinions = [];
-    for (i = 0; i < elm.length; i++) {
-        x = Number(elm.item(i).attributes.getNamedItem("PosX").value);
-        y = Number(elm.item(i).attributes.getNamedItem("PosY").value);
-        v = elm.item(i).attributes.getNamedItem("Velocity").value.split(" ");
-        r = Number(elm.item(i).attributes.getNamedItem("MovementRange").value);
-        t = Number(elm.item(i).attributes.getNamedItem("Type").value);
-        w = Number(elm.item(i).attributes.getNamedItem("Width").value);
-        h = Number(elm.item(i).attributes.getNamedItem("Height").value);
-        
-        // make sure color array contains numbers
-        this._convertToNum(v);
-        switch (t) {
-            case 0:
-                m = new Minion(x, y, v, r, t, texture, normal, lightSet, w, h);
-                break;
-            case 1:
-                m = new SentryMinion(x, y, v, r, t, texture, normal, lightSet, w, h);
-                break;
-            case 2:
-                m = new ChaserMinion(x, y, v, r, t, texture, normal, lightSet, w, h);
-                break;
-        }
-        gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, m);
-        gEngine.LayerManager.addAsShadowCaster(m);
-
-        allMinions.push(m);
-    }
-
-    return allMinions;
-};
-
-SceneFileParser.prototype.parseBoss = function (texture0, texture1, texture2,
-        texture3, texture4, texture5, texture6, normal, lightSet, hero) {
-    var elm = this._getElm("Boss");
-    var i, j, x, y, v, r, t, b;
-
-    for (i = 0; i < elm.length; i++) {
-        x = Number(elm.item(i).attributes.getNamedItem("PosX").value);
-        y = Number(elm.item(i).attributes.getNamedItem("PosY").value);
-        v = elm.item(i).attributes.getNamedItem("Velocity").value.split(" ");
-        r = Number(elm.item(i).attributes.getNamedItem("MovementRange").value);
-        t = Number(elm.item(i).attributes.getNamedItem("Type").value);
-
-        // make sure color array contains numbers
-        this._convertToNum(v);
-
-        b = new Boss(x, y, v, r, t, texture0, texture1, texture2,
-                texture3, texture4, texture5, texture6, normal, lightSet, hero);
-
-        gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, b);
-        gEngine.LayerManager.addAsShadowCaster(b);
-    }
-
-    return b;
-};
-
-
-SceneFileParser.prototype.parseWall = function (texture, normal, lightSet) {
-    var elm = this._getElm("Wall");
-    var i, x, y, w;
-    var allWalls = [];
-    for (i = 0; i < elm.length; i++) {
-        x = Number(elm.item(i).attributes.getNamedItem("PosX").value);
-        y = Number(elm.item(i).attributes.getNamedItem("PosY").value);
-
-
-        w = new Wall(x, y, texture, normal, lightSet);
-        gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, w);
-        gEngine.LayerManager.addAsShadowCaster(w);
-
-        allWalls.push(w);
-    }
-
-    return allWalls;
-};
-
-SceneFileParser.prototype.parseDoors = function (texture0, texture1, texture2, lightSet) {
-    var elm = this._getElm("Door");
-    var i, x, y, d;
-    var allDoors = [];
-    for (i = 0; i < elm.length; i++) {
-        x = Number(elm.item(i).attributes.getNamedItem("PosX").value);
-        y = Number(elm.item(i).attributes.getNamedItem("PosY").value);
-
-        d = new Door(x, y, texture0, texture1, texture2, lightSet);
-        gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, d);
-        gEngine.LayerManager.addAsShadowCaster(d);
-
-        allDoors.push(d);
-    }
-
-    return allDoors;
-};
-
-SceneFileParser.prototype.parseButtons = function (texture, lightSet) {
-    var elm = this._getElm("Button");
-    var i, x, y, t, b;
-    var allButtons = [];
-    for (i = 0; i < elm.length; i++) {
-        x = Number(elm.item(i).attributes.getNamedItem("PosX").value);
-        y = Number(elm.item(i).attributes.getNamedItem("PosY").value);
-        t = Number(elm.item(i).attributes.getNamedItem("Type").value);
-
-        b = new Button(x, y, texture, t, lightSet);
-        gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, b);
-        gEngine.LayerManager.addAsShadowCaster(b);
-
-        allButtons.push(b);
-    }
-
-    return allButtons;
-};
-
-SceneFileParser.prototype.parseBackground = function (level, refCam, lightSet) {
-    var elm = this._getElm("Background");
-    var dir = "assets/" + level + "/";
-    var i, j, x, y, z, w, h, p, t, n, bg, bgR, l, s;
-    for (i = 0; i < elm.length; i++) {
-        x = Number(elm.item(i).attributes.getNamedItem("PosX").value);
-        y = Number(elm.item(i).attributes.getNamedItem("PosY").value);
-        w = Number(elm.item(i).attributes.getNamedItem("Width").value);
-        h = Number(elm.item(i).attributes.getNamedItem("Height").value);
-        z = Number(elm.item(i).attributes.getNamedItem("ZPos").value);
-        p = Number(elm.item(i).attributes.getNamedItem("ParallaxDepth").value);
-        t = elm.item(i).attributes.getNamedItem("Texture").value;
-        n = elm.item(i).attributes.getNamedItem("NormalMap").value;
-        s = elm.item(i).attributes.getNamedItem("ReceiveShadow").value;
-        l = elm.item(i).attributes.getNamedItem("LightIndices").value.split(" ");
-
-        bgR = new IllumRenderable(dir + t, dir + n);
-        bgR.getXform().setSize(w, h);
-        bgR.getXform().setPosition(x, y);
-        bgR.getXform().setZPos(z);
-
-        this._convertToNum(l);
-        if (l[0] === -1) {
-            for (j = 0; j < lightSet.numLights(); j++) {
-                bgR.addLight(lightSet.getLightAt([j]));
-            }
-        } else {
-            for (j = 0; j < l.length; j++) {
-                bgR.addLight(lightSet.getLightAt(l[j]));
-            }
-        }
-        bg = new ParallaxGameObject(bgR, p, refCam);
-
-        var sr;
-        if (s === "true") {
-            sr = new ShadowReceiver(bg);
-            gEngine.LayerManager.addToLayer(gEngine.eLayer.eShadowReceiver, sr);
-        } else {
-            gEngine.LayerManager.addToLayer(gEngine.eLayer.eBackground, bg);
-        }
-
-    }
-
-};
-
-
-*/
 
 SceneFileParser.prototype.parseFlame = function(texture){    
     var elm = this._getElm("Flame");
@@ -354,4 +144,28 @@ SceneFileParser.prototype.parseLever = function(texture){
 
     return mLever;
     
+};
+
+
+
+SceneFileParser.prototype.parsePlatform = function (texture, normal, lightSet) {
+    var elm = this._getElm("Platform");
+    var i, j, x, y, v, r, p;
+    var allPlatforms = [];
+    for (i = 0; i < elm.length; i++) {
+        x = Number(elm.item(i).attributes.getNamedItem("PosX").value);
+        y = Number(elm.item(i).attributes.getNamedItem("PosY").value);
+        v = elm.item(i).attributes.getNamedItem("Velocity").value.split(" ");
+        r = Number(elm.item(i).attributes.getNamedItem("MovementRange").value);
+        // make sure color array contains numbers
+        this._convertToNum(v);
+
+        p = new Platform(x, y, v, r, texture, normal, lightSet);
+        gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, p);
+        gEngine.LayerManager.addAsShadowCaster(p);
+
+        allPlatforms.push(p);
+    }
+
+    return allPlatforms;
 };

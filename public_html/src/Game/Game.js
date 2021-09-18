@@ -18,7 +18,7 @@ function Game() {
         bottom_left_edge: "assets/walls/bottom_left_edge.png",
         bottom_right_edge: "assets/walls/bottom_right_edge.png",
         bottom_tile: "assets/walls/bottom_tile.png",
-        color: "assets/walls/color.png",
+        color: "assets/walls/color.png", 
         inner_corner_bottom_left: "assets/walls/inner_corner_bottom_left.png",
         inner_corner_bottom_right: "assets/walls/inner_corner_bottom_right.png",
         inner_corner_top_left: "assets/walls/inner_corner_top_left.png",   
@@ -41,6 +41,9 @@ function Game() {
     this.kDoor = "assets/door.png";
     this.kLever = "assets/lever.png";
 
+    this.kPlatform = "assets/platform.png";
+    this.kPlatformNormal = "assets/platform_normal.png";
+
     //Characters
     this.kWaterCharacter = "assets/water_character.png";
     //this.kFireCharacter = "assets/fire_character.png";
@@ -62,7 +65,11 @@ function Game() {
     this.objectDoor = null;
     this.objectLever = null;
 
+    this.mGlobalLightSet = null;
+
     this.fileLevel = "assets/Level1.xml";
+
+    this.mAllPlatforms = new GameObjectSet();
     
 }
 gEngine.Core.inheritPrototype(Game, Scene);
@@ -81,6 +88,9 @@ Game.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kDoor);
 
     gEngine.Textures.loadTexture(this.kLever);
+
+    gEngine.Textures.loadTexture(this.kPlatform);
+    gEngine.Textures.loadTexture(this.kPlatformNormal);
 
     gEngine.TextFileLoader.loadTextFile(this.fileLevel, gEngine.TextFileLoader.eTextFileType.eXMLFile);
 
@@ -105,6 +115,9 @@ Game.prototype.unloadScene = function () {
 
     gEngine.Textures.unloadTexture(this.kLever);
 
+    gEngine.Textures.unloadTexture(this.kPlatform);
+    gEngine.Textures.unloadTexture(this.kPlatformNormal);
+
     gEngine.TextFileLoader.unloadTextFile(this.fileLevel);
 
 };
@@ -113,7 +126,10 @@ Game.prototype.initialize = function () {
 
     //initialize parser
     var parser = new SceneFileParser(this.fileLevel);
+    var i;
    
+
+    this.mGlobalLightSet = parser.parseLights();
     // set ambient lighting
     gEngine.DefaultResources.setGlobalAmbientColor([1, 1, 1, 1]);
     gEngine.DefaultResources.setGlobalAmbientIntensity(1);
@@ -146,6 +162,11 @@ Game.prototype.initialize = function () {
     //Añadir lever y recuperar instancia
     this.objectLever = parser.parseLever(this.kLever);
 
+    var p = parser.parsePlatform(this.kPlatform, this.kPlatformNormal, this.mGlobalLightSet);
+    for (i = 0; i < p.length; i++) {
+        this.mAllPlatforms.addToSet(p[i]);
+    }
+
     //Añadir personaje water
     this.mWaterCharacter = new Character(28, 40, 5, 8, this.kWaterCharacter, 1);
 
@@ -170,6 +191,8 @@ Game.prototype.update = function () {
     gEngine.LayerManager.updateAllLayers();
     gEngine.Physics.processObjSet(this.mWaterCharacter, this.mAllWalls);
 
+    // physics simulation
+    gEngine.Physics.processObjSet(this.mWaterCharacter, this.mAllPlatforms);
 
     var collidedDoor = false;
 
@@ -202,5 +225,6 @@ Game.prototype.update = function () {
     if(this.objectLever.getCont() == 100){
         this.objectLever.desactivateAnimation();
     }
+
     
-}
+};

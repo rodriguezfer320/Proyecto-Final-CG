@@ -19,7 +19,7 @@
     <Wall posX = "48" posY = "-28" type="color"/>
     <Wall posX = "48" posY = "-24" type="color"/>
     <Wall posX = "48" posY = "-20" type="color"/>
-    <Wall posX = "48" posY = "-16" type="color"/>
+    <Wall posX = "48" posY = "-16" type="color"/> 
     <Wall posX = "48" posY = "-12" type="color"/>
     <Wall posX = "48" posY = "-8" type="color"/>
     <Wall posX = "48" posY = "-4" type="color"/>
@@ -224,5 +224,34 @@
     <Door posX = "42" posY="42" weight = "8" height = "8"/>
 
     <Lever posX = "32" posY = "7" weight = "10" height = "10"/>
+
+    <Light 
+            Type="1" 
+            Color="0.3 0.3 1 1" 
+            Pos="0 0 0"
+            Dir="-1 -1 -2" 
+            Near="1"
+            Far="1"
+            Inner="0"
+            Outter="0"
+            DropOff="1"
+            Intensity="1" 
+            CastShadow="false"
+        />
+
+    <Platform PosX="10" PosY="5" Velocity="0 0 0" MovementRange="0" />
+    <Platform PosX="28" PosY="7.5" Velocity="1 0 0" MovementRange="3" />
+    <Platform PosX="40" PosY="5" Velocity="0 1 0" MovementRange="5" />
+    <Platform PosX="25" PosY="12.5" Velocity="0 0 0" MovementRange="2" />
+    <Platform PosX="0" PosY="0" Velocity="0 0 0" MovementRange="0" />
+    <Platform PosX="10" PosY="0" Velocity="0 0 0" MovementRange="0" />
+    <Platform PosX="20" PosY="0" Velocity="0 0 0" MovementRange="0" />
+    <Platform PosX="30" PosY="0" Velocity="0 0 0" MovementRange="0" />
+    <Platform PosX="40" PosY="0" Velocity="0 0 0" MovementRange="0" />
+    <Platform PosX="50" PosY="0" Velocity="0 0 0" MovementRange="0" />
+    <Platform PosX="60" PosY="0" Velocity="0 0 0" MovementRange="0" />
+    <Platform PosX="70" PosY="0" Velocity="0 0 0" MovementRange="0" />
+    <Platform PosX="60" PosY="7.5" Velocity="0 0 0" MovementRange="0" />
+    <Platform PosX="50" PosY="12.5" Velocity="0 0 0" MovementRange="0" />
 
 </Level>
