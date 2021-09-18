@@ -38,7 +38,8 @@ function Game() {
 
     //Objects
     this.kFlame = "assets/flame.png";
-    this.kDoor = "assets/door.png"
+    this.kDoor = "assets/door.png";
+    this.kLever = "assets/lever.png";
 
     //Characters
     this.kWaterCharacter = "assets/water_character.png";
@@ -54,14 +55,12 @@ function Game() {
     this.mWaterCharacter = null;
     //this.mFireCharacter = null;
     
-    // The camera to view the scene
+    //The camera to view the scene
     this.mCamera = null;
 
-    this.mCollide = null;
-
+    //Object Door
     this.objectDoor = null;
-
-    this.cont = 0;
+    this.objectLever = null;
 
     this.fileLevel = "assets/Level1.xml";
     
@@ -80,6 +79,8 @@ Game.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kFlame);
 
     gEngine.Textures.loadTexture(this.kDoor);
+
+    gEngine.Textures.loadTexture(this.kLever);
 
     gEngine.TextFileLoader.loadTextFile(this.fileLevel, gEngine.TextFileLoader.eTextFileType.eXMLFile);
 
@@ -101,6 +102,8 @@ Game.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kFlame);
 
     gEngine.Textures.unloadTexture(this.kDoor);
+
+    gEngine.Textures.unloadTexture(this.kLever);
 
     gEngine.TextFileLoader.unloadTextFile(this.fileLevel);
 
@@ -137,12 +140,13 @@ Game.prototype.initialize = function () {
     //Añadir flames
     parser.parseFlame(this.kFlame);
 
-    //Añadir door
-   
+    //Añadir door y recuperar instancia
     this.objectDoor =  parser.parseDoor(this.kDoor);
 
-    this.mCollide = this.mWaterCharacter;
+    //Añadir lever y recuperar instancia
+    this.objectLever = parser.parseLever(this.kLever);
 
+    //Añadir personaje water
     this.mWaterCharacter = new Character(28, 40, 5, 8, this.kWaterCharacter, 1);
 
     gEngine.LayerManager.addToLayer(gEngine.eLayer.eBackground, background);
@@ -167,24 +171,36 @@ Game.prototype.update = function () {
     gEngine.Physics.processObjSet(this.mWaterCharacter, this.mAllWalls);
 
 
-    var platBox;
-    var collided = false;
-    var collisionInfo = new CollisionInfo();
-    var platBox = this.objectDoor.getPhysicsComponent();
+    var collidedDoor = false;
 
-    collided = this.mWaterCharacter.getPhysicsComponent().collided(platBox, collisionInfo);
-    if (collided && !(this.objectDoor.getStatus())) {
+    collidedDoor = this.mWaterCharacter.getPhysicsComponent().collided(this.objectDoor.getPhysicsComponent(), new CollisionInfo());
+    if (collidedDoor && !(this.objectDoor.getStatus())) {
         this.objectDoor.activateAnimation();
         this.objectDoor.setStatus(true);
     }
 
-    if (this.objectDoor.getStatus() && (this.cont < 50)) {
-        this.cont++;
+    if (this.objectDoor.getStatus() && (this.objectDoor.getCont() < 50)) {
+        this.objectDoor.increment();
     }
 
-    if(this.cont == 50){
+    if(this.objectDoor.getCont() == 50){
         this.objectDoor.desactivateAnimation();
         this.mWaterCharacter.setVisibility(false);
+    }
+
+    var collidedLever = false;
+    collidedLever = this.mWaterCharacter.getPhysicsComponent().collided(this.objectLever.getPhysicsComponent(), new CollisionInfo());
+    if (collidedLever && !(this.objectLever.getStatus())) {
+        this.objectLever.activateAnimation();
+        this.objectLever.setStatus(true);
+    }
+
+    if (this.objectLever.getStatus() && (this.objectLever.getCont() < 100)) {
+        this.objectLever.increment();
+    }
+
+    if(this.objectLever.getCont() == 100){
+        this.objectLever.desactivateAnimation();
     }
     
 }

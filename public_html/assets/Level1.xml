@@ -223,7 +223,6 @@
 
     <Door posX = "42" posY="42" weight = "8" height = "8"/>
 
-
-
+    <Lever posX = "35" posY = "7" weight = "20" height = "10"/>
 
 </Level>

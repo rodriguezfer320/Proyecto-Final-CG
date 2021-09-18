@@ -336,3 +336,22 @@ SceneFileParser.prototype.parseWall = function(textures){
     return allWalls;
     
 };
+
+SceneFileParser.prototype.parseLever = function(texture){    
+    var elm = this._getElm("Lever");
+
+    var cx = null;
+    var cy = null;
+    var w = null;
+    var h = null;
+
+    cx = Number(elm[0].getAttribute("posX"));
+    cy = Number(elm[0].getAttribute("posY"));
+    w = Number(elm[0].getAttribute("weight"));
+    h = Number(elm[0].getAttribute("height"));
+    var mLever = new Lever(cx, cy, w, h, texture);
+    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mLever);
+
+    return mLever;
+    
+};

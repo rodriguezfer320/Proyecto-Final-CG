@@ -1,6 +1,7 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 function Door(cx, cy, w, h, texture) {
+    this.cont = 0;
     this.status = false;
     this.kDoor = new SpriteAnimateRenderable(texture);
     this.kDoor.getXform().setPosition(cx, cy);
@@ -40,4 +41,12 @@ Door.prototype.getStatus = function(){
 
 Door.prototype.setStatus = function(status){
     this.status = status;
+}
+
+Door.prototype.getCont = function(){
+    return this.cont;
+}
+
+Door.prototype.increment = function(){
+   this.cont ++; 
 }
