@@ -163,8 +163,7 @@
     <Wall posX = "20" posY = "0" type="top_tile"/>
     <Wall posX = "24" posY = "0" type="top_tile"/>
     <Wall posX = "28" posY = "0" type="top_tile"/>
-    <Wall posX = "32" posY = "0" type="top_tile"/>
-    <Wall posX = "36" posY = "0" type="top_right_edge"/>
+    <Wall posX = "32" posY = "0" type="top_right_edge"/>
 
     <!-- Path 13 -->
     <Wall posX = "32" posY = "16" type="top_right_edge"/>
@@ -221,10 +220,13 @@
     <Flame posX = "40" posY = "22"/> <!-- Flame 7 -->
     <Flame posX = "-20" posY = "26"/> <!-- Flame 8 -->
 
+    <!-- Door -->
     <Door posX = "42" posY="42" weight = "8" height = "8"/>
 
-    <Lever posX = "32" posY = "7" weight = "10" height = "10"/>
+    <!-- Lever -->
+    <Lever posX = "28" posY = "7" weight = "10" height = "10"/>
 
+    <!-- Light -->
     <Light 
             Type="1" 
             Color="0.3 0.3 1 1" 
@@ -238,20 +240,9 @@
             Intensity="1" 
             CastShadow="false"
         />
-
-    <Platform PosX="10" PosY="5" Velocity="0 0 0" MovementRange="0" />
-    <Platform PosX="28" PosY="7.5" Velocity="1 0 0" MovementRange="3" />
-    <Platform PosX="40" PosY="5" Velocity="0 1 0" MovementRange="5" />
-    <Platform PosX="25" PosY="12.5" Velocity="0 0 0" MovementRange="2" />
-    <Platform PosX="0" PosY="0" Velocity="0 0 0" MovementRange="0" />
-    <Platform PosX="10" PosY="0" Velocity="0 0 0" MovementRange="0" />
-    <Platform PosX="20" PosY="0" Velocity="0 0 0" MovementRange="0" />
-    <Platform PosX="30" PosY="0" Velocity="0 0 0" MovementRange="0" />
-    <Platform PosX="40" PosY="0" Velocity="0 0 0" MovementRange="0" />
-    <Platform PosX="50" PosY="0" Velocity="0 0 0" MovementRange="0" />
-    <Platform PosX="60" PosY="0" Velocity="0 0 0" MovementRange="0" />
-    <Platform PosX="70" PosY="0" Velocity="0 0 0" MovementRange="0" />
-    <Platform PosX="60" PosY="7.5" Velocity="0 0 0" MovementRange="0" />
-    <Platform PosX="50" PosY="12.5" Velocity="0 0 0" MovementRange="0" />
+    
+    <!-- Platforms -->
+    <Platform PosX="-22" PosY="16" Velocity="1 0 0" MovementRange="8" /> <!-- Platform 1 -->
+    <Platform PosX="40" PosY="6" Velocity="0 1 0" MovementRange="8" /> <!-- Platform 2 -->
 
 </Level>
