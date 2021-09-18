@@ -6,7 +6,7 @@ function Lever(cx, cy, w, h, texture) {
     this.kLever = new SpriteAnimateRenderable(texture);
     this.kLever.getXform().setPosition(cx, cy);
     this.kLever.getXform().setSize(w, h);
-    this.kLever.setSpriteSequence(256, 123, 512, 256, 1, 0);
+    this.kLever.setSpriteSequence(256, 3, 256, 256, 1, 0);
     this.kLever.setAnimationSpeed(0);
 
     GameObject.call(this, this.kLever);
@@ -26,12 +26,12 @@ Lever.prototype.update = function () {
 }
 
 Lever.prototype.activateAnimation =function () {
-    this.kLever.setSpriteSequence(256, 123, 512, 256, 3, 0);
-    this.kLever.setAnimationSpeed(40);
+    this.kLever.setSpriteSequence(256, 3, 256, 256, 3, 0);
+    this.kLever.setAnimationSpeed(50);
 }
 
 Lever.prototype.desactivateAnimation =function () {
-    this.kLever.setSpriteSequence(256, 123, 512, 256, 1, 0);
+    this.kLever.setSpriteSequence(256, 515, 256, 256, 1, 0);
     this.kLever.setAnimationSpeed(0);
 }
 
