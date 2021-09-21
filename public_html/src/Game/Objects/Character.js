@@ -1,135 +1,147 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function Character(cx, cy, w, h, texture, player) {
+function Character(cx, cy, texture, lgtSet) {
     this.mCharacterState = Character.eCharacterState.eFace;
     this.mPreviousCharacterState = Character.eCharacterState.eFace;
     this.mIsMoving = false;
     this.mIsJumping = false;
+    this.mCanMove = true;
     this.mDelta = 0.4;
-    this.mInitialVelocityY = 0;
+    this.mOldPosX = 0;
+    this.mXAxisCorrection = -0.7;
+    this.mYAxisCorrection = 1.5;
 
-    this.mCharacter = new SpriteAnimateRenderable(texture);
+    this.mCharacter = new LightRenderable(texture);
     this.mCharacter.getXform().setPosition(cx, cy);
-    this.mCharacter.getXform().setSize(4, 6);
-    this.mCharacter.setSpriteSequence(1980, 88, 124, 220, 1, 44);
+    this.mCharacter.getXform().setSize(7, 7);
+    this.mCharacter.setSpriteSequence(2048, 0, 256, 256, 1, 0);
+    this.mCharacter.setAnimationSpeed(0);
+    this.mCharacter.addLight(lgtSet);
 
     GameObject.call(this, this.mCharacter);
 
-    var rigidShape = new RigidRectangle(this.getXform(), 4, 4);
+    let transform = new Transform();
+    transform.setPosition(cx, cy);
+
+    let rigidShape = new RigidRectangle(transform, 1.5, 4);
     rigidShape.setMass(2.5);
     rigidShape.setRestitution(0);
     rigidShape.setFriction(0);
     rigidShape.setColor([0, 1, 0, 1]);
     rigidShape.setDrawBounds(true);
     this.setPhysicsComponent(rigidShape);
-
-    var mc = {
-        eLeft: (player === 0) ? gEngine.Input.keys.A : gEngine.Input.keys.Left,
-        eRight: (player === 0) ? gEngine.Input.keys.D : gEngine.Input.keys.Right,
-        eUp: (player === 0) ? gEngine.Input.keys.W : gEngine.Input.keys.Up
-    };
-    this.eMotionControls = Object.freeze(mc);
 }
 gEngine.Core.inheritPrototype(Character, GameObject);
 
 Character.eCharacterState = Object.freeze({
     eFace: 0,
-    eRunRight: 1,
-    eRunLeft: 2,
+    eRunLeft: 1,
+    eRunRight: 2,
     eJumpUp: 3,
-    eJumpRight: 4,
-    eJumpLeft: 5,
-    eFallDown: 6,
-    eFallRight: 7,
-    eFallLeft: 8
+    eJumpLeft: 4,
+    eJumpRight: 5,
+    eFallDown: 6
 });
 
 Character.prototype.update = function () {
     GameObject.prototype.update.call(this);
 
-    var xform = this.getXform();
-    var velocity = this.getPhysicsComponent().getVelocity();
+    if(this.isVisible()){
+        var xform = this.getPhysicsComponent().getXform();
+        var velocity = this.getPhysicsComponent().getVelocity();
 
-    this.mIsMoving = false;
+        this.mCharacter.getXform().setPosition(xform.getXPos() + this.mXAxisCorrection, xform.getYPos() + this.mYAxisCorrection);
+        this.mIsMoving = false;
 
-    if(velocity[1] === this.mInitialVelocityY){
-        velocity[0] = 0;
-        this.mIsJumping = false;
-    }
-
-    if(gEngine.Input.isKeyPressed(this.eMotionControls.eLeft)){
-        if(this.mCharacterState === Character.eCharacterState.eFace
-            || this.mCharacterState === Character.eCharacterState.eRunRight
-            || (this.mIsJumping === false && this.mCharacterState === Character.eCharacterState.eJumpLeft)
-            || (this.mIsJumping === false && this.mCharacterState === Character.eCharacterState.eFallLeft)){
-                this.mCharacterState = Character.eCharacterState.eRunLeft;
-                velocity[0] = 0;
-        }else if(this.mIsJumping === true &&  this.mCharacterState === Character.eCharacterState.eJumpUp
-            || this.mCharacterState === Character.eCharacterState.eFallDown){
-                this.mCharacterState = Character.eCharacterState.eFallLeft;
-                velocity[0] = 20;
-        }
-
-        xform.incXPosBy(-this.mDelta);
-        this.mIsMoving = true;
-    }else if(gEngine.Input.isKeyPressed(this.eMotionControls.eRight)){        
-        if(this.mCharacterState === Character.eCharacterState.eFace
-            || this.mCharacterState === Character.eCharacterState.eRunLeft
-            || (this.mIsJumping === false && this.mCharacterState === Character.eCharacterState.eJumpRight)
-            || (this.mIsJumping === false && this.mCharacterState === Character.eCharacterState.eFallRight)){
-                this.mCharacterState = Character.eCharacterState.eRunRight;
-                velocity[0] = 0;
-        }else if(this.mIsJumping === true &&  this.mCharacterState === Character.eCharacterState.eJumpUp
-            || this.mCharacterState === Character.eCharacterState.eFallDown){
-                this.mCharacterState = Character.eCharacterState.eFallRight;
-                velocity[0] = -20;
-        }
-    
-        xform.incXPosBy(this.mDelta);
-        this.mIsMoving = true;
-    }else if(this.mCharacterState === Character.eCharacterState.eJumpRight
-        || this.mCharacterState === Character.eCharacterState.eJumpLeft
-        || this.mCharacterState === Character.eCharacterState.eFallRight
-        || this.mCharacterState === Character.eCharacterState.eFallLeft){
-            this.mCharacterState = Character.eCharacterState.eFallDown;
+        if(velocity[1] < -0.3333333432674408){
+            if(this.mCharacterState === Character.eCharacterState.eFace
+                || this.mCharacterState === Character.eCharacterState.eRunRight
+                || this.mCharacterState === Character.eCharacterState.eRunLeft){
+                    this.mCharacterState = Character.eCharacterState.eFallDown;
+                    this.mIsJumping = true;
+                    this.mCanMove = false;
+                    velocity[1] = -15;
+            }
+        }else if(velocity[1] === -0.3333333432674408){
+            this.mIsJumping = false;
+            this.mCanMove = true;
             velocity[0] = 0;
-            velocity[1] = -1;
-    }
+        }
 
-    if(this.mIsJumping === false){
-        if (this.mIsMoving === false) {    
-            if (this.mCharacterState === Character.eCharacterState.eRunRight
-                || this.mCharacterState === Character.eCharacterState.eRunLeft
-                || this.mCharacterState === Character.eCharacterState.eJumpUp
-                || this.mCharacterState === Character.eCharacterState.eJumpRight
-                || this.mCharacterState === Character.eCharacterState.eJumpLeft
-                || this.mCharacterState === Character.eCharacterState.eFallDown
-                || this.mCharacterState === Character.eCharacterState.eFallRight
-                || this.mCharacterState === Character.eCharacterState.eFallLeft){
-                    this.mCharacterState = Character.eCharacterState.eFace;
-                    velocity[0] = 0;
+        if(this.mCanMove === true){
+            if(gEngine.Input.isKeyPressed(gEngine.Input.keys.Left)){
+                if(this.mCharacterState === Character.eCharacterState.eFace
+                    || this.mCharacterState === Character.eCharacterState.eRunRight
+                    || this.mCharacterState === Character.eCharacterState.eJumpUp
+                    || (this.mIsJumping === false && this.mCharacterState === Character.eCharacterState.eJumpLeft)
+                    || (this.mIsJumping === false && this.mCharacterState === Character.eCharacterState.eJumpRight)
+                    || this.mCharacterState === Character.eCharacterState.eFallDown){
+                        this.mCharacterState = Character.eCharacterState.eRunLeft;
+                }
+
+                if(this.mIsJumping && xform.getXPos() < (this.mOldPosX - 6.2)){
+                    this.mCanMove = false;
+                }else{
+                    this.mIsMoving = true;
+                    xform.incXPosBy(-this.mDelta);
+                }
+            }
+
+            if(gEngine.Input.isKeyPressed(gEngine.Input.keys.Right)){        
+                if(this.mCharacterState === Character.eCharacterState.eFace
+                    || this.mCharacterState === Character.eCharacterState.eRunLeft
+                    || this.mCharacterState === Character.eCharacterState.eJumpUp
+                    || (this.mIsJumping === false && this.mCharacterState === Character.eCharacterState.eJumpLeft)
+                    || (this.mIsJumping === false && this.mCharacterState === Character.eCharacterState.eJumpRight)
+                    || this.mCharacterState === Character.eCharacterState.eFallDown){
+                        this.mCharacterState = Character.eCharacterState.eRunRight;
+                }
+
+                if(this.mIsJumping && xform.getXPos() > (this.mOldPosX + 6.2)){
+                    this.mCanMove = false;
+                }else{
+                    this.mIsMoving = true;
+                    xform.incXPosBy(this.mDelta);
+                }
             }
         }
 
-        if(gEngine.Input.isKeyClicked(this.eMotionControls.eUp)){
-            this.mInitialVelocityY = velocity[1];
-            this.mIsJumping = true;
-            velocity[1] = 23; //Jump velocity
-    
-            if (this.mCharacterState === Character.eCharacterState.eFace){
-                this.mCharacterState = Character.eCharacterState.eJumpUp;
-            }else if(this.mCharacterState === Character.eCharacterState.eRunRight){
-                this.mCharacterState = Character.eCharacterState.eJumpRight;
-                velocity[0] = -20;
-            }else if(this.mCharacterState === Character.eCharacterState.eRunLeft){
-                this.mCharacterState = Character.eCharacterState.eJumpLeft;
-                velocity[0] = 20;
-            }  
+        if(this.mIsJumping === false){
+            if (this.mIsMoving === false) {    
+                if (this.mCharacterState === Character.eCharacterState.eRunLeft
+                    || this.mCharacterState === Character.eCharacterState.eRunRight
+                    || this.mCharacterState === Character.eCharacterState.eJumpUp
+                    || this.mCharacterState === Character.eCharacterState.eJumpRight
+                    || this.mCharacterState === Character.eCharacterState.eJumpLeft
+                    || this.mCharacterState === Character.eCharacterState.eFallDown){
+                        this.mCharacterState = Character.eCharacterState.eFace;
+                }
+            }
+
+            if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Up)){
+                this.mIsJumping = true;
+        
+                if (this.mCharacterState === Character.eCharacterState.eFace){
+                    this.mCharacterState = Character.eCharacterState.eJumpUp;
+                    velocity[1] = 23; //Jump velocity
+                    this.mOldPosX = xform.getXPos();
+                }else if(this.mCharacterState === Character.eCharacterState.eRunRight){
+                    this.mCharacterState = Character.eCharacterState.eJumpRight;
+                    this.mCanMove = false;
+                    velocity[1] = 20; //Jump velocity
+                    velocity[0] = 5;
+                }else if(this.mCharacterState === Character.eCharacterState.eRunLeft){
+                    this.mCharacterState = Character.eCharacterState.eJumpLeft;
+                    this.mCanMove = false;
+                    velocity[1] = 20; //Jump velocity
+                    velocity[0] = -5;
+                }  
+            }
         }
+        
+        this.changeAnimation();
+        this.mCharacter.updateAnimation();
     }
-    
-    this.changeAnimation();
-    this.mCharacter.updateAnimation();
 };
 
 Character.prototype.changeAnimation = function () {
@@ -138,49 +150,53 @@ Character.prototype.changeAnimation = function () {
 
         switch (this.mCharacterState) {
             case Character.eCharacterState.eFace:
-                this.mCharacter.getXform().setSize(4, 6);
-                this.mCharacter.setSpriteSequence(1980, 88, 124, 220, 1, 44);
+                this.mCharacter.getXform().setSize(7, 7);
+                this.mCharacter.setSpriteSequence(2048, 0, 256, 256, 1, 0);
                 this.mCharacter.setAnimationSpeed(0);
+                this.mXAxisCorrection = -0.7;
+                this.mYAxisCorrection = 1.5;
                 break;
             case Character.eCharacterState.eRunLeft:
-                this.mCharacter.getXform().setSize(7, 6);
-                this.mCharacter.setSpriteSequence(1460, 0, 212, 210, 4, 44);
+                this.mCharacter.getXform().setSize(7, 7);
+                this.mCharacter.setSpriteSequence(1536, 0, 256, 256, 4, 0);
                 this.mCharacter.setAnimationSpeed(10);
+                this.mXAxisCorrection = 1.8;
+                this.mYAxisCorrection = 1.5;
                 break;
             case Character.eCharacterState.eRunRight:
-                this.mCharacter.getXform().setSize(7, 6);
-                this.mCharacter.setSpriteSequence(1716, 0, 212, 210, 4, 44);
+                this.mCharacter.getXform().setSize(7, 7);
+                this.mCharacter.setSpriteSequence(1792, 0, 256, 256, 4, 0);
                 this.mCharacter.setAnimationSpeed(10);
+                this.mXAxisCorrection = -0.7;
+                this.mYAxisCorrection = 1.5;
                 break;
             case Character.eCharacterState.eJumpUp:
-                this.mCharacter.getXform().setSize(4, 9);
-                this.mCharacter.setSpriteSequence(2048, 344, 124, 350, 2, 140);
-                this.mCharacter.setAnimationSpeed(100);
-                break;
-            case Character.eCharacterState.eJumpRight:
                 this.mCharacter.getXform().setSize(7, 7);
-                this.mCharacter.setSpriteSequence(1256, 0, 212, 278, 4, 44);
-                this.mCharacter.setAnimationSpeed(40);
+                this.mCharacter.setSpriteSequence(2048, 256, 256, 256, 2, 0);
+                this.mCharacter.setAnimationSpeed(100);
+                this.mXAxisCorrection = -0.5;
+                this.mYAxisCorrection = 1.5;
                 break;
             case Character.eCharacterState.eJumpLeft:
                 this.mCharacter.getXform().setSize(7, 7);
-                this.mCharacter.setSpriteSequence(1000, 0, 212, 278, 4, 44);
+                this.mCharacter.setSpriteSequence(1024, 0, 256, 256, 4, 0);
                 this.mCharacter.setAnimationSpeed(40);
+                this.mXAxisCorrection = 1.2;
+                this.mYAxisCorrection = 1.5;
+                break;
+            case Character.eCharacterState.eJumpRight:
+                this.mCharacter.getXform().setSize(7, 7);
+                this.mCharacter.setSpriteSequence(1280, 0, 256, 256, 4, 0);
+                this.mCharacter.setAnimationSpeed(40);
+                this.mXAxisCorrection = -1.2;
+                this.mYAxisCorrection = 1.5;
                 break;
             case Character.eCharacterState.eFallDown:
-                this.mCharacter.getXform().setSize(4, 9);
-                this.mCharacter.setSpriteSequence(2048, 608, 124, 350, 1, 140);
+                this.mCharacter.getXform().setSize(7, 7);
+                this.mCharacter.setSpriteSequence(2048, 512, 256, 256, 1, 0);
                 this.mCharacter.setAnimationSpeed(0);
-                break;
-            case Character.eCharacterState.eFallRight:
-                this.mCharacter.getXform().setSize(7, 7);
-                this.mCharacter.setSpriteSequence(1256, 512, 212, 278, 2, 44);
-                this.mCharacter.setAnimationSpeed(10);
-                break;
-            case Character.eCharacterState.eFallLeft:
-                this.mCharacter.getXform().setSize(7, 7);
-                this.mCharacter.setSpriteSequence(1000, 512, 212, 278, 2, 44);
-                this.mCharacter.setAnimationSpeed(10);
+                this.mXAxisCorrection = -0.5;
+                this.mYAxisCorrection = 1.5;
                 break;
         }
     }

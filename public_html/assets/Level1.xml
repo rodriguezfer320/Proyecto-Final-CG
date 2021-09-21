@@ -148,7 +148,8 @@
     <Wall posX = "-44" posY = "-12" type="top_tile"/>
 
     <!-- Path 10 -->
-    <Wall posX = "-28" posY = "0" type="top_left_edge"/>
+    <Wall posX = "-32" posY = "0" type="top_left_edge"/>
+    <Wall posX = "-28" posY = "0" type="top_tile"/>
     <Wall posX = "-24" posY = "0" type="top_tile"/>
     <Wall posX = "-20" posY = "0" type="top_tile"/>
     <Wall posX = "-16" posY = "0" type="top_right_edge"/>
