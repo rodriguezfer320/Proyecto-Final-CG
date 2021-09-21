@@ -71,23 +71,6 @@ SceneFileParser.prototype.parseLights = function () {
     return lightSet;
 };
 
-
-SceneFileParser.prototype.parseFlame = function(texture){    
-    var elm = this._getElm("Flame");
-
-    var cx = null;
-    var cy = null;
-    var w = 2;
-    var h = 8;
-
-    for (let index = 0; index < elm.length; index++) {
-        cx = Number(elm[index].getAttribute("posX"));
-        cy = Number(elm[index].getAttribute("posY"));
-        var mFlame = new Flame(cx, cy, w, h, texture);
-        gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mFlame);
-    }
-};
-
 SceneFileParser.prototype.parseDoor = function(texture){    
     var elm = this._getElm("Door");
 
@@ -127,7 +110,7 @@ SceneFileParser.prototype.parseWall = function(textures){
     
 };
 
-SceneFileParser.prototype.parseLever = function(texture){    
+SceneFileParser.prototype.parsePushButton = function(texture){    
     var elm = this._getElm("Lever");
 
     var cx = null;
@@ -139,10 +122,10 @@ SceneFileParser.prototype.parseLever = function(texture){
     cy = Number(elm[0].getAttribute("posY"));
     w = Number(elm[0].getAttribute("weight"));
     h = Number(elm[0].getAttribute("height"));
-    var mLever = new Lever(cx, cy, w, h, texture);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mLever);
+    var mPushButton = new PushButton(cx, cy, w, h, texture);
+    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mPushButton);
 
-    return mLever;
+    return mPushButton;
     
 };
 

@@ -37,9 +37,8 @@ function Game() {
     };
 
     //Objects
-    this.kFlame = "assets/flame.png";
     this.kDoor = "assets/door.png";
-    this.kLever = "assets/lever.png";
+    this.kPushButton = "assets/push_button.png";
 
     this.kPlatform = "assets/platform.png";
     this.kPlatformNormal = "assets/platform_normal.png";
@@ -64,7 +63,7 @@ function Game() {
 
     //Object Door
     this.objectDoor = null;
-    this.objectLever = null;
+    this.objectPushButton = null;
 
     this.mGlobalLightSet = null;
 
@@ -87,11 +86,9 @@ Game.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kWaterCharacter);
     //gEngine.Textures.loadTexture(this.kFireCharacter);
 
-    gEngine.Textures.loadTexture(this.kFlame);
-
     gEngine.Textures.loadTexture(this.kDoor);
 
-    gEngine.Textures.loadTexture(this.kLever);
+    gEngine.Textures.loadTexture(this.kPushButton);
 
     gEngine.Textures.loadTexture(this.kPlatform);
     gEngine.Textures.loadTexture(this.kPlatformNormal);
@@ -112,11 +109,9 @@ Game.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kWaterCharacter);
     //gEngine.Textures.unloadTexture(this.kFireCharacter);
 
-    gEngine.Textures.unloadTexture(this.kFlame);
-
     gEngine.Textures.unloadTexture(this.kDoor);
 
-    gEngine.Textures.unloadTexture(this.kLever);
+    gEngine.Textures.unloadTexture(this.kPushButton);
 
     gEngine.Textures.unloadTexture(this.kPlatform);
     gEngine.Textures.unloadTexture(this.kPlatformNormal);
@@ -177,15 +172,12 @@ Game.prototype.initialize = function () {
     for (let index = 0; index < walls.length; index++) {
         this.mAllWalls.addToSet(walls[index]);
     }
-    
-    //Añadir flames
-    parser.parseFlame(this.kFlame);
 
     //Añadir door y recuperar instancia
     this.objectDoor = parser.parseDoor(this.kDoor);
 
     //Añadir lever y recuperar instancia
-    this.objectLever = parser.parseLever(this.kLever);
+    this.objectPushButton = parser.parsePushButton(this.kPushButton);
 
     let p = parser.parsePlatform(this.kPlatform, this.kPlatformNormal, this.mGlobalLightSet);
     for (let index = 0; index < p.length; index++) {
@@ -193,7 +185,7 @@ Game.prototype.initialize = function () {
     }
 
     //Añadir personaje water
-    this.mWaterCharacter = new Character(-46, -43, this.kWaterCharacter, light);
+    this.mWaterCharacter = new Character(8, 12, this.kWaterCharacter, light);
 
     gEngine.LayerManager.addToLayer(gEngine.eLayer.eBackground, background);
     gEngine.LayerManager.addToLayer(gEngine.eLayer.eShadowReceiver, shadowBackground);
@@ -223,7 +215,11 @@ Game.prototype.update = function () {
     // physics simulation
     gEngine.Physics.processObjSet(this.mWaterCharacter, this.mAllWalls);
     gEngine.Physics.processObjSet(this.mWaterCharacter, this.mAllPlatforms);
-
+    gEngine.Physics.processObjObj(this.objectPushButton, this.mWaterCharacter);
+    
+    /**
+     * Colisión puerta con el personaje de agua
+     */
     let collidedDoor = false;
     collidedDoor = this.mWaterCharacter.getPhysicsComponent().collided(this.objectDoor.getPhysicsComponent(), new CollisionInfo());
     
@@ -233,7 +229,7 @@ Game.prototype.update = function () {
     }
 
     if (this.objectDoor.getStatus() && (this.objectDoor.getCont() < 50)) {
-        this.objectDoor.increment();
+        this.objectDoor.incrementCont();
     }
 
     if(this.objectDoor.getCont() == 50){
@@ -241,19 +237,21 @@ Game.prototype.update = function () {
         this.mWaterCharacter.setVisibility(false);
     }
 
-    let collidedLever = false;
-    collidedLever = this.mWaterCharacter.getPhysicsComponent().collided(this.objectLever.getPhysicsComponent(), new CollisionInfo());
+    /**
+     * Colision push button con el personaje de water
+     */
+    let collidedPushButton = false;
+    collidedPushButton = this.mWaterCharacter.getPhysicsComponent().collided(this.objectPushButton.getPhysicsComponent(), new CollisionInfo());
     
-    if (collidedLever && !(this.objectLever.getStatus())) {
-        this.objectLever.activateAnimation();
-        this.objectLever.setStatus(true);
+    console.log(collidedPushButton);
+    /**
+    if (collidedPushButton) {
+        this.objectPushButton.pushButtonPressed();
+    }else {
+        this.objectPushButton.pushButtonNotPressed();
     }
-
-    if (this.objectLever.getStatus() && (this.objectLever.getCont() < 100)) {
-        this.objectLever.increment();
-    }
-
-    if(this.objectLever.getCont() == 100){
-        this.objectLever.desactivateAnimation();
-    }
+   
+    */
+    
+ 
 };

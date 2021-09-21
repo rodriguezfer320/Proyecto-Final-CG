@@ -216,7 +216,7 @@
     <Door posX = "42" posY="42" weight = "8" height = "8"/>
 
     <!-- Lever -->
-    <Lever posX = "28" posY = "7" weight = "10" height = "10"/>
+    <Lever posX = "28" posY = "3" weight = "4" height = "2"/>
 
     <!-- Light -->
     <Light 
