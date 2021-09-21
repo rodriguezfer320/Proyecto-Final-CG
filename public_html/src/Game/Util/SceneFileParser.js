@@ -111,7 +111,7 @@ SceneFileParser.prototype.parseWall = function(textures){
 };
 
 SceneFileParser.prototype.parsePushButton = function(texture){    
-    var elm = this._getElm("Lever");
+    var elm = this._getElm("PushButton");
 
     var cx = null;
     var cy = null;

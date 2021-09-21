@@ -167,6 +167,7 @@ gEngine.Physics = (function () {
         while (continueRelaxation()) {
             if (s1.collided(s2, mCollisionInfo)) {
                 resolveCollision(s1, s2, mCollisionInfo);
+                return true;
             }
         }
     };

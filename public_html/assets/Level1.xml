@@ -215,8 +215,8 @@
     <!-- Door -->
     <Door posX = "42" posY="42" weight = "8" height = "8"/>
 
-    <!-- Lever -->
-    <Lever posX = "28" posY = "3" weight = "4" height = "2"/>
+    <!-- PushButton -->
+    <PushButton posX = "28" posY = "3" weight = "4" height = "2"/>
 
     <!-- Light -->
     <Light 
@@ -234,7 +234,7 @@
         />
     
     <!-- Platforms -->
-    <Platform PosX="-22" PosY="16" Velocity="1 0 0" MovementRange="8" /> <!-- Platform 1 -->
+    <Platform PosX="-22" PosY="16" Velocity="0 0 0" MovementRange="8" /> <!-- Platform 1 -->
     <Platform PosX="40" PosY="6" Velocity="0 1 0" MovementRange="8" /> <!-- Platform 2 -->
 
 </Level>

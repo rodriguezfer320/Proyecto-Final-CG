@@ -60,7 +60,7 @@ Character.prototype.update = function () {
                     this.mCharacterState = Character.eCharacterState.eFallDown;
                     this.mIsJumping = true;
                     this.mCanMove = false;
-                    velocity[1] = -15;
+                    //velocity[1] = -0.05;
             }
         }else if(velocity[1] === -0.3333333432674408){
             this.mIsJumping = false;

@@ -38,6 +38,7 @@ function Platform(cx, cy, velocity, movementRange, texture, normal, lightSet) {
     rigidShape.setMass(0);  // ensures no movements!
     rigidShape.setDrawBounds(true);
     rigidShape.setColor([0, 0, 1, 1]);
+    rigidShape.setRestitution(0);
     this.setPhysicsComponent(rigidShape);
 }
 gEngine.Core.inheritPrototype(Platform, GameObject);
@@ -52,5 +53,7 @@ Platform.prototype.update = function() {
         f[0] = -f[0];
         f[1] = -f[1];
     }   
+
+    
 };
 
