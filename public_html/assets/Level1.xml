@@ -96,6 +96,7 @@
     <Wall posX = "-44" posY = "-48" type="top_tile"/>
     <Wall posX = "-40" posY = "-48" type="top_tile"/>    
     <Wall posX = "-36" posY = "-48" type="top_right_edge"/>
+    <Wall posX = "-32" posY = "-48" type="top_right_edge"/>
 
     <!-- Path 2 -->
     <Wall posX = "-24" posY = "-48" type="top_left_edge"/>
@@ -210,16 +211,6 @@
     <Wall posX = "44" posY = "32" type="inner_corner_bottom_right"/>
     <Wall posX = "40" posY = "36" type="inner_corner_top_left"/>
     <Wall posX = "44" posY = "36" type="inner_corner_top_right"/>   
-    
-    <!-- Flames -->
-    <Flame posX = "-30" posY = "-32"/> <!-- Flame 1 -->
-    <Flame posX = "-2" posY = "-32"/> <!-- Flame 2 -->
-    <Flame posX = "14" posY = "-10"/> <!-- Flame 3 -->
-    <Flame posX = "34" posY = "-10"/> <!-- Flame 4 -->
-    <Flame posX = "-42" posY = "2"/> <!-- Flame 5 -->
-    <Flame posX = "-4" posY = "8"/> <!-- Flame 6 -->
-    <Flame posX = "40" posY = "22"/> <!-- Flame 7 -->
-    <Flame posX = "-20" posY = "26"/> <!-- Flame 8 -->
 
     <!-- Door -->
     <Door posX = "42" posY="42" weight = "8" height = "8"/>
