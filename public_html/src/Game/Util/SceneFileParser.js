@@ -2,7 +2,7 @@
  * File: SceneFile_Parse.js 
  */
 /*jslint node: true, vars: true, white: true*/
-/*global gEngine, Light, Camera, vec2, Platform, Wall,
+/*global gEngine, Light, Camera, vec2, Platform, wave,
  LightSet, IllumRenderable, ParallaxGameObject, ShadowReceiver */
 /* find out more about jslint: http://www.jslint.com/help.html */
 
@@ -93,20 +93,27 @@ SceneFileParser.prototype.parseDoor = function(texture){
 SceneFileParser.prototype.parseWall = function(textures){
     var elm = this._getElm("Wall");
 
-    var allWalls = [];
+    var cx = null;
+    var cy = null;
+    var w = null;
+    var h = null;
+
+    var mAllWalls = [];
     for (var index = 0; index < elm.length; index++) {
-        var x = Number(elm.item(index).attributes.getNamedItem("posX").value);
-        var y = Number(elm.item(index).attributes.getNamedItem("posY").value);
+        cx = Number(elm[index].getAttribute("posX"));
+        cy = Number(elm[index].getAttribute("posY"));
+        w = Number(elm[index].getAttribute("weight"));
+        h = Number(elm[index].getAttribute("height"));
 
         var typeWall = elm[index].getAttribute("type");
 
-        var wall = new Wall(x, y, 4, 4, textures[typeWall]);
+        var wall = new Wall(cx, cy, w, h, textures[typeWall]);
         gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wall);
 
-        allWalls.push(wall);
+        mAllWalls.push(wall);
     }
 
-    return allWalls;
+    return mAllWalls;
     
 };
 
@@ -153,38 +160,28 @@ SceneFileParser.prototype.parsePlatform = function (texture, normal, lightSet) {
     return allPlatforms;
 };
 
-SceneFileParser.prototype.parseWaveFire = function (texture){
-    var elm = this._getElm("WaveFire");
+SceneFileParser.prototype.parseWave = function (textures){
+    var elm = this._getElm("Wave");
 
     var cx = null;
     var cy = null;
     var w = null;
     var h = null;
 
-    cx = Number(elm[0].getAttribute("posX"));
-    cy = Number(elm[0].getAttribute("posY"));
-    w = Number(elm[0].getAttribute("weight"));
-    h = Number(elm[0].getAttribute("height"));
-    var mWaveFire = new WaveFire(cx, cy, w, h, texture);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mWaveFire);
+    var mAllWaves = [];
+    for (var index = 0; index < elm.length; index++) {
+        cx = Number(elm[index].getAttribute("posX"));
+        cy = Number(elm[index].getAttribute("posY"));
+        w = Number(elm[index].getAttribute("weight"));
+        h = Number(elm[index].getAttribute("height"));
 
-    return mWaveFire;
-};
+        var typeWave = elm[index].getAttribute("type");
 
-SceneFileParser.prototype.parseWaveWater = function (texture){
-    var elm = this._getElm("WaveWater");
+        var wave = new Wave(cx, cy, w, h, textures[typeWave]);
+        gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wave);
 
-    var cx = null;
-    var cy = null;
-    var w = null;
-    var h = null;
+        mAllWaves.push(wave);
+    }
 
-    cx = Number(elm[0].getAttribute("posX"));
-    cy = Number(elm[0].getAttribute("posY"));
-    w = Number(elm[0].getAttribute("weight"));
-    h = Number(elm[0].getAttribute("height"));
-    var mWaveWater = new WaveWater(cx, cy, w, h, texture);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mWaveWater);
-
-    return mWaveWater;
+    return mAllWaves;
 };

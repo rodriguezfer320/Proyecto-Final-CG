@@ -11,209 +11,233 @@
     <!-- Viewport: x, y, w, h -->
 
     <!-- Right wall -->
-    <Wall posX = "48" posY = "-48" type="color"/>
-    <Wall posX = "48" posY = "-44" type="color"/>
-    <Wall posX = "48" posY = "-40" type="color"/>
-    <Wall posX = "48" posY = "-36" type="color"/>
-    <Wall posX = "48" posY = "-32" type="color"/>
-    <Wall posX = "48" posY = "-28" type="color"/>
-    <Wall posX = "48" posY = "-24" type="color"/>
-    <Wall posX = "48" posY = "-20" type="color"/>
-    <Wall posX = "48" posY = "-16" type="color"/> 
-    <Wall posX = "48" posY = "-12" type="color"/>
-    <Wall posX = "48" posY = "-8" type="color"/>
-    <Wall posX = "48" posY = "-4" type="color"/>
-    <Wall posX = "48" posY = "0" type="color"/>
-    <Wall posX = "48" posY = "4" type="color"/>
-    <Wall posX = "48" posY = "8" type="color"/>
-    <Wall posX = "48" posY = "12" type="color"/>
-    <Wall posX = "48" posY = "16" type="color"/>
-    <Wall posX = "48" posY = "20" type="color"/>
-    <Wall posX = "48" posY = "24" type="color"/>
-    <Wall posX = "48" posY = "28" type="color"/>
-    <Wall posX = "48" posY = "32" type="color"/>
-    <Wall posX = "48" posY = "36" type="color"/>
-    <Wall posX = "48" posY = "40" type="color"/>
-    <Wall posX = "48" posY = "44" type="color"/>
-    <Wall posX = "48" posY = "48" type="color"/>
+    <Wall posX = "48" posY = "-48" type="color" weight = "4" height = "4"/>
+    <Wall posX = "48" posY = "-44" type="color" weight = "4" height = "4"/>
+    <Wall posX = "48" posY = "-40" type="color" weight = "4" height = "4"/>
+    <Wall posX = "48" posY = "-36" type="color" weight = "4" height = "4"/>
+    <Wall posX = "48" posY = "-32" type="color" weight = "4" height = "4"/>
+    <Wall posX = "48" posY = "-28" type="color" weight = "4" height = "4"/>
+    <Wall posX = "48" posY = "-24" type="color" weight = "4" height = "4"/>
+    <Wall posX = "48" posY = "-20" type="color" weight = "4" height = "4"/>
+    <Wall posX = "48" posY = "-16" type="color" weight = "4" height = "4"/> 
+    <Wall posX = "48" posY = "-12" type="color" weight = "4" height = "4"/>
+    <Wall posX = "48" posY = "-8" type="color" weight = "4" height = "4"/>
+    <Wall posX = "48" posY = "-4" type="color" weight = "4" height = "4"/>
+    <Wall posX = "48" posY = "0" type="color" weight = "4" height = "4"/>
+    <Wall posX = "48" posY = "4" type="color" weight = "4" height = "4"/>
+    <Wall posX = "48" posY = "8" type="color" weight = "4" height = "4"/>
+    <Wall posX = "48" posY = "12" type="color" weight = "4" height = "4"/>
+    <Wall posX = "48" posY = "16" type="color" weight = "4" height = "4"/>
+    <Wall posX = "48" posY = "20" type="color" weight = "4" height = "4"/>
+    <Wall posX = "48" posY = "24" type="color" weight = "4" height = "4"/>
+    <Wall posX = "48" posY = "28" type="color" weight = "4" height = "4"/>
+    <Wall posX = "48" posY = "32" type="color" weight = "4" height = "4"/>
+    <Wall posX = "48" posY = "36" type="color" weight = "4" height = "4"/>
+    <Wall posX = "48" posY = "40" type="color" weight = "4" height = "4"/>
+    <Wall posX = "48" posY = "44" type="color" weight = "4" height = "4"/>
+    <Wall posX = "48" posY = "48" type="color" weight = "4" height = "4"/>
 
     <!-- Bottom wall -->
-    <Wall posX = "-48" posY = "48" type="color"/>
-    <Wall posX = "-44" posY = "48" type="bottom_tile"/>
-    <Wall posX = "-40" posY = "48" type="bottom_tile"/>
-    <Wall posX = "-36" posY = "48" type="bottom_tile"/>
-    <Wall posX = "-32" posY = "48" type="bottom_tile"/>
-    <Wall posX = "-28" posY = "48" type="bottom_tile"/>
-    <Wall posX = "-24" posY = "48" type="bottom_tile"/>
-    <Wall posX = "-20" posY = "48" type="bottom_tile"/>
-    <Wall posX = "-16" posY = "48" type="bottom_tile"/>
-    <Wall posX = "-12" posY = "48" type="bottom_tile"/>
-    <Wall posX = "-8" posY = "48" type="bottom_tile"/>
-    <Wall posX = "-4" posY = "48" type="bottom_tile"/>
-    <Wall posX = "0" posY = "48" type="bottom_tile"/>
-    <Wall posX = "4" posY = "48" type="bottom_tile"/>
-    <Wall posX = "8" posY = "48" type="bottom_tile"/>
-    <Wall posX = "12" posY = "48" type="bottom_tile"/>
-    <Wall posX = "16" posY = "48" type="bottom_tile"/>
-    <Wall posX = "20" posY = "48" type="bottom_tile"/>
-    <Wall posX = "24" posY = "48" type="bottom_tile"/>
-    <Wall posX = "28" posY = "48" type="bottom_tile"/>
-    <Wall posX = "32" posY = "48" type="bottom_tile"/>
-    <Wall posX = "36" posY = "48" type="bottom_tile"/>
-    <Wall posX = "40" posY = "48" type="bottom_tile"/>
-    <Wall posX = "44" posY = "48" type="bottom_tile"/>
+    <Wall posX = "-48" posY = "48" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-44" posY = "48" type="bottom_tile" weight = "4" height = "4"/>
+    <Wall posX = "-40" posY = "48" type="bottom_tile" weight = "4" height = "4"/>
+    <Wall posX = "-36" posY = "48" type="bottom_tile" weight = "4" height = "4"/>
+    <Wall posX = "-32" posY = "48" type="bottom_tile" weight = "4" height = "4"/>
+    <Wall posX = "-28" posY = "48" type="bottom_tile" weight = "4" height = "4"/>
+    <Wall posX = "-24" posY = "48" type="bottom_tile" weight = "4" height = "4"/>
+    <Wall posX = "-20" posY = "48" type="bottom_tile" weight = "4" height = "4"/>
+    <Wall posX = "-16" posY = "48" type="bottom_tile" weight = "4" height = "4"/>
+    <Wall posX = "-12" posY = "48" type="bottom_tile" weight = "4" height = "4"/>
+    <Wall posX = "-8" posY = "48" type="bottom_tile" weight = "4" height = "4"/>
+    <Wall posX = "-4" posY = "48" type="bottom_tile" weight = "4" height = "4"/>
+    <Wall posX = "0" posY = "48" type="bottom_tile" weight = "4" height = "4"/>
+    <Wall posX = "4" posY = "48" type="bottom_tile" weight = "4" height = "4"/>
+    <Wall posX = "8" posY = "48" type="bottom_tile" weight = "4" height = "4"/>
+    <Wall posX = "12" posY = "48" type="bottom_tile" weight = "4" height = "4"/>
+    <Wall posX = "16" posY = "48" type="bottom_tile" weight = "4" height = "4"/>
+    <Wall posX = "20" posY = "48" type="bottom_tile" weight = "4" height = "4"/>
+    <Wall posX = "24" posY = "48" type="bottom_tile" weight = "4" height = "4"/>
+    <Wall posX = "28" posY = "48" type="bottom_tile" weight = "4" height = "4"/>
+    <Wall posX = "32" posY = "48" type="bottom_tile" weight = "4" height = "4"/>
+    <Wall posX = "36" posY = "48" type="bottom_tile" weight = "4" height = "4"/>
+    <Wall posX = "40" posY = "48" type="bottom_tile" weight = "4" height = "4"/>
+    <Wall posX = "44" posY = "48" type="bottom_tile" weight = "4" height = "4"/>
     
     <!-- Left wall -->
-    <Wall posX = "-48" posY = "-48" type="color"/>
-    <Wall posX = "-48" posY = "-44" type="color"/>
-    <Wall posX = "-48" posY = "-40" type="color"/>
-    <Wall posX = "-48" posY = "-36" type="color"/>
-    <Wall posX = "-48" posY = "-32" type="color"/>
-    <Wall posX = "-48" posY = "-28" type="color"/>
-    <Wall posX = "-48" posY = "-24" type="color"/>
-    <Wall posX = "-48" posY = "-20" type="color"/>
-    <Wall posX = "-48" posY = "-16" type="color"/>
-    <Wall posX = "-48" posY = "-12" type="color"/>
-    <Wall posX = "-48" posY = "-8" type="color"/>
-    <Wall posX = "-48" posY = "-4" type="color"/>
-    <Wall posX = "-48" posY = "0" type="color"/>
-    <Wall posX = "-48" posY = "4" type="color"/>
-    <Wall posX = "-48" posY = "8" type="color"/>
-    <Wall posX = "-48" posY = "12" type="color"/>
-    <Wall posX = "-48" posY = "16" type="color"/>
-    <Wall posX = "-48" posY = "20" type="color"/>
-    <Wall posX = "-48" posY = "24" type="color"/>
-    <Wall posX = "-48" posY = "28" type="color"/>
-    <Wall posX = "-48" posY = "32" type="color"/>
-    <Wall posX = "-48" posY = "36" type="color"/>
-    <Wall posX = "-48" posY = "40" type="color"/>
-    <Wall posX = "-48" posY = "44" type="color"/>
-    <Wall posX = "-48" posY = "48" type="color"/>
+    <Wall posX = "-48" posY = "-48" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-48" posY = "-44" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-48" posY = "-40" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-48" posY = "-36" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-48" posY = "-32" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-48" posY = "-28" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-48" posY = "-24" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-48" posY = "-20" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-48" posY = "-16" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-48" posY = "-12" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-48" posY = "-8" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-48" posY = "-4" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-48" posY = "0" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-48" posY = "4" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-48" posY = "8" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-48" posY = "12" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-48" posY = "16" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-48" posY = "20" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-48" posY = "24" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-48" posY = "28" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-48" posY = "32" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-48" posY = "36" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-48" posY = "40" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-48" posY = "44" type="color" weight = "4" height = "4"/>
+    <Wall posX = "-48" posY = "48" type="color" weight = "4" height = "4"/>
     
     <!-- World Level 1 -->
 
     <!-- Path 1 -->
-    <Wall posX = "-44" posY = "-48" type="top_tile"/>
-    <Wall posX = "-40" posY = "-48" type="top_tile"/>    
-    <Wall posX = "-36" posY = "-48" type="top_tile"/>
+    <Wall posX = "-44" posY = "-48" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "-40" posY = "-48" type="top_tile" weight = "4" height = "4"/>    
+    <Wall posX = "-36" posY = "-48" type="top_tile" weight = "4" height = "4"/>
 
-    <WaveFire posX = "-30" posY="-49" weight = "8" height = "2"/>
+    <!-- Wave fire 1 -->
+    <Wave posX = "-30" posY="-47" type = "wave_fire" weight = "8" height = "2"/>
+
+    <!-- Walls below fire 1-->
+    <Wall posX = "-32" posY = "-49" type="color_medium" weight = "4" height = "2"/>
+    <Wall posX = "-28" posY = "-49" type="color_medium" weight = "4" height = "2"/>
 
     <!-- Path 2 -->
-    <Wall posX = "-24" posY = "-48" type="top_tile"/>
-    <Wall posX = "-20" posY = "-48" type="top_tile"/>
-    <Wall posX = "-16" posY = "-48" type="top_tile"/>
-    <Wall posX = "-12" posY = "-48" type="top_tile"/>
-    <Wall posX = "-8" posY = "-48" type="top_tile"/>
+    <Wall posX = "-24" posY = "-48" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "-20" posY = "-48" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "-16" posY = "-48" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "-12" posY = "-48" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "-8" posY = "-48" type="top_tile" weight = "4" height = "4"/>
 
     <!-- Path 3 block -->
-    <Wall posX = "-4" posY = "-44" type="inner_corner_top_left"/>
-    <Wall posX = "0" posY = "-44" type="inner_corner_top_right"/>
-    <Wall posX = "-4" posY = "-48" type="inner_corner_bottom_left"/>
-    <Wall posX = "0" posY = "-48" type="inner_corner_bottom_right"/>
+    <Wall posX = "-4" posY = "-44" type="inner_corner_top_left" weight = "4" height = "4"/>
+    <Wall posX = "0" posY = "-44" type="inner_corner_top_right" weight = "4" height = "4"/>
+    <Wall posX = "-4" posY = "-48" type="inner_corner_bottom_left" weight = "4" height = "4"/>
+    <Wall posX = "0" posY = "-48" type="inner_corner_bottom_right" weight = "4" height = "4"/>
 
-    <WaveWater posX = "6" posY="-49" weight = "8" height = "2"/>
+    <!-- Wave water 1 -->
+    <Wave posX = "6" posY="-47" type = "wave_water" weight = "8" height = "2"/>
+
+    <!-- Walls below water 1-->
+    <Wall posX = "4" posY = "-49" type="color_medium" weight = "4" height = "2"/>
+    <Wall posX = "8" posY = "-49" type="color_medium" weight = "4" height = "2"/>
 
     <!-- Path 4 -->
-    <Wall posX = "12" posY = "-48" type="top_tile"/>
-    <Wall posX = "16" posY = "-48" type="top_tile"/>
-    <Wall posX = "20" posY = "-48" type="top_tile"/>
-    <Wall posX = "24" posY = "-48" type="top_tile"/>
-    <Wall posX = "28" posY = "-48" type="top_tile"/>
-    <Wall posX = "32" posY = "-48" type="top_tile"/>
-    <Wall posX = "36" posY = "-48" type="top_tile"/>
-    <Wall posX = "40" posY = "-48" type="top_tile"/>
-    <Wall posX = "44" posY = "-48" type="top_tile"/>
+    <Wall posX = "12" posY = "-48" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "16" posY = "-48" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "20" posY = "-48" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "24" posY = "-48" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "28" posY = "-48" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "32" posY = "-48" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "36" posY = "-48" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "40" posY = "-48" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "44" posY = "-48" type="top_tile" weight = "4" height = "4"/>
     
     <!-- Path 5 -->
-    <Wall posX = "36" posY = "-36" type="top_right_edge"/>
-    <Wall posX = "32" posY = "-36" type="top_left_edge"/>
+    <Wall posX = "36" posY = "-36" type="top_right_edge" weight = "4" height = "4"/>
+    <Wall posX = "32" posY = "-36" type="top_left_edge" weight = "4" height = "4"/>
 
     <!-- Path 6 -->
-    <Wall posX = "28" posY = "-24" type="top_right_edge"/>    
-    <Wall posX = "24" posY = "-24" type="top_tile"/>
-    <Wall posX = "20" posY = "-24" type="top_left_edge"/>
+    <Wall posX = "28" posY = "-24" type="top_right_edge" weight = "4" height = "4"/>    
+    <Wall posX = "24" posY = "-24" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "20" posY = "-24" type="top_tile" weight = "4" height = "4"/>
     
+    <!-- Wave fire 2 -->
+    <Wave posX = "14" posY= "-23" type = "wave_fire" weight = "8" height = "2" />
+
+    <!-- Walls below fire 2-->
+    <Wall posX = "12" posY = "-25" type="color_medium" weight = "4" height = "2"/>
+    <Wall posX = "16" posY = "-25" type="color_medium" weight = "4" height = "2"/>
+
     <!-- Path 7 -->
-    <Wall posX = "8" posY = "-24" type="top_right_edge"/>
-    <Wall posX = "4" posY = "-24" type="top_tile"/>
-    <Wall posX = "0" posY = "-24" type="top_tile"/>
-    <Wall posX = "-4" posY = "-24" type="top_tile"/>
-    <Wall posX = "-8" posY = "-24" type="top_tile"/>
-    <Wall posX = "-12" posY = "-24" type="top_tile"/>
-    <Wall posX = "-16" posY = "-24" type="top_tile"/>
-    <Wall posX = "-20" posY = "-24" type="top_left_edge"/>
+    <Wall posX = "8" posY = "-24" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "4" posY = "-24" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "0" posY = "-24" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "-4" posY = "-24" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "-8" posY = "-24" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "-12" posY = "-24" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "-16" posY = "-24" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "-20" posY = "-24" type="top_left_edge" weight = "4" height = "4"/>
 
     <!-- Path 8 -->
-    <Wall posX = "-32" posY = "-24" type="platform_single"/>
+    <Wall posX = "-32" posY = "-24" type="platform_single" weight = "4" height = "4"/>
 
     <!-- Path 9 -->
-    <Wall posX = "-40" posY = "-12" type="top_right_edge"/>
-    <Wall posX = "-44" posY = "-12" type="top_tile"/>
+    <Wall posX = "-40" posY = "-12" type="top_right_edge" weight = "4" height = "4"/>
+    <Wall posX = "-44" posY = "-12" type="top_tile" weight = "4" height = "4"/>
 
     <!-- Path 10 -->
-    <Wall posX = "-32" posY = "0" type="top_left_edge"/>
-    <Wall posX = "-28" posY = "0" type="top_tile"/>
-    <Wall posX = "-24" posY = "0" type="top_tile"/>
-    <Wall posX = "-20" posY = "0" type="top_tile"/>
-    <Wall posX = "-16" posY = "0" type="top_right_edge"/>
+    <Wall posX = "-32" posY = "0" type="top_left_edge" weight = "4" height = "4"/>
+    <Wall posX = "-28" posY = "0" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "-24" posY = "0" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "-20" posY = "0" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "-16" posY = "0" type="top_right_edge" weight = "4" height = "4"/>
 
     <!-- Path 11 -->
-    <Wall posX = "-4" posY = "-8" type="platform_single"/>
+    <Wall posX = "-4" posY = "-8" type="platform_single" weight = "4" height = "4"/>
 
     <!-- Path 12 -->
-    <Wall posX = "8" posY = "0" type="top_left_edge"/>
-    <Wall posX = "12" posY = "0" type="top_tile"/>
-    <Wall posX = "16" posY = "0" type="top_tile"/>
-    <Wall posX = "20" posY = "0" type="top_tile"/>
-    <Wall posX = "24" posY = "0" type="top_tile"/>
-    <Wall posX = "28" posY = "0" type="top_tile"/>
-    <Wall posX = "32" posY = "0" type="top_right_edge"/>
+    <Wall posX = "8" posY = "0" type="top_left_edge" weight = "4" height = "4"/>
+    <Wall posX = "12" posY = "0" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "16" posY = "0" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "20" posY = "0" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "24" posY = "0" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "28" posY = "0" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "32" posY = "0" type="top_right_edge" weight = "4" height = "4"/>
 
     <!-- Path 13 -->
-    <Wall posX = "32" posY = "16" type="top_right_edge"/>
-    <Wall posX = "28" posY = "16" type="top_tile"/>
-    <Wall posX = "24" posY = "16" type="top_tile"/>
-    <Wall posX = "20" posY = "16" type="top_left_edge"/>
+    <Wall posX = "32" posY = "16" type="top_right_edge" weight = "4" height = "4"/>
+    <Wall posX = "28" posY = "16" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "24" posY = "16" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "20" posY = "16" type="top_tile" weight = "4" height = "4"/>
+
+    <!-- Wave water 2 -->
+    <Wave posX = "14" posY= "17" type = "wave_water" weight = "8" height = "2" />
+
+    <!-- Walls below water 2-->
+    <Wall posX = "12" posY = "15" type="color_medium" weight = "4" height = "2"/>
+    <Wall posX = "16" posY = "15" type="color_medium" weight = "4" height = "2"/>
      
     <!-- Path 14 -->
-    <Wall posX = "8" posY = "16" type="top_right_edge"/>
-    <Wall posX = "4" posY = "16" type="top_tile"/>
-    <Wall posX = "0" posY = "16" type="top_tile"/>
-    <Wall posX = "-4" posY = "16" type="top_left_edge"/>
+    <Wall posX = "8" posY = "16" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "4" posY = "16" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "0" posY = "16" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "-4" posY = "16" type="top_left_edge" weight = "4" height = "4"/>
 
     <!-- Path 15 -->
-    <Wall posX = "-40" posY = "20" type="platform_single"/>
+    <Wall posX = "-40" posY = "20" type="platform_single" weight = "4" height = "4"/>
 
     <!-- Path 16 -->
-    <Wall posX = "-32" posY = "32" type="top_left_edge"/>
-    <Wall posX = "-28" posY = "32" type="top_right_edge"/>
+    <Wall posX = "-32" posY = "32" type="top_left_edge" weight = "4" height = "4"/>
+    <Wall posX = "-28" posY = "32" type="top_right_edge" weight = "4" height = "4"/>
 
     <!-- Path 17 -->
-    <Wall posX = "-20" posY = "40" type="platform_single"/>
+    <Wall posX = "-20" posY = "40" type="platform_single" weight = "4" height = "4"/>
 
     <!-- Path 18 -->
-    <Wall posX = "-12" posY = "32" type="top_left_edge"/>
-    <Wall posX = "-8" posY = "32" type="top_tile"/>
-    <Wall posX = "-4" posY = "32" type="top_right_edge"/>
+    <Wall posX = "-12" posY = "32" type="top_left_edge" weight = "4" height = "4"/>
+    <Wall posX = "-8" posY = "32" type="top_tile" weight = "4" height = "4"/>
+    <Wall posX = "-4" posY = "32" type="top_right_edge" weight = "4" height = "4"/>
 
     <!-- Path 19 -->
-    <Wall posX = "4" posY = "32" type="platform_single"/>
+    <Wall posX = "4" posY = "32" type="platform_single" weight = "4" height = "4"/>
 
     <!-- Path 20 -->
-    <Wall posX = "12" posY = "40" type="platform_single"/>
+    <Wall posX = "12" posY = "40" type="platform_single" weight = "4" height = "4"/>
 
     <!-- Path 21 -->
-    <Wall posX = "20" posY = "32" type="platform_single"/>
+    <Wall posX = "20" posY = "32" type="platform_single" weight = "4" height = "4"/>
 
     <!-- Path 22 -->
-    <Wall posX = "28" posY = "36" type="platform_single"/>
+    <Wall posX = "28" posY = "36" type="platform_single" weight = "4" height = "4"/>
 
     <!-- Path 23 -->
-    <Wall posX = "40" posY = "32" type="inner_corner_bottom_left"/>
-    <Wall posX = "44" posY = "32" type="inner_corner_bottom_right"/>
-    <Wall posX = "40" posY = "36" type="inner_corner_top_left"/>
-    <Wall posX = "44" posY = "36" type="inner_corner_top_right"/>   
+    <Wall posX = "40" posY = "32" type="inner_corner_bottom_left" weight = "4" height = "4"/>
+    <Wall posX = "44" posY = "32" type="inner_corner_bottom_right" weight = "4" height = "4"/>
+    <Wall posX = "40" posY = "36" type="inner_corner_top_left" weight = "4" height = "4"/>
+    <Wall posX = "44" posY = "36" type="inner_corner_top_right" weight = "4" height = "4"/>   
 
     <!-- Door -->
     <Door posX = "42" posY="42" weight = "8" height = "8"/>
@@ -237,9 +261,7 @@
         />
     
     <!-- Platforms -->
-    <Platform PosX="-22" PosY="16" Velocity="0 0 0" MovementRange="8" /> <!-- Platform 1 -->
+    <Platform PosX="-22" PosY="16" Velocity="1 0 0" MovementRange="8" /> <!-- Platform 1 -->
     <Platform PosX="40" PosY="6" Velocity="0 1 0" MovementRange="8" /> <!-- Platform 2 -->
-
-
 
 </Level>
