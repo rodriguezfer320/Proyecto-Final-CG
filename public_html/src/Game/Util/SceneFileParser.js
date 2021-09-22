@@ -152,3 +152,39 @@ SceneFileParser.prototype.parsePlatform = function (texture, normal, lightSet) {
 
     return allPlatforms;
 };
+
+SceneFileParser.prototype.parseWaveFire = function (texture){
+    var elm = this._getElm("WaveFire");
+
+    var cx = null;
+    var cy = null;
+    var w = null;
+    var h = null;
+
+    cx = Number(elm[0].getAttribute("posX"));
+    cy = Number(elm[0].getAttribute("posY"));
+    w = Number(elm[0].getAttribute("weight"));
+    h = Number(elm[0].getAttribute("height"));
+    var mWaveFire = new WaveFire(cx, cy, w, h, texture);
+    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mWaveFire);
+
+    return mWaveFire;
+};
+
+SceneFileParser.prototype.parseWaveWater = function (texture){
+    var elm = this._getElm("WaveWater");
+
+    var cx = null;
+    var cy = null;
+    var w = null;
+    var h = null;
+
+    cx = Number(elm[0].getAttribute("posX"));
+    cy = Number(elm[0].getAttribute("posY"));
+    w = Number(elm[0].getAttribute("weight"));
+    h = Number(elm[0].getAttribute("height"));
+    var mWaveWater = new WaveWater(cx, cy, w, h, texture);
+    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mWaveWater);
+
+    return mWaveWater;
+};

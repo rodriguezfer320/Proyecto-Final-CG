@@ -95,11 +95,12 @@
     <!-- Path 1 -->
     <Wall posX = "-44" posY = "-48" type="top_tile"/>
     <Wall posX = "-40" posY = "-48" type="top_tile"/>    
-    <Wall posX = "-36" posY = "-48" type="top_right_edge"/>
-    <Wall posX = "-32" posY = "-48" type="top_right_edge"/>
+    <Wall posX = "-36" posY = "-48" type="top_tile"/>
+
+    <WaveFire posX = "-30" posY="-49" weight = "8" height = "2"/>
 
     <!-- Path 2 -->
-    <Wall posX = "-24" posY = "-48" type="top_left_edge"/>
+    <Wall posX = "-24" posY = "-48" type="top_tile"/>
     <Wall posX = "-20" posY = "-48" type="top_tile"/>
     <Wall posX = "-16" posY = "-48" type="top_tile"/>
     <Wall posX = "-12" posY = "-48" type="top_tile"/>
@@ -111,8 +112,10 @@
     <Wall posX = "-4" posY = "-48" type="inner_corner_bottom_left"/>
     <Wall posX = "0" posY = "-48" type="inner_corner_bottom_right"/>
 
+    <WaveWater posX = "6" posY="-49" weight = "8" height = "2"/>
+
     <!-- Path 4 -->
-    <Wall posX = "12" posY = "-48" type="top_left_edge"/>
+    <Wall posX = "12" posY = "-48" type="top_tile"/>
     <Wall posX = "16" posY = "-48" type="top_tile"/>
     <Wall posX = "20" posY = "-48" type="top_tile"/>
     <Wall posX = "24" posY = "-48" type="top_tile"/>
@@ -236,5 +239,7 @@
     <!-- Platforms -->
     <Platform PosX="-22" PosY="16" Velocity="0 0 0" MovementRange="8" /> <!-- Platform 1 -->
     <Platform PosX="40" PosY="6" Velocity="0 1 0" MovementRange="8" /> <!-- Platform 2 -->
+
+
 
 </Level>
