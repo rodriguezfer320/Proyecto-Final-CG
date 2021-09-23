@@ -25,6 +25,7 @@ function Game() {
         bottom_right_edge: "assets/walls/bottom_right_edge.png",
         bottom_tile: "assets/walls/bottom_tile.png",
         color: "assets/walls/color.png", 
+        color_medium: "assets/walls/color_medium.png", 
         inner_corner_bottom_left: "assets/walls/inner_corner_bottom_left.png",
         inner_corner_bottom_right: "assets/walls/inner_corner_bottom_right.png",
         inner_corner_top_left: "assets/walls/inner_corner_top_left.png",   
@@ -44,8 +45,15 @@ function Game() {
         //Platform
         platform: "assets/platform.png",
 
+        //Waves
+        wave_fire: "assets/wave_fire.png",
+        wave_water: "assets/wave_water.png",
+
         //Door
         door: "assets/door.png",
+
+        //PushButton
+        push_button: "assets/push_button.png",
 
         //Characters
         water_character: "assets/water_character.png"
@@ -60,7 +68,8 @@ function Game() {
         bottom_left_edge: "",
         bottom_right_edge: "",
         bottom_tile: "",
-        color: "", 
+        color: "",
+        color_medium: "",
         inner_corner_bottom_left: "",
         inner_corner_bottom_right: "",
         inner_corner_top_left: "",   
@@ -80,8 +89,15 @@ function Game() {
         //Platform
         platform: "assets/platform_normal.png",
 
+        //Waves
+        wave_fire: "",
+        wave_water: "",
+
         //Door
         door: "",
+
+        //PushButton
+        push_button: "",
 
         //Characters
         water_character: "assets/water_character_normal.png"
@@ -91,7 +107,9 @@ function Game() {
     this.mGlobalLightSet = null;
     this.mAllWalls = null;
     this.mAllPlatforms = null;
+    this.mAllWaves = null;
     this.mAllDoors = null;
+    this.mAllPushButtons = null;
     this.mAllCharacters = null;
 }
 gEngine.Core.inheritPrototype(Game, Scene);
@@ -156,8 +174,14 @@ Game.prototype.initialize = function () {
     //Platforms
     this.mAllPlatforms = parser.parsePlatforms(this.kTextures, this.kNormals, this.mGlobalLightSet);
 
-    //Doors
+    //Weves
+    this.mAllWaves = parser.parseWaves(this.kTextures, this.kNormals, this.mGlobalLightSet);
+
+    //Doors 
     this.mAllDoors = parser.parseDoors(this.kTextures, this.kNormals, this.mGlobalLightSet);
+
+    //Añadir push button y recuperar objeto
+    this.mAllPushButtons = parser.parsePushButton(this.kTextures, this.kNormals, this.mGlobalLightSet);
 
     //Characters
     this.mAllCharacters = parser.parseCharacters(this.kTextures, this.kNormals, this.mGlobalLightSet);
@@ -186,10 +210,10 @@ Game.prototype.update = function () {
 
     //Mover la luz del personaje
     let p = vec2.clone(mWaterCharacter.getPhysicsComponent().getXform().getPosition());
-    this.mGlobalLightSet.getLightAt(2).set2DPosition(p);
+    this.mGlobalLightSet.getLightAt(1).set2DPosition(p);
 
-    let collidedDoor = false;
-    collidedDoor = mWaterCharacter.getPhysicsComponent().collided(door.getPhysicsComponent(), new CollisionInfo());
+    //Colisión puerta con el personaje de agua 
+    let collidedDoor = mWaterCharacter.getPhysicsComponent().collided(door.getPhysicsComponent(), new CollisionInfo());
     
     if (collidedDoor && !(door.getStatus())) {
         door.activateAnimation();
@@ -205,7 +229,18 @@ Game.prototype.update = function () {
         mWaterCharacter.setVisibility(false);
     }
 
+    //Colisión personaje agua con push button
+    let colPushWater = mWaterCharacter.getPhysicsComponent().collided(this.mAllPushButtons.getPhysicsComponent(), new CollisionInfo());
+
+    if (colPushWater) {
+        this.mAllPushButtons.pushButtonPressed();
+    }else {
+        this.mAllPushButtons.pushButtonNotPressed();
+    }
+
     //physics simulation
     gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllWalls);
     gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllPlatforms);
+    gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllWaves);
+    gEngine.Physics.processObjSet(this.mAllPushButtons, this.mAllCharacters);
 };

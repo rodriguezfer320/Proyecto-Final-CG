@@ -2,7 +2,7 @@
  * File: SceneFile_Parse.js 
  */
 /*jslint node: true, vars: true, white: true*/
-/*global gEngine, Light, Camera, vec2, Platform, Wall,
+/*global gEngine, Light, Camera, vec2, Platform, wave,
  LightSet, IllumRenderable, ParallaxGameObject, ShadowReceiver */
 /* find out more about jslint: http://www.jslint.com/help.html */
 
@@ -155,7 +155,7 @@ SceneFileParser.prototype.parseWalls = function(textures, normals, lightSet){
     for (i = 0; i < elm.length; i++) {
         x = Number(elm[i].getAttribute("x"));
         y = Number(elm[i].getAttribute("y"));
-        w = Number(elm[i].getAttribute("width"));
+        w = Number(elm[i].getAttribute("weight"));
         h = Number(elm[i].getAttribute("height"));
         type = elm[i].getAttribute("type");
         elmPixelPos = elm[i].getAttribute("elementPixelPosition").split(" ");
@@ -198,6 +198,27 @@ SceneFileParser.prototype.parsePlatforms = function (textures, normals, lightSet
     return allPlatforms;
 };
 
+SceneFileParser.prototype.parseWaves = function (textures, normals, lightSet){
+    let elm = this._getElm("Wave");
+    let x, y, w, h, type, wave;
+    let mAllWaves = new GameObjectSet();
+
+    for (var index = 0; index < elm.length; index++) {
+        x = Number(elm[index].getAttribute("x"));
+        y = Number(elm[index].getAttribute("y"));
+        w = Number(elm[index].getAttribute("weight"));
+        h = Number(elm[index].getAttribute("height"));
+        type = elm[index].getAttribute("type");
+
+        wave = new Wave(x, y, w, h, textures[type], normals[type], lightSet);
+        gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wave);
+
+        mAllWaves.addToSet(wave);
+    }
+
+    return mAllWaves;
+};
+
 SceneFileParser.prototype.parseDoors = function(textures, normals, lightSet){    
     let elm = this._getElm("Door");
     let i, x, y, w, h, type, mDoor;
@@ -220,6 +241,20 @@ SceneFileParser.prototype.parseDoors = function(textures, normals, lightSet){
     return allDoors; 
 };
 
+SceneFileParser.prototype.parsePushButton = function(textures, normals, lightSet){    
+    let elm = this._getElm("PushButton");
+    let x = Number(elm[0].getAttribute("x"));
+    let y = Number(elm[0].getAttribute("y"));
+    let w = Number(elm[0].getAttribute("weight"));
+    let h = Number(elm[0].getAttribute("height"));
+    let type = elm[0].getAttribute("type");
+
+    let mPushButton = new PushButton(x, y, w, h, textures[type], normals[type], lightSet);
+    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mPushButton);
+
+    return mPushButton;
+};
+
 SceneFileParser.prototype.parseCharacters = function(textures, normals, lightSet){    
     let elm = this._getElm("Character");
     let i, x, y, type, mCharacter;
@@ -238,5 +273,5 @@ SceneFileParser.prototype.parseCharacters = function(textures, normals, lightSet
         allCharacters.addToSet(mCharacter);
     }
 
-    return allCharacters; 
+    return allCharacters;
 };

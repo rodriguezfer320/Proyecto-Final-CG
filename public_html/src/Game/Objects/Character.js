@@ -22,7 +22,7 @@ function Character(x, y, texture, normal, lgtSet) {
     this.mCharacter.getXform().setSize(7, 7);
     this.mCharacter.setSpriteSequence(2048, 0, 256, 256, 1, 0);
     this.mCharacter.setAnimationSpeed(0);
-    this.mCharacter.addLight(lgtSet.getLightAt(1));
+    this.mCharacter.addLight(lgtSet.getLightAt(0));
 
     GameObject.call(this, this.mCharacter);
 
