@@ -1,14 +1,23 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function Wall(cx, cy, w, h, texture) {
-    this.kWall = new TextureRenderable(texture);
-    this.kWall.getXform().setSize(w, h);
-    this.kWall.getXform().setPosition(cx, cy);
+function Wall(x, y, w, h, elmPixelPos, texture, normal, lgtSet) {
+    if(normal !== null){
+        this.mWall = new IllumRenderable(texture, normal);
+    }else{
+        this.mWall = new LightRenderable(texture);
+    }
 
-    GameObject.call(this, this.kWall);
+    this.mWall.getXform().setSize(w, h);
+    this.mWall.getXform().setPosition(x, y);
+    this.mWall.setElementPixelPositions(elmPixelPos[0], elmPixelPos[1], elmPixelPos[2], elmPixelPos[3]);
+    this.mWall.addLight(lgtSet.getLightAt(0));
 
-    var rigidShape = new RigidRectangle(this.getXform(), w, h);
+    GameObject.call(this, this.mWall);
+
+    let rigidShape = new RigidRectangle( this.getXform(), w, h);
     rigidShape.setMass(0);  // ensures no movements!
+    rigidShape.setRestitution(0);
+    rigidShape.setFriction(0);
     rigidShape.setDrawBounds(true);
     rigidShape.setColor([0, 0, 1, 1]);
     this.setPhysicsComponent(rigidShape);

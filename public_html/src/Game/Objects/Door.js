@@ -1,17 +1,24 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function Door(cx, cy, w, h, texture) {
+function Door(x, y, w, h, texture, normal, lgtSet) {
     this.cont = 0;
     this.status = false;
-    this.kDoor = new SpriteAnimateRenderable(texture);
-    this.kDoor.getXform().setPosition(cx, cy);
+
+    if(normal !== null){
+        this.kDoor = new IllumRenderable(texture, normal);
+    }else{
+        this.kDoor = new LightRenderable(texture);
+    }
+
+    this.kDoor.getXform().setPosition(x, y);
     this.kDoor.getXform().setSize(w, h);
     this.kDoor.setSpriteSequence(256, 0, 256, 256, 1, 0);
     this.kDoor.setAnimationSpeed(0);
+    this.kDoor.addLight(lgtSet.getLightAt(0));
 
     GameObject.call(this, this.kDoor);
 
-    var rigidShape = new RigidRectangle(this.getXform(), w, h);
+    let rigidShape = new RigidRectangle(this.getXform(), w, h);
     rigidShape.setMass(0);  // ensures no movements!
     rigidShape.setDrawBounds(true);
     rigidShape.setColor([0, 0, 1, 1]);

@@ -3,247 +3,236 @@
 
     <!--  *** be careful!! comma (,) is not a supported syntax!!  -->
     <!--  make sure there are no comma in between attributes -->
-    <!--  e.g., do NOT do:  posX="20", posY="30" -->
-    <!--  notice the "comma" between posX and posY: Syntax error! -->
+    <!--  e.g., do NOT do:  x="20", y="30" -->
+    <!--  notice the "comma" between x and y: Syntax error! -->
   
-    <!-- cameras -->
-    <!-- WC for level 1 is:  -->
-    <!-- Viewport: x, y, w, h -->
+    <!-- Camera -->
+    <Camera x="0" y="0" width="100" viewport="0 0 900 900" bound="0" color="0.9 0.9 0.9 1"/>
+
+    <!-- Lights -->
+    <Light type="1" color="0.6 0.6 0.6 1" position="0 0 0" direction="0 0 -1" near="0" 
+           far="0" inner="0" outer="0" intensity="1" dropOff="1" castShadow="true"/>
+
+    <Light type="1" color="0.6 0.6 0.6 1" position="0 0 0" direction="0 0 -1" near="0" 
+           far="0" inner="0" outer="0" intensity="1" dropOff="1" castShadow="true"/>
+
+    <Light type="2" color="0 0.5 0.8 1" position="-46 -44 2" direction="0 0 -1" near="2" 
+           far="3.6" inner="0.1" outer="2.6" intensity="2" dropOff="1.5" castShadow="true"/>
+
+    <!-- Backgrounds -->
+    <Background x="0" y="0" elementPixelPosition="0 900 124 1024" width="100" height="100"
+                parallaxScale="100" type="background" receiveShadow="false" lights="2"/>
+
+    <Background x="0" y="0" elementPixelPosition="0 900 124 1024" width="100" height="100"
+                parallaxScale="2" type="shadowBackground" receiveShadow="true" lights="2"/>
 
     <!-- Right wall -->
-    <Wall posX = "48" posY = "-48" type="color"/>
-    <Wall posX = "48" posY = "-44" type="color"/>
-    <Wall posX = "48" posY = "-40" type="color"/>
-    <Wall posX = "48" posY = "-36" type="color"/>
-    <Wall posX = "48" posY = "-32" type="color"/>
-    <Wall posX = "48" posY = "-28" type="color"/>
-    <Wall posX = "48" posY = "-24" type="color"/>
-    <Wall posX = "48" posY = "-20" type="color"/>
-    <Wall posX = "48" posY = "-16" type="color"/> 
-    <Wall posX = "48" posY = "-12" type="color"/>
-    <Wall posX = "48" posY = "-8" type="color"/>
-    <Wall posX = "48" posY = "-4" type="color"/>
-    <Wall posX = "48" posY = "0" type="color"/>
-    <Wall posX = "48" posY = "4" type="color"/>
-    <Wall posX = "48" posY = "8" type="color"/>
-    <Wall posX = "48" posY = "12" type="color"/>
-    <Wall posX = "48" posY = "16" type="color"/>
-    <Wall posX = "48" posY = "20" type="color"/>
-    <Wall posX = "48" posY = "24" type="color"/>
-    <Wall posX = "48" posY = "28" type="color"/>
-    <Wall posX = "48" posY = "32" type="color"/>
-    <Wall posX = "48" posY = "36" type="color"/>
-    <Wall posX = "48" posY = "40" type="color"/>
-    <Wall posX = "48" posY = "44" type="color"/>
-    <Wall posX = "48" posY = "48" type="color"/>
+    <Wall x="48" y="-48" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="48" y="-44" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="48" y="-40" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="48" y="-36" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="48" y="-32" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="48" y="-28" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="48" y="-24" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="48" y="-20" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="48" y="-16" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/> 
+    <Wall x="48" y="-12" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="48" y="-8" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="48" y="-4" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="48" y="0" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="48" y="4" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="48" y="8" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="48" y="12" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="48" y="16" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="48" y="20" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="48" y="24" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="48" y="28" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="48" y="32" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="48" y="36" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="48" y="40" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="48" y="44" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="48" y="48" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
 
-    <!-- Bottom wall -->
-    <Wall posX = "-48" posY = "48" type="color"/>
-    <Wall posX = "-44" posY = "48" type="bottom_tile"/>
-    <Wall posX = "-40" posY = "48" type="bottom_tile"/>
-    <Wall posX = "-36" posY = "48" type="bottom_tile"/>
-    <Wall posX = "-32" posY = "48" type="bottom_tile"/>
-    <Wall posX = "-28" posY = "48" type="bottom_tile"/>
-    <Wall posX = "-24" posY = "48" type="bottom_tile"/>
-    <Wall posX = "-20" posY = "48" type="bottom_tile"/>
-    <Wall posX = "-16" posY = "48" type="bottom_tile"/>
-    <Wall posX = "-12" posY = "48" type="bottom_tile"/>
-    <Wall posX = "-8" posY = "48" type="bottom_tile"/>
-    <Wall posX = "-4" posY = "48" type="bottom_tile"/>
-    <Wall posX = "0" posY = "48" type="bottom_tile"/>
-    <Wall posX = "4" posY = "48" type="bottom_tile"/>
-    <Wall posX = "8" posY = "48" type="bottom_tile"/>
-    <Wall posX = "12" posY = "48" type="bottom_tile"/>
-    <Wall posX = "16" posY = "48" type="bottom_tile"/>
-    <Wall posX = "20" posY = "48" type="bottom_tile"/>
-    <Wall posX = "24" posY = "48" type="bottom_tile"/>
-    <Wall posX = "28" posY = "48" type="bottom_tile"/>
-    <Wall posX = "32" posY = "48" type="bottom_tile"/>
-    <Wall posX = "36" posY = "48" type="bottom_tile"/>
-    <Wall posX = "40" posY = "48" type="bottom_tile"/>
-    <Wall posX = "44" posY = "48" type="bottom_tile"/>
+    <!-- Top wall -->
+    <Wall x="-44" y="48" type="bottom_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-40" y="48" type="bottom_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-36" y="48" type="bottom_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-32" y="48" type="bottom_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-28" y="48" type="bottom_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-24" y="48" type="bottom_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-20" y="48" type="bottom_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-16" y="48" type="bottom_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-12" y="48" type="bottom_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-8" y="48" type="bottom_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-4" y="48" type="bottom_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="0" y="48" type="bottom_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="4" y="48" type="bottom_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="8" y="48" type="bottom_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="12" y="48" type="bottom_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="16" y="48" type="bottom_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="20" y="48" type="bottom_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="24" y="48" type="bottom_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="28" y="48" type="bottom_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="32" y="48" type="bottom_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="36" y="48" type="bottom_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="40" y="48" type="bottom_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="44" y="48" type="bottom_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
     
     <!-- Left wall -->
-    <Wall posX = "-48" posY = "-48" type="color"/>
-    <Wall posX = "-48" posY = "-44" type="color"/>
-    <Wall posX = "-48" posY = "-40" type="color"/>
-    <Wall posX = "-48" posY = "-36" type="color"/>
-    <Wall posX = "-48" posY = "-32" type="color"/>
-    <Wall posX = "-48" posY = "-28" type="color"/>
-    <Wall posX = "-48" posY = "-24" type="color"/>
-    <Wall posX = "-48" posY = "-20" type="color"/>
-    <Wall posX = "-48" posY = "-16" type="color"/>
-    <Wall posX = "-48" posY = "-12" type="color"/>
-    <Wall posX = "-48" posY = "-8" type="color"/>
-    <Wall posX = "-48" posY = "-4" type="color"/>
-    <Wall posX = "-48" posY = "0" type="color"/>
-    <Wall posX = "-48" posY = "4" type="color"/>
-    <Wall posX = "-48" posY = "8" type="color"/>
-    <Wall posX = "-48" posY = "12" type="color"/>
-    <Wall posX = "-48" posY = "16" type="color"/>
-    <Wall posX = "-48" posY = "20" type="color"/>
-    <Wall posX = "-48" posY = "24" type="color"/>
-    <Wall posX = "-48" posY = "28" type="color"/>
-    <Wall posX = "-48" posY = "32" type="color"/>
-    <Wall posX = "-48" posY = "36" type="color"/>
-    <Wall posX = "-48" posY = "40" type="color"/>
-    <Wall posX = "-48" posY = "44" type="color"/>
-    <Wall posX = "-48" posY = "48" type="color"/>
+    <Wall x="-48" y="-48" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-48" y="-44" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-48" y="-40" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-48" y="-36" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-48" y="-32" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-48" y="-28" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-48" y="-24" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-48" y="-20" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-48" y="-16" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-48" y="-12" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-48" y="-8" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-48" y="-4" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-48" y="0" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-48" y="4" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-48" y="8" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-48" y="12" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-48" y="16" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-48" y="20" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-48" y="24" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-48" y="28" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-48" y="32" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-48" y="36" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-48" y="40" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-48" y="44" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-48" y="48" type="color" width="4" height="4" elementPixelPosition="0 256 0 256"/>
     
     <!-- World Level 1 -->
 
     <!-- Path 1 -->
-    <Wall posX = "-44" posY = "-48" type="top_tile"/>
-    <Wall posX = "-40" posY = "-48" type="top_tile"/>    
-    <Wall posX = "-36" posY = "-48" type="top_right_edge"/>
+    <Wall x="-44" y="-48" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-40" y="-48" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>    
+    <Wall x="-36" y="-48" type="top_right_edge" width="4" height="4" elementPixelPosition="0 242 0 256"/>
 
     <!-- Path 2 -->
-    <Wall posX = "-24" posY = "-48" type="top_left_edge"/>
-    <Wall posX = "-20" posY = "-48" type="top_tile"/>
-    <Wall posX = "-16" posY = "-48" type="top_tile"/>
-    <Wall posX = "-12" posY = "-48" type="top_tile"/>
-    <Wall posX = "-8" posY = "-48" type="top_tile"/>
+    <Wall x="-24" y="-48" type="top_left_edge" width="4" height="4" elementPixelPosition="13 256 0 256">
+    <Wall x="-20" y="-48" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-16" y="-48" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-12" y="-48" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-8" y="-48" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
 
     <!-- Path 3 block -->
-    <Wall posX = "-4" posY = "-44" type="inner_corner_top_left"/>
-    <Wall posX = "0" posY = "-44" type="inner_corner_top_right"/>
-    <Wall posX = "-4" posY = "-48" type="inner_corner_bottom_left"/>
-    <Wall posX = "0" posY = "-48" type="inner_corner_bottom_right"/>
+    <Wall x="-4" y="-44" type="inner_corner_top_left" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="0" y="-44" type="inner_corner_top_right" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-4" y="-48" type="inner_corner_bottom_left" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="0" y="-48" type="inner_corner_bottom_right" width="4" height="4" elementPixelPosition="0 256 0 256"/>
 
     <!-- Path 4 -->
-    <Wall posX = "12" posY = "-48" type="top_left_edge"/>
-    <Wall posX = "16" posY = "-48" type="top_tile"/>
-    <Wall posX = "20" posY = "-48" type="top_tile"/>
-    <Wall posX = "24" posY = "-48" type="top_tile"/>
-    <Wall posX = "28" posY = "-48" type="top_tile"/>
-    <Wall posX = "32" posY = "-48" type="top_tile"/>
-    <Wall posX = "36" posY = "-48" type="top_tile"/>
-    <Wall posX = "40" posY = "-48" type="top_tile"/>
-    <Wall posX = "44" posY = "-48" type="top_tile"/>
+    <Wall x="12" y="-48" type="top_left_edge" width="4" height="4" elementPixelPosition="13 256 0 256">
+    <Wall x="16" y="-48" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="20" y="-48" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="24" y="-48" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="28" y="-48" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="32" y="-48" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="36" y="-48" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="40" y="-48" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="44" y="-48" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
     
     <!-- Path 5 -->
-    <Wall posX = "36" posY = "-36" type="top_right_edge"/>
-    <Wall posX = "32" posY = "-36" type="top_left_edge"/>
+    <Wall x="36" y="-36" type="top_right_edge" width="4" height="4" elementPixelPosition="0 242 0 256"/>
+    <Wall x="32" y="-36" type="top_left_edge" width="4" height="4" elementPixelPosition="13 256 0 256"/>
 
     <!-- Path 6 -->
-    <Wall posX = "28" posY = "-24" type="top_right_edge"/>    
-    <Wall posX = "24" posY = "-24" type="top_tile"/>
-    <Wall posX = "20" posY = "-24" type="top_left_edge"/>
+    <Wall x="28" y="-24" type="top_right_edge" width="4" height="4" elementPixelPosition="0 242 0 256"/>    
+    <Wall x="24" y="-24" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="20" y="-24" type="top_left_edge" width="4" height="4" elementPixelPosition="13 256 0 256">
     
     <!-- Path 7 -->
-    <Wall posX = "8" posY = "-24" type="top_right_edge"/>
-    <Wall posX = "4" posY = "-24" type="top_tile"/>
-    <Wall posX = "0" posY = "-24" type="top_tile"/>
-    <Wall posX = "-4" posY = "-24" type="top_tile"/>
-    <Wall posX = "-8" posY = "-24" type="top_tile"/>
-    <Wall posX = "-12" posY = "-24" type="top_tile"/>
-    <Wall posX = "-16" posY = "-24" type="top_tile"/>
-    <Wall posX = "-20" posY = "-24" type="top_left_edge"/>
+    <Wall x="8" y="-24" type="top_right_edge" width="4" height="4" elementPixelPosition="0 242 0 256"/>
+    <Wall x="4" y="-24" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="0" y="-24" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-4" y="-24" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-8" y="-24" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-12" y="-24" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-16" y="-24" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-20" y="-24" type="top_left_edge" width="4" height="4" elementPixelPosition="13 256 0 256">
 
     <!-- Path 8 -->
-    <Wall posX = "-32" posY = "-24" type="platform_single"/>
+    <Wall x="-32" y="-24" type="platform_single" width="5" height="4" elementPixelPosition="0 256 64 256"/>
 
     <!-- Path 9 -->
-    <Wall posX = "-40" posY = "-12" type="top_right_edge"/>
-    <Wall posX = "-44" posY = "-12" type="top_tile"/>
+    <Wall x="-40" y="-12" type="top_right_edge" width="4" height="4" elementPixelPosition="0 242 0 256"/>
+    <Wall x="-44" y="-12" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
 
     <!-- Path 10 -->
-    <Wall posX = "-32" posY = "0" type="top_left_edge"/>
-    <Wall posX = "-28" posY = "0" type="top_tile"/>
-    <Wall posX = "-24" posY = "0" type="top_tile"/>
-    <Wall posX = "-20" posY = "0" type="top_tile"/>
-    <Wall posX = "-16" posY = "0" type="top_right_edge"/>
+    <Wall x="-32" y="0" type="top_left_edge" width="4" height="4" elementPixelPosition="13 256 0 256">
+    <Wall x="-28" y="0" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-24" y="0" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-20" y="0" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-16" y="0" type="top_right_edge" width="4" height="4" elementPixelPosition="0 242 0 256"/>
 
     <!-- Path 11 -->
-    <Wall posX = "-4" posY = "-8" type="platform_single"/>
+    <Wall x="-4" y="-8" type="platform_single" width="5" height="4" elementPixelPosition="0 256 64 256"/>
 
     <!-- Path 12 -->
-    <Wall posX = "8" posY = "0" type="top_left_edge"/>
-    <Wall posX = "12" posY = "0" type="top_tile"/>
-    <Wall posX = "16" posY = "0" type="top_tile"/>
-    <Wall posX = "20" posY = "0" type="top_tile"/>
-    <Wall posX = "24" posY = "0" type="top_tile"/>
-    <Wall posX = "28" posY = "0" type="top_tile"/>
-    <Wall posX = "32" posY = "0" type="top_right_edge"/>
+    <Wall x="8" y="0" type="top_left_edge" width="4" height="4" elementPixelPosition="13 256 0 256">
+    <Wall x="12" y="0" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="16" y="0" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="20" y="0" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="24" y="0" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="28" y="0" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="32" y="0" type="top_right_edge" width="4" height="4" elementPixelPosition="0 242 0 256"/>
 
     <!-- Path 13 -->
-    <Wall posX = "32" posY = "16" type="top_right_edge"/>
-    <Wall posX = "28" posY = "16" type="top_tile"/>
-    <Wall posX = "24" posY = "16" type="top_tile"/>
-    <Wall posX = "20" posY = "16" type="top_left_edge"/>
+    <Wall x="32" y="16" type="top_right_edge" width="4" height="4" elementPixelPosition="0 242 0 256"/>
+    <Wall x="28" y="16" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="24" y="16" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="20" y="16" type="top_left_edge" width="4" height="4" elementPixelPosition="13 256 0 256">
      
     <!-- Path 14 -->
-    <Wall posX = "8" posY = "16" type="top_right_edge"/>
-    <Wall posX = "4" posY = "16" type="top_tile"/>
-    <Wall posX = "0" posY = "16" type="top_tile"/>
-    <Wall posX = "-4" posY = "16" type="top_left_edge"/>
+    <Wall x="8" y="16" type="top_right_edge" width="4" height="4" elementPixelPosition="0 242 0 256"/>
+    <Wall x="4" y="16" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="0" y="16" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-4" y="16" type="top_left_edge" width="4" height="4" elementPixelPosition="13 256 0 256">
 
     <!-- Path 15 -->
-    <Wall posX = "-40" posY = "20" type="platform_single"/>
+    <Wall x="-40" y="20" type="platform_single" width="5" height="4" elementPixelPosition="0 256 64 256"/>
 
     <!-- Path 16 -->
-    <Wall posX = "-32" posY = "32" type="top_left_edge"/>
-    <Wall posX = "-28" posY = "32" type="top_right_edge"/>
+    <Wall x="-32" y="32" type="top_left_edge" width="4" height="4" elementPixelPosition="13 256 0 256">
+    <Wall x="-28" y="32" type="top_right_edge" width="4" height="4" elementPixelPosition="0 242 0 256"/>
 
     <!-- Path 17 -->
-    <Wall posX = "-20" posY = "40" type="platform_single"/>
+    <Wall x="-20" y="40" type="platform_single" width="5" height="4" elementPixelPosition="0 256 64 256"/>
 
     <!-- Path 18 -->
-    <Wall posX = "-12" posY = "32" type="top_left_edge"/>
-    <Wall posX = "-8" posY = "32" type="top_tile"/>
-    <Wall posX = "-4" posY = "32" type="top_right_edge"/>
+    <Wall x="-12" y="32" type="top_left_edge" width="4" height="4" elementPixelPosition="13 256 0 256">
+    <Wall x="-8" y="32" type="top_tile" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="-4" y="32" type="top_right_edge" width="4" height="4" elementPixelPosition="0 242 0 256"/>
 
     <!-- Path 19 -->
-    <Wall posX = "4" posY = "32" type="platform_single"/>
+    <Wall x="4" y="32" type="platform_single" width="5" height="4" elementPixelPosition="0 256 64 256"/>
 
     <!-- Path 20 -->
-    <Wall posX = "12" posY = "40" type="platform_single"/>
+    <Wall x="12" y="40" type="platform_single" width="5" height="4" elementPixelPosition="0 256 64 256"/>
 
     <!-- Path 21 -->
-    <Wall posX = "20" posY = "32" type="platform_single"/>
+    <Wall x="20" y="32" type="platform_single" width="5" height="4" elementPixelPosition="0 256 64 256"/>
 
     <!-- Path 22 -->
-    <Wall posX = "28" posY = "36" type="platform_single"/>
+    <Wall x="28" y="36" type="platform_single" width="5" height="4" elementPixelPosition="0 256 64 256"/>
 
     <!-- Path 23 -->
-    <Wall posX = "40" posY = "32" type="inner_corner_bottom_left"/>
-    <Wall posX = "44" posY = "32" type="inner_corner_bottom_right"/>
-    <Wall posX = "40" posY = "36" type="inner_corner_top_left"/>
-    <Wall posX = "44" posY = "36" type="inner_corner_top_right"/>   
-    
-    <!-- Flames -->
-    <Flame posX = "-30" posY = "-32"/> <!-- Flame 1 -->
-    <Flame posX = "-2" posY = "-32"/> <!-- Flame 2 -->
-    <Flame posX = "14" posY = "-10"/> <!-- Flame 3 -->
-    <Flame posX = "34" posY = "-10"/> <!-- Flame 4 -->
-    <Flame posX = "-42" posY = "2"/> <!-- Flame 5 -->
-    <Flame posX = "-4" posY = "8"/> <!-- Flame 6 -->
-    <Flame posX = "40" posY = "22"/> <!-- Flame 7 -->
-    <Flame posX = "-20" posY = "26"/> <!-- Flame 8 -->
+    <Wall x="40" y="32" type="inner_corner_bottom_left" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="44" y="32" type="inner_corner_bottom_right" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="40" y="36" type="inner_corner_top_left" width="4" height="4" elementPixelPosition="0 256 0 256"/>
+    <Wall x="44" y="36" type="inner_corner_top_right" width="4" height="4" elementPixelPosition="0 256 0 256"/>   
 
-    <!-- Door -->
-    <Door posX = "42" posY="42" weight = "8" height = "8"/>
-
-    <!-- Lever -->
-    <Lever posX = "28" posY = "7" weight = "10" height = "10"/>
-
-    <!-- Light -->
-    <Light 
-            Type="1" 
-            Color="0.3 0.3 1 1" 
-            Pos="0 0 0"
-            Dir="-1 -1 -2" 
-            Near="1"
-            Far="1"
-            Inner="0"
-            Outter="0"
-            DropOff="1"
-            Intensity="1" 
-            CastShadow="false"
-        />
-    
     <!-- Platforms -->
-    <Platform PosX="-22" PosY="16" Velocity="1 0 0" MovementRange="8" /> <!-- Platform 1 -->
-    <Platform PosX="40" PosY="6" Velocity="0 1 0" MovementRange="8" /> <!-- Platform 2 -->
+    <Platform x="-22" y="16" type="platform" velocity="1 0 0" movementRange="8"/> <!-- Platform 1 -->
+    <Platform x="40" y="6" type="platform" velocity="0 1 0" movementRange="8"/> <!-- Platform 2 -->
+    
+    <!-- Door -->
+    <Door x="42" y="42" type="door" weight="8" height="8"/>
 
+    <!-- Character -->
+    <Character x="-46" y="-44" type="water_character" weight="8" height="8"/>
 </Level>

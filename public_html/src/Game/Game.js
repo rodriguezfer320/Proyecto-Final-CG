@@ -12,9 +12,15 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 function Game() {
+    //File
+    this.kFileLevel = "assets/Level1.xml";
 
-    //Tileset
-    this.kWalls = {
+    this.kTextures = {
+        //background and shadowBackground
+        background: "assets/background.png",
+        shadowBackground: "assets/shadow_background.png",
+
+        //Tileset
         bottom_left_edge: "assets/walls/bottom_left_edge.png",
         bottom_right_edge: "assets/walls/bottom_right_edge.png",
         bottom_tile: "assets/walls/bottom_tile.png",
@@ -27,185 +33,140 @@ function Game() {
         platform_inner_repeating: "assets/walls/platform_inner_repeating.png",  
         platform_left_edge: "assets/walls/platform_left_edge.png",
         platform_right_edge: "assets/walls/platform_right_edge.png",
-        platform_single:"assets/walls/platform_single.png",
+        platform_single: "assets/walls/platform_single.png",
         left_tile: "assets/walls/left_tile.png",        
         right_edge_repeating: "assets/walls/right_edge_repeating.png",
         right_tile: "assets/walls/right_tile.png",
         top_left_edge: "assets/walls/top_left_edge.png",
         top_right_edge: "assets/walls/top_right_edge.png",
-        top_tile: "assets/walls/top_tile.png"
+        top_tile: "assets/walls/top_tile.png",
+
+        //Platform
+        platform: "assets/platform.png",
+
+        //Door
+        door: "assets/door.png",
+
+        //Characters
+        water_character: "assets/water_character.png"
     };
 
-    //Objects
-    this.kFlame = "assets/flame.png";
-    this.kDoor = "assets/door.png";
-    this.kLever = "assets/lever.png";
+    this.kNormals = {
+        //background and shadowBackground
+        background: "",
+        shadowBackground: "",
 
-    this.kPlatform = "assets/platform.png";
-    this.kPlatformNormal = "assets/platform_normal.png";
+        //Tileset
+        bottom_left_edge: "",
+        bottom_right_edge: "",
+        bottom_tile: "",
+        color: "", 
+        inner_corner_bottom_left: "",
+        inner_corner_bottom_right: "",
+        inner_corner_top_left: "",   
+        inner_corner_top_right: "",     
+        left_edge_repeating: "",
+        platform_inner_repeating: "",  
+        platform_left_edge: "",
+        platform_right_edge: "",
+        platform_single: "",
+        left_tile: "",        
+        right_edge_repeating: "",
+        right_tile: "",
+        top_left_edge: "",
+        top_right_edge: "",
+        top_tile: "",
 
-    //Characters
-    this.kWaterCharacter = "assets/water_character.png";
-    //this.kFireCharacter = "assets/fire_character.png";
+        //Platform
+        platform: "assets/platform_normal.png",
 
-    //background
-    this.kBackground = "assets/background.png";
-    this.kShadowBackground = "assets/shadow_background.png";
-    
-    //Variable multiples muros 
-    this.mAllWalls = new GameObjectSet();
-    
-    //Variable objetos personajes
-    this.mWaterCharacter = null;
-    //this.mFireCharacter = null;
-    
-    //The camera to view the scene
+        //Door
+        door: "",
+
+        //Characters
+        water_character: "assets/water_character_normal.png"
+    };
+
     this.mCamera = null;
-
-    //Object Door
-    this.objectDoor = null;
-    this.objectLever = null;
-
     this.mGlobalLightSet = null;
-
-    this.fileLevel = "assets/Level1.xml";
-
-    this.mAllPlatforms = new GameObjectSet();
+    this.mAllWalls = null;
+    this.mAllPlatforms = null;
+    this.mAllDoors = null;
+    this.mAllCharacters = null;
 }
 gEngine.Core.inheritPrototype(Game, Scene);
 
 Game.prototype.loadScene = function () {
-    gEngine.TextFileLoader.loadTextFile(this.fileLevel, gEngine.TextFileLoader.eTextFileType.eXMLFile);
+    gEngine.TextFileLoader.loadTextFile(this.kFileLevel, gEngine.TextFileLoader.eTextFileType.eXMLFile);
 
-    gEngine.Textures.loadTexture(this.kBackground);
-    gEngine.Textures.loadTexture(this.kShadowBackground);
-    
-    for (const key in this.kWalls) {
-        gEngine.Textures.loadTexture(this.kWalls[key]);
+    for (const key in this.kTextures) {
+        if(this.kTextures[key] !== ""){
+            gEngine.Textures.loadTexture(this.kTextures[key]);
+        }else{
+            this.kTextures[key] = null;
+        }
     }
     
-    gEngine.Textures.loadTexture(this.kWaterCharacter);
-    //gEngine.Textures.loadTexture(this.kFireCharacter);
-
-    gEngine.Textures.loadTexture(this.kFlame);
-
-    gEngine.Textures.loadTexture(this.kDoor);
-
-    gEngine.Textures.loadTexture(this.kLever);
-
-    gEngine.Textures.loadTexture(this.kPlatform);
-    gEngine.Textures.loadTexture(this.kPlatformNormal);
+    for (const key in this.kNormals) {
+        if(this.kNormals[key] !== ""){
+            gEngine.Textures.loadTexture(this.kNormals[key]);
+        }else{
+            this.kNormals[key] = null;
+        }
+    }
 };
 
 Game.prototype.unloadScene = function () {
     gEngine.LayerManager.cleanUp();
+    gEngine.TextFileLoader.unloadTextFile(this.kFileLevel);
 
-    gEngine.TextFileLoader.unloadTextFile(this.fileLevel);
-
-    gEngine.Textures.unloadTexture(this.kBackground);
-    gEngine.Textures.unloadTexture(this.kShadowBackground);
-
-    for (const key in this.kWalls) {
-        gEngine.Textures.unloadTexture(this.kWalls[key]);
+    for (const key in this.kTextures) {
+        if(this.kTextures[key] !== null){
+            gEngine.Textures.unloadTextFile(this.kTextures[key]);
+        }
     }
-
-    gEngine.Textures.unloadTexture(this.kWaterCharacter);
-    //gEngine.Textures.unloadTexture(this.kFireCharacter);
-
-    gEngine.Textures.unloadTexture(this.kFlame);
-
-    gEngine.Textures.unloadTexture(this.kDoor);
-
-    gEngine.Textures.unloadTexture(this.kLever);
-
-    gEngine.Textures.unloadTexture(this.kPlatform);
-    gEngine.Textures.unloadTexture(this.kPlatformNormal);
+    
+    for (const key in this.kNormals) {
+        if(this.kNormals[key] !== null){
+            gEngine.Textures.unloadTextFile(this.kNormals[key]);
+        }
+    }
 };
 
 Game.prototype.initialize = function () {
-
-    //initialize parser
-    let parser = new SceneFileParser(this.fileLevel);
-   
-
-    this.mGlobalLightSet = parser.parseLights();
-    // set ambient lighting
-    gEngine.DefaultResources.setGlobalAmbientColor([1, 1, 1, 1]);
+    //set ambient lighting
+    gEngine.DefaultResources.setGlobalAmbientColor([0.5, 0.5, 0.5, 1]);
     gEngine.DefaultResources.setGlobalAmbientIntensity(1);
 
-    // Step A: set up the cameras
-    this.mCamera = new Camera(
-        vec2.fromValues(0, 0), // position of the camera
-        100,                  // width of camera
-        [0, 0, 900, 900],     // viewport (orgX, orgY, width, height)
-        0
-    );
-    this.mCamera.setBackgroundColor([0.9, 0.9, 0.9, 1]);
+    //initialize parser
+    let parser = new SceneFileParser(this.kFileLevel);
 
-    let light = new Light();
-    light.setLightType(Light.eLightType.ePointLight);
-    light.setColor([0/255, 153/255, 255/255, 1]);
-    light.setXPos(-42);
-    light.setYPos(-43);
-    light.setZPos(2);
-    light.setDirection([0.02, -0.02, -1]);
-    light.setNear(2);
-    light.setFar(3);
-    light.setInner(1.2);
-    light.setOuter(1.3);
-    light.setIntensity(1.5);
-    light.setDropOff(1.5);
-    light.setLightCastShadowTo(true);
+    //Camera
+    this.mCamera = parser.parseCamera();
 
-    let background = new LightRenderable(this.kBackground);
-    background.setElementPixelPositions(0, 900, 124, 1024);
-    background.getXform().setSize(100, 100);
-    background.getXform().setPosition(0,0);
-    background.addLight(light);
-    background = new ParallaxGameObject(background, 100, this.mCamera);
+    //Lights
+    this.mGlobalLightSet = parser.parseLights();
 
-    let shadowBackground = new LightRenderable(this.kShadowBackground);
-    shadowBackground.setElementPixelPositions(0, 900, 124, 1024);
-    shadowBackground.getXform().setSize(100, 100);
-    shadowBackground.getXform().setPosition(0,0);
-    shadowBackground.addLight(light);
-    shadowBackground = new ParallaxGameObject(shadowBackground, 2, this.mCamera);
-    shadowBackground = new ShadowReceiver(shadowBackground);
+    //Background and shadowBackground
+    parser.parseBackgrounds(this.kTextures, this.kNormals, this.mGlobalLightSet, this.mCamera);
 
-    //Añadir walls
-    let walls = parser.parseWall(this.kWalls);
-    for (let index = 0; index < walls.length; index++) {
-        this.mAllWalls.addToSet(walls[index]);
-    }
-    
-    //Añadir flames
-    parser.parseFlame(this.kFlame);
+    //Walls
+    this.mAllWalls = parser.parseWalls(this.kTextures, this.kNormals, this.mGlobalLightSet);
 
-    //Añadir door y recuperar instancia
-    this.objectDoor = parser.parseDoor(this.kDoor);
+    //Platforms
+    this.mAllPlatforms = parser.parsePlatforms(this.kTextures, this.kNormals, this.mGlobalLightSet);
 
-    //Añadir lever y recuperar instancia
-    this.objectLever = parser.parseLever(this.kLever);
+    //Doors
+    this.mAllDoors = parser.parseDoors(this.kTextures, this.kNormals, this.mGlobalLightSet);
 
-    let p = parser.parsePlatform(this.kPlatform, this.kPlatformNormal, this.mGlobalLightSet);
-    for (let index = 0; index < p.length; index++) {
-        this.mAllPlatforms.addToSet(p[index]);
-    }
-
-    //Añadir personaje water
-    this.mWaterCharacter = new Character(-46, -43, this.kWaterCharacter, light);
-
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eBackground, background);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eShadowReceiver, shadowBackground);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, this.mWaterCharacter);
-    gEngine.LayerManager.addAsShadowCaster(this.mWaterCharacter);
+    //Characters
+    this.mAllCharacters = parser.parseCharacters(this.kTextures, this.kNormals, this.mGlobalLightSet);
 };
 
 // This is the draw function, make sure to setup proper drawing environment, and more
 // importantly, make sure to _NOT_ change any state.
 Game.prototype.draw = function () {
-    gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); 
-    
+    gEngine.Core.clearCanvas([1, 1, 1, 1]); 
     this.mCamera.setupViewProjection();
     gEngine.LayerManager.drawAllLayers(this.mCamera);
 };
@@ -216,44 +177,35 @@ Game.prototype.update = function () {
     this.mCamera.update();
     gEngine.LayerManager.updateAllLayers();
 
-    //Mover la camara
-    let p = this.mWaterCharacter.getXform();
-    this.mCamera.setWCCenter(p.getXPos(), p.getYPos());
+    let mWaterCharacter = this.mAllCharacters.getObjectAt(0);
+    let door = this.mAllDoors.getObjectAt(0);
 
-    // physics simulation
-    gEngine.Physics.processObjSet(this.mWaterCharacter, this.mAllWalls);
-    gEngine.Physics.processObjSet(this.mWaterCharacter, this.mAllPlatforms);
+    //Mover la camara
+    let xf = mWaterCharacter.getXform();
+    this.mCamera.setWCCenter(xf.getXPos(), xf.getYPos());
+
+    //Mover la luz del personaje
+    let p = vec2.clone(mWaterCharacter.getPhysicsComponent().getXform().getPosition());
+    this.mGlobalLightSet.getLightAt(2).set2DPosition(p);
 
     let collidedDoor = false;
-    collidedDoor = this.mWaterCharacter.getPhysicsComponent().collided(this.objectDoor.getPhysicsComponent(), new CollisionInfo());
+    collidedDoor = mWaterCharacter.getPhysicsComponent().collided(door.getPhysicsComponent(), new CollisionInfo());
     
-    if (collidedDoor && !(this.objectDoor.getStatus())) {
-        this.objectDoor.activateAnimation();
-        this.objectDoor.setStatus(true);
+    if (collidedDoor && !(door.getStatus())) {
+        door.activateAnimation();
+        door.setStatus(true);
     }
 
-    if (this.objectDoor.getStatus() && (this.objectDoor.getCont() < 50)) {
-        this.objectDoor.increment();
+    if (door.getStatus() && (door.getCont() < 50)) {
+        door.increment();
     }
 
-    if(this.objectDoor.getCont() == 50){
-        this.objectDoor.desactivateAnimation();
-        this.mWaterCharacter.setVisibility(false);
+    if(door.getCont() == 50){
+        door.desactivateAnimation();
+        mWaterCharacter.setVisibility(false);
     }
 
-    let collidedLever = false;
-    collidedLever = this.mWaterCharacter.getPhysicsComponent().collided(this.objectLever.getPhysicsComponent(), new CollisionInfo());
-    
-    if (collidedLever && !(this.objectLever.getStatus())) {
-        this.objectLever.activateAnimation();
-        this.objectLever.setStatus(true);
-    }
-
-    if (this.objectLever.getStatus() && (this.objectLever.getCont() < 100)) {
-        this.objectLever.increment();
-    }
-
-    if(this.objectLever.getCont() == 100){
-        this.objectLever.desactivateAnimation();
-    }
+    //physics simulation
+    gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllWalls);
+    gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllPlatforms);
 };

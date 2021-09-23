@@ -1,6 +1,6 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function Character(cx, cy, texture, lgtSet) {
+function Character(x, y, texture, normal, lgtSet) {
     this.mCharacterState = Character.eCharacterState.eFace;
     this.mPreviousCharacterState = Character.eCharacterState.eFace;
     this.mIsMoving = false;
@@ -11,24 +11,30 @@ function Character(cx, cy, texture, lgtSet) {
     this.mXAxisCorrection = -0.7;
     this.mYAxisCorrection = 1.5;
 
-    this.mCharacter = new LightRenderable(texture);
-    this.mCharacter.getXform().setPosition(cx, cy);
+    if(normal !== null){
+        this.mCharacter = new IllumRenderable(texture, normal);
+    }else{
+        this.mCharacter = new LightRenderable(texture);
+    }
+    
+    this.mCharacter.getXform().setPosition(x, y);
+    this.mCharacter.getXform().setZPos(2);
     this.mCharacter.getXform().setSize(7, 7);
     this.mCharacter.setSpriteSequence(2048, 0, 256, 256, 1, 0);
     this.mCharacter.setAnimationSpeed(0);
-    this.mCharacter.addLight(lgtSet);
+    this.mCharacter.addLight(lgtSet.getLightAt(1));
 
     GameObject.call(this, this.mCharacter);
 
     let transform = new Transform();
-    transform.setPosition(cx, cy);
+    transform.setPosition(x, y);
 
-    let rigidShape = new RigidRectangle(transform, 1.5, 4);
+    let rigidShape = new RigidRectangle(transform, 1, 4);
     rigidShape.setMass(2.5);
     rigidShape.setRestitution(0);
     rigidShape.setFriction(0);
     rigidShape.setColor([0, 1, 0, 1]);
-    rigidShape.setDrawBounds(true);
+    rigidShape.setDrawBounds(false);
     this.setPhysicsComponent(rigidShape);
 }
 gEngine.Core.inheritPrototype(Character, GameObject);
@@ -47,10 +53,10 @@ Character.prototype.update = function () {
     GameObject.prototype.update.call(this);
 
     if(this.isVisible()){
-        var xform = this.getPhysicsComponent().getXform();
-        var velocity = this.getPhysicsComponent().getVelocity();
+        let xform = this.getPhysicsComponent().getXform();
+        let velocity = this.getPhysicsComponent().getVelocity();
 
-        this.mCharacter.getXform().setPosition(xform.getXPos() + this.mXAxisCorrection, xform.getYPos() + this.mYAxisCorrection);
+        this.mCharacter.getXform().setPosition(xform.getXPos() + this.mXAxisCorrection, xform.getYPos() + this.mYAxisCorrection);            
         this.mIsMoving = false;
 
         if(velocity[1] < -0.3333333432674408){
@@ -60,7 +66,6 @@ Character.prototype.update = function () {
                     this.mCharacterState = Character.eCharacterState.eFallDown;
                     this.mIsJumping = true;
                     this.mCanMove = false;
-                    velocity[1] = -15;
             }
         }else if(velocity[1] === -0.3333333432674408){
             this.mIsJumping = false;
@@ -141,6 +146,8 @@ Character.prototype.update = function () {
         
         this.changeAnimation();
         this.mCharacter.updateAnimation();
+    }else{
+        this.mCharacter.getLightAt(0).isLightOn(false);
     }
 };
 
