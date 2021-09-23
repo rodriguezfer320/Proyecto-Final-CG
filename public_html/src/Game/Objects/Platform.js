@@ -12,7 +12,7 @@
 function Platform(x, y, velocity, movementRange, texture, normal, lightSet) {
     this.kPlatformWidth = 10;
     this.kPlatformHeight = this.kPlatformWidth / 12;
-    this.kSpeed = 0.05;
+    this.kSpeed = 0;
     
     // control of movement
     this.mInitialPosition = vec2.fromValues(x, y);

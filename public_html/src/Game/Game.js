@@ -234,8 +234,10 @@ Game.prototype.update = function () {
 
     if (colPushWater) {
         this.mAllPushButtons.pushButtonPressed();
+        this.mAllPlatforms.getObjectAt(1).setSpeed(0.05);
     }else {
         this.mAllPushButtons.pushButtonNotPressed();
+        this.mAllPlatforms.getObjectAt(1).setSpeed(0);
     }
 
     //physics simulation

@@ -10,6 +10,7 @@
 
 function SceneFileParser(sceneFilePath) {
     this.mSceneXml = gEngine.ResourceMap.retrieveAsset(sceneFilePath);
+    
 }
 
 SceneFileParser.prototype._getElm = function (tagElm) {
