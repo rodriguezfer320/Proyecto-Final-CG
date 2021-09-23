@@ -10,7 +10,7 @@
 
 function SceneFileParser(sceneFilePath) {
     this.mSceneXml = gEngine.ResourceMap.retrieveAsset(sceneFilePath);
-    
+
 }
 
 SceneFileParser.prototype._getElm = function (tagElm) {
@@ -57,8 +57,8 @@ SceneFileParser.prototype.parseLights = function () {
     let i, type, color, pos, dir, near, far, inner, outer, intensity, dropOff, shadow, lgt;
     let lightSet = new LightSet();
     let typesLight = [
-        Light.eLightType.ePointLight, 
-        Light.eLightType.eDirectionalLight, 
+        Light.eLightType.ePointLight,
+        Light.eLightType.eDirectionalLight,
         Light.eLightType.eSpotLight
     ];
 
@@ -70,11 +70,11 @@ SceneFileParser.prototype.parseLights = function () {
         near = Number(elm[i].getAttribute("near"));
         far = Number(elm[i].getAttribute("far"));
         inner = Number(elm[i].getAttribute("inner"));
-        outer =Number(elm[i].getAttribute("outer"));
+        outer = Number(elm[i].getAttribute("outer"));
         intensity = Number(elm[i].getAttribute("intensity"));
         dropOff = Number(elm[i].getAttribute("dropOff"));
         shadow = elm[i].getAttribute("castShadow");
-        
+
         // make sure array contains numbers
         this._convertToNum(color);
         this._convertToNum(pos);
@@ -121,9 +121,9 @@ SceneFileParser.prototype.parseBackgrounds = function (textures, normals, lightS
         this._convertToNum(elmPixelPos);
         this._convertToNum(lights);
 
-        if(normals[type] !== null){
+        if (normals[type] !== null) {
             background = new IllumRenderable(textures[type], normals[type]);
-        }else{
+        } else {
             background = new LightRenderable(textures[type]);
         }
 
@@ -131,15 +131,15 @@ SceneFileParser.prototype.parseBackgrounds = function (textures, normals, lightS
         background.getXform().setSize(width, height);
         background.getXform().setPosition(x, y);
 
-        if(lights[0] > -1){
-            for(j = 0; j < lights.length; j++){
+        if (lights[0] > -1) {
+            for (j = 0; j < lights.length; j++) {
                 background.addLight(lightSet.getLightAt(lights[j]));
             }
         }
 
         background = new ParallaxGameObject(background, parallaxScale, camera);
 
-        if(receiveShadow === "true") {
+        if (receiveShadow === "true") {
             background = new ShadowReceiver(background);
             gEngine.LayerManager.addToLayer(gEngine.eLayer.eShadowReceiver, background);
         } else {
@@ -148,7 +148,7 @@ SceneFileParser.prototype.parseBackgrounds = function (textures, normals, lightS
     }
 };
 
-SceneFileParser.prototype.parseWalls = function(textures, normals, lightSet){
+SceneFileParser.prototype.parseWalls = function (textures, normals, lightSet) {
     let elm = this._getElm("Wall");
     let i, x, y, w, h, type, elmPixelPos, wall;
     let allWalls = new GameObjectSet();
@@ -167,10 +167,10 @@ SceneFileParser.prototype.parseWalls = function(textures, normals, lightSet){
         wall = new Wall(x, y, w, h, elmPixelPos, textures[type], normals[type], lightSet);
         gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wall);
 
-       allWalls.addToSet(wall);
+        allWalls.addToSet(wall);
     }
 
-    return allWalls; 
+    return allWalls;
 };
 
 SceneFileParser.prototype.parsePlatforms = function (textures, normals, lightSet) {
@@ -184,7 +184,7 @@ SceneFileParser.prototype.parsePlatforms = function (textures, normals, lightSet
         v = elm[i].getAttribute("velocity").split(" ");
         r = Number(elm[i].getAttribute("movementRange"));
         type = elm[i].getAttribute("type");
-        
+
         // make sure color array contains numbers
         this._convertToNum(v);
 
@@ -199,7 +199,7 @@ SceneFileParser.prototype.parsePlatforms = function (textures, normals, lightSet
     return allPlatforms;
 };
 
-SceneFileParser.prototype.parseWaves = function (textures, normals, lightSet){
+SceneFileParser.prototype.parseWaves = function (textures, normals, lightSet) {
     let elm = this._getElm("Wave");
     let x, y, w, h, type, wave;
     let mAllWaves = new GameObjectSet();
@@ -220,12 +220,12 @@ SceneFileParser.prototype.parseWaves = function (textures, normals, lightSet){
     return mAllWaves;
 };
 
-SceneFileParser.prototype.parseDoors = function(textures, normals, lightSet){    
+SceneFileParser.prototype.parseDoors = function (textures, normals, lightSet) {
     let elm = this._getElm("Door");
     let i, x, y, w, h, type, mDoor;
     let allDoors = new GameObjectSet();
 
-    for(i = 0; i < elm.length; i++){
+    for (i = 0; i < elm.length; i++) {
         x = Number(elm[i].getAttribute("x"));
         y = Number(elm[i].getAttribute("y"));
         w = Number(elm[i].getAttribute("weight"));
@@ -239,29 +239,35 @@ SceneFileParser.prototype.parseDoors = function(textures, normals, lightSet){
         allDoors.addToSet(mDoor);
     }
 
-    return allDoors; 
+    return allDoors;
 };
 
-SceneFileParser.prototype.parsePushButton = function(textures, normals, lightSet){    
+SceneFileParser.prototype.parsePushButton = function (textures, normals, lightSet) {
     let elm = this._getElm("PushButton");
-    let x = Number(elm[0].getAttribute("x"));
-    let y = Number(elm[0].getAttribute("y"));
-    let w = Number(elm[0].getAttribute("weight"));
-    let h = Number(elm[0].getAttribute("height"));
-    let type = elm[0].getAttribute("type");
+    let i, x, y, w, h, type, mPushButton;
+    let allPushButtons = new GameObjectSet();
 
-    let mPushButton = new PushButton(x, y, w, h, textures[type], normals[type], lightSet);
-    gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mPushButton);
+    for (i = 0; i < elm.length; i++) {
+        x = Number(elm[i].getAttribute("x"));
+        y = Number(elm[i].getAttribute("y"));
+        w = Number(elm[i].getAttribute("weight"));
+        h = Number(elm[i].getAttribute("height"));
+        type = elm[i].getAttribute("type");
 
-    return mPushButton;
+        mPushButton = new PushButton(x, y, w, h, textures[type], normals[type], lightSet);
+        gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mPushButton);
+
+        allPushButtons.addToSet(mPushButton);
+    }
+    return allPushButtons;
 };
 
-SceneFileParser.prototype.parseCharacters = function(textures, normals, lightSet){    
+SceneFileParser.prototype.parseCharacters = function (textures, normals, lightSet) {
     let elm = this._getElm("Character");
     let i, x, y, type, mCharacter;
     let allCharacters = new GameObjectSet();
 
-    for(i = 0; i < elm.length; i++){
+    for (i = 0; i < elm.length; i++) {
         x = Number(elm[i].getAttribute("x"));
         y = Number(elm[i].getAttribute("y"));
         type = elm[i].getAttribute("type");

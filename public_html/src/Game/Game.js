@@ -229,14 +229,25 @@ Game.prototype.update = function () {
         mWaterCharacter.setVisibility(false);
     }
 
-    //Colisión personaje agua con push button
-    let colPushWater = mWaterCharacter.getPhysicsComponent().collided(this.mAllPushButtons.getPhysicsComponent(), new CollisionInfo());
+    //Colisión personaje agua con el primer push button
+    let colFirstPushButton = mWaterCharacter.getPhysicsComponent().collided(this.mAllPushButtons.getObjectAt(0).getPhysicsComponent(), new CollisionInfo());   
 
-    if (colPushWater) {
-        this.mAllPushButtons.pushButtonPressed();
+    if (colFirstPushButton) {
+        this.mAllPushButtons.getObjectAt(0).pushButtonPressed();
+        this.mAllPlatforms.getObjectAt(0).setSpeed(0.05);
+    }else {
+        this.mAllPushButtons.getObjectAt(0).pushButtonNotPressed();
+        this.mAllPlatforms.getObjectAt(0).setSpeed(0);
+    }
+    
+    //Colisión personaje agua con el segundo push button
+    let colSecondPushButton = mWaterCharacter.getPhysicsComponent().collided(this.mAllPushButtons.getObjectAt(1).getPhysicsComponent(), new CollisionInfo());
+
+    if (colSecondPushButton) {
+        this.mAllPushButtons.getObjectAt(1).pushButtonPressed();
         this.mAllPlatforms.getObjectAt(1).setSpeed(0.05);
     }else {
-        this.mAllPushButtons.pushButtonNotPressed();
+        this.mAllPushButtons.getObjectAt(1).pushButtonNotPressed();
         this.mAllPlatforms.getObjectAt(1).setSpeed(0);
     }
 
@@ -244,5 +255,6 @@ Game.prototype.update = function () {
     gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllWalls);
     gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllPlatforms);
     gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllWaves);
-    gEngine.Physics.processObjSet(this.mAllPushButtons, this.mAllCharacters);
+    gEngine.Physics.processObjSet(this.mAllPushButtons.getObjectAt(0), this.mAllCharacters);
+    gEngine.Physics.processObjSet(this.mAllPushButtons.getObjectAt(1), this.mAllCharacters);
 };
