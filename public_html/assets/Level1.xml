@@ -171,11 +171,11 @@
     <Wall x="20" y="-24" type="top_tile" weight="4" height="4" elementPixelPosition="13 256 0 256"/>
     
     <!-- Wave fire 2 -->
-    <Wave x="14" y="-23" type="wave_fire" weight="8" height="2"/>
+    <Wave x="14" y="-24" type="wave_fire" weight="8" height="2"/>
 
     <!-- Walls below fire 2-->
-    <Wall x="12" y="-25" type="color_medium" weight="4" height="2" elementPixelPosition="0 256 0 128"/>
-    <Wall x="16" y="-25" type="color_medium" weight="4" height="2" elementPixelPosition="0 256 0 128"/>
+    <Wall x="12" y="-25.5" type="color_medium" weight="4" height="1" elementPixelPosition="0 256 0 128"/>
+    <Wall x="16" y="-25.5" type="color_medium" weight="4" height="1" elementPixelPosition="0 256 0 128"/>
 
     <!-- Path 7 -->
     <Wall x="8" y="-24" type="top_tile" weight="4" height="4" elementPixelPosition="0 242 0 256"/>
