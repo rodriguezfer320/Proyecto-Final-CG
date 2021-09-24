@@ -169,6 +169,8 @@ SpriteAnimateRenderable.prototype.updateAnimation = function () {
             this._initAnimation();
         }
     }
+    
+    
 };
 //--- end of Public Methods
 //

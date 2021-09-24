@@ -109,7 +109,7 @@ GameObject.prototype.getRenderable = function () { return this.mRenderComponent;
  * @returns {void}
  * @memberOf GameObject
  */
-GameObject.prototype.setPhysicsComponent = function (p) { this.mPhysicsComponent = p; console.log(p); };
+GameObject.prototype.setPhysicsComponent = function (p) { this.mPhysicsComponent = p; };
 
 /**
  * Return the Physics Component for the GameObject
