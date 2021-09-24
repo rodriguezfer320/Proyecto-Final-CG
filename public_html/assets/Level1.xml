@@ -280,5 +280,5 @@
     <PushButton x="-30" y="35" type="push_button" weight="4" height="2" platform="1"/> 
 
     <!-- Character -->
-    <Character x="-30" y="40" type="water_character" weight="8" height="8"/>
+    <Character x="24" y="20" type="water_character" weight="8" height="8"/>
 </Level>
