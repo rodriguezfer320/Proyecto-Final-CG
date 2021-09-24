@@ -55,6 +55,10 @@ function Game() {
         //PushButton
         push_button: "assets/push_button.png",
 
+        //Diamons
+        diamond_for_water: "assets/diamond_for_water.png",
+        diamond_for_fire: "assets/diamond_for_fire.png",
+
         //Characters
         water_character: "assets/water_character.png"
     };
@@ -99,6 +103,10 @@ function Game() {
         //PushButton
         push_button: "",
 
+        //Diamons
+        diamond_for_water: "",
+        diamond_for_fire: "",
+
         //Characters
         water_character: "assets/water_character_normal.png"
     };
@@ -110,10 +118,11 @@ function Game() {
     this.mAllWaves = null;
     this.mAllDoors = null;
     this.mAllPushButtons = null;
-    this.mAllCharacters = null;
+    this.mAllDiamons = null;
+    this.mAllCharacters = null;   
 
+    //Aux variables
     this.numPushButtonCollided = null;
-
 }
 gEngine.Core.inheritPrototype(Game, Scene);
 
@@ -183,8 +192,11 @@ Game.prototype.initialize = function () {
     //Doors 
     this.mAllDoors = parser.parseDoors(this.kTextures, this.kNormals, this.mGlobalLightSet);
 
-    //Añadir push button y recuperar objeto
+    //PushButtons
     this.mAllPushButtons = parser.parsePushButton(this.kTextures, this.kNormals, this.mGlobalLightSet);
+
+    //PushButtons
+    this.mAllDiamons = parser.parseDiamond(this.kTextures, this.kNormals, this.mGlobalLightSet);
 
     //Characters
     this.mAllCharacters = parser.parseCharacters(this.kTextures, this.kNormals, this.mGlobalLightSet);
@@ -204,6 +216,8 @@ Game.prototype.update = function () {
     this.mCamera.update();
     gEngine.LayerManager.updateAllLayers();
 
+
+    //Variables de objetos
     let mWaterCharacter = this.mAllCharacters.getObjectAt(0);
     let door = this.mAllDoors.getObjectAt(0);
 
@@ -231,7 +245,8 @@ Game.prototype.update = function () {
         door.desactivateAnimation();
         mWaterCharacter.setVisibility(false);
     }
-   
+
+    //Colisión personajes con pushbuttons
     /**
      * Si el personaje oprime el push button 1 o 2 activa el movimiento de la plataforma 1.
      * Si el personaje oprime el push button 3 o 4 activa el movimiento de la plataforma 2.
@@ -263,10 +278,11 @@ Game.prototype.update = function () {
             }   
         }
     }   
+
     
     //physics simulation
     gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllWalls);
     gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllPlatforms);
     gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllWaves);
-    gEngine.Physics.processSetSet(this.mAllPushButtons, this.mAllCharacters);
+    gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllPushButtons);
 };

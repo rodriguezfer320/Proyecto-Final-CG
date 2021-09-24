@@ -202,7 +202,9 @@
     <Wall x="-16" y="0" type="top_right_edge" weight="4" height="4" elementPixelPosition="0 242 0 256"/>
 
     <!-- Path 11 -->
-    <Wall x="-4" y="-8" type="platform_single" weight="4.5" height="3.5" elementPixelPosition="0 256 64 256"/>
+    <Wall x="-8" y="-8" type="platform_single" weight="4.5" height="3.5" elementPixelPosition="0 256 64 256"/>
+
+    <Wall x="0" y="-8" type="platform_single" weight="4.5" height="3.5" elementPixelPosition="0 256 64 256"/>
 
     <!-- Path 12 -->
     <Wall x="8" y="0" type="top_left_edge" weight="4" height="4" elementPixelPosition="13 256 0 256"/>
@@ -279,6 +281,20 @@
     <PushButton x="0" y="19" type="push_button" weight="4" height="2"/> 
     <PushButton x="-30" y="35" type="push_button" weight="4" height="2"/> 
 
+    <!-- Diamonds -->
+    <Diamond x="-30" y="-36" type="diamond_for_water" weight="4" height="4"/> 
+    <Diamond x="6" y="-36" type="diamond_for_fire" weight="4" height="4"/> 
+    <Diamond x="14" y="-14" type="diamond_for_water" weight="4" height="4"/>    
+    <Diamond x="-26" y="-14" type="diamond_for_fire" weight="4" height="4"/> 
+    <Diamond x="-42" y="0" type="diamond_for_water" weight="4" height="4"/> 
+    <Diamond x="-8" y="8" type="diamond_for_fire" weight="4" height="4"/> 
+    <Diamond x="0" y="8" type="diamond_for_water" weight="4" height="4"/> 
+    <Diamond x="14" y="26" type="diamond_for_fire" weight="4" height="4"/> 
+    <Diamond x="-10" y="26" type="diamond_for_water" weight="4" height="4"/> 
+    <Diamond x="-18" y="26" type="diamond_for_fire" weight="4" height="4"/> 
+    <Diamond x="-26" y="26" type="diamond_for_water" weight="4" height="4"/> 
+    <Diamond x="-34" y="26" type="diamond_for_fire" weight="4" height="4"/> 
+
     <!-- Character -->
-    <Character x="36" y="40" type="water_character" weight="8" height="8"/>
+    <Character x="12" y="26" type="water_character" weight="8" height="8"/>
 </Level>
