@@ -42,7 +42,7 @@ function Platform(x, y, velocity, movementRange, texture, normal, lightSet) {
     rigidShape.setRestitution(0);
     rigidShape.setFriction(0);
     rigidShape.setColor([0, 0, 1, 1]);
-    rigidShape.setDrawBounds(true);
+    rigidShape.setDrawBounds(false);
     this.setPhysicsComponent(rigidShape);
 }
 gEngine.Core.inheritPrototype(Platform, GameObject);

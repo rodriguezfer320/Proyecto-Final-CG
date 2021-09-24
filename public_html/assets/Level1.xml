@@ -188,7 +188,7 @@
     <Wall x="-20" y="-24" type="top_left_edge" weight="4" height="4" elementPixelPosition="13 256 0 256"/>
 
     <!-- Path 8 -->
-    <Wall x="-32" y="-24" type="platform_single" weight="5" height="4" elementPixelPosition="0 256 64 256"/>
+    <Wall x="-32" y="-24" type="platform_single" weight="4.5" height="3.5" elementPixelPosition="0 256 64 256"/>
 
     <!-- Path 9 -->
     <Wall x="-40" y="-12" type="top_right_edge" weight="4" height="4" elementPixelPosition="0 242 0 256"/>
@@ -202,7 +202,7 @@
     <Wall x="-16" y="0" type="top_right_edge" weight="4" height="4" elementPixelPosition="0 242 0 256"/>
 
     <!-- Path 11 -->
-    <Wall x="-4" y="-8" type="platform_single" weight="5" height="4" elementPixelPosition="0 256 64 256"/>
+    <Wall x="-4" y="-8" type="platform_single" weight="4.5" height="3.5" elementPixelPosition="0 256 64 256"/>
 
     <!-- Path 12 -->
     <Wall x="8" y="0" type="top_left_edge" weight="4" height="4" elementPixelPosition="13 256 0 256"/>
@@ -233,14 +233,14 @@
     <Wall x="-4" y="16" type="top_left_edge" weight="4" height="4" elementPixelPosition="13 256 0 256"/>
 
     <!-- Path 15 -->
-    <Wall x="-40" y="20" type="platform_single" weight="5" height="4" elementPixelPosition="0 256 64 256"/>
+    <Wall x="-40" y="20" type="platform_single" weight="4.5" height="3.5" elementPixelPosition="0 256 64 256"/>
 
     <!-- Path 16 -->
     <Wall x="-32" y="32" type="top_left_edge" weight="4" height="4" elementPixelPosition="13 256 0 256"/>
     <Wall x="-28" y="32" type="top_right_edge" weight="4" height="4" elementPixelPosition="0 242 0 256"/>
 
     <!-- Path 17 -->
-    <Wall x="-20" y="40" type="platform_single" weight="5" height="4" elementPixelPosition="0 256 64 256"/>
+    <Wall x="-20" y="40" type="platform_single" weight="4.5" height="3.5" elementPixelPosition="0 256 64 256"/>
 
     <!-- Path 18 -->
     <Wall x="-12" y="32" type="top_left_edge" weight="4" height="4" elementPixelPosition="13 256 0 256"/>
@@ -248,16 +248,16 @@
     <Wall x="-4" y="32" type="top_right_edge" weight="4" height="4" elementPixelPosition="0 242 0 256"/>
 
     <!-- Path 19 -->
-    <Wall x="4" y="32" type="platform_single" weight="5" height="4" elementPixelPosition="0 256 64 256"/>
+    <Wall x="4" y="32" type="platform_single" weight="4.5" height="3.5" elementPixelPosition="0 256 64 256"/>
 
     <!-- Path 20 -->
-    <Wall x="12" y="40" type="platform_single" weight="5" height="4" elementPixelPosition="0 256 64 256"/>
+    <Wall x="12" y="40" type="platform_single" weight="4.5" height="3.5" elementPixelPosition="0 256 64 256"/>
 
     <!-- Path 21 -->
-    <Wall x="20" y="32" type="platform_single" weight="5" height="4" elementPixelPosition="0 256 64 256"/>
+    <Wall x="20" y="32" type="platform_single" weight="4.5" height="3.5" elementPixelPosition="0 256 64 256"/>
 
     <!-- Path 22 -->
-    <Wall x="28" y="36" type="platform_single" weight="5" height="4" elementPixelPosition="0 256 64 256"/>
+    <Wall x="28" y="36" type="platform_single" weight="4.5" height="3.5" elementPixelPosition="0 256 64 256"/>
 
     <!-- Path 23 -->
     <Wall x="40" y="32" type="inner_corner_bottom_left" weight="4" height="4" elementPixelPosition="0 256 0 256"/>
@@ -280,5 +280,5 @@
     <PushButton x="-30" y="35" type="push_button" weight="4" height="2"/> 
 
     <!-- Character -->
-    <Character x="-4" y="4" type="water_character" weight="8" height="8"/>
+    <Character x="-46" y="-44" type="water_character" weight="8" height="8"/>
 </Level>
