@@ -20,7 +20,7 @@ function Door(x, y, w, h, texture, normal, lgtSet) {
 
     let rigidShape = new RigidRectangle(this.getXform(), w, h);
     rigidShape.setMass(0);  // ensures no movements!
-    rigidShape.setDrawBounds(true);
+    rigidShape.setDrawBounds(false);
     rigidShape.setColor([0, 0, 1, 1]);
     this.setPhysicsComponent(rigidShape);
 }

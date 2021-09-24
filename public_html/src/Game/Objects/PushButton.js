@@ -16,7 +16,7 @@ function PushButton(x, y, w, h, texture, normal, lgtSet) {
 
     var rigidShape = new RigidRectangle(this.getXform(), 3, 0.5);
     rigidShape.setMass(0);  // ensures no movements!
-    rigidShape.setDrawBounds(true);
+    rigidShape.setDrawBounds(false);
     rigidShape.setColor([0, 0, 1, 1]);
     this.setPhysicsComponent(rigidShape);
 }

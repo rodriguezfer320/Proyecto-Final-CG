@@ -92,6 +92,7 @@
         <script type="text/javascript" src="src/Engine/Cameras/CameraShake.js"></script>
 
         <!-- Client game code -->
+        <script type="text/javascript" src="src/Game/MainMenu.js"></script>
         <script type="text/javascript" src="src/Game/Game.js"></script>
         
         <!-- Objects -->
@@ -107,7 +108,7 @@
     </head>
 
     <body onload="
-        var game = new Game();
+        let game = new MainMenu();
         gEngine.Core.initializeEngineCore('GLCanvas', game);
     ">
         <canvas id="GLCanvas" width="900" height="900">
