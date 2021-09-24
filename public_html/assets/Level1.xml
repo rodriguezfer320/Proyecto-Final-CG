@@ -267,18 +267,18 @@
 
     <!-- Platforms -->
     
-    <Platform x="40" y="6" type="platform" velocity="0 1 0" movementRange="8"/> <!-- Platform 1 -->
-    <Platform x="-22" y="16" type="platform" velocity="1 0 0" movementRange="8"/> <!-- Platform 2 -->
+    <Platform x="40" y="14.4" type="platform" velocity="0 1 0" movementRange="12.7"/> <!-- Platform 1 -->
+    <Platform x="-32" y="16" type="platform" velocity="-1 0 0" movementRange="21"/> <!-- Platform 2 -->
     
     <!-- Door -->
     <Door x="42" y="42" type="door" weight="8" height="8"/>
 
     <!-- PushButton -->
-    <PushButton x="28" y="3" type="push_button" weight="4" height="2"/> 
-    <PushButton x="28" y="19" type="push_button" weight="4" height="2"/> 
-    <PushButton x="0" y="19" type="push_button" weight="4" height="2"/> 
-    <PushButton x="-30" y="35" type="push_button" weight="4" height="2"/> 
+    <PushButton x="16" y="3" type="push_button" weight="4" height="2" platform="0">
+    <PushButton x="28" y="19" type="push_button" weight="4" height="2" platform="0"/>  
+    <PushButton x="0" y="19" type="push_button" weight="4" height="2" platform="1"/> 
+    <PushButton x="-30" y="35" type="push_button" weight="4" height="2" platform="1"/> 
 
     <!-- Character -->
-    <Character x="-46" y="-44" type="water_character" weight="8" height="8"/>
+    <Character x="-30" y="40" type="water_character" weight="8" height="8"/>
 </Level>

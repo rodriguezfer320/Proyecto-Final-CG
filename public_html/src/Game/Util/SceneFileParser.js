@@ -244,7 +244,7 @@ SceneFileParser.prototype.parseDoors = function (textures, normals, lightSet) {
 
 SceneFileParser.prototype.parsePushButton = function (textures, normals, lightSet) {
     let elm = this._getElm("PushButton");
-    let i, x, y, w, h, type, mPushButton;
+    let i, x, y, w, h, p, type, mPushButton;
     let allPushButtons = new GameObjectSet();
 
     for (i = 0; i < elm.length; i++) {
@@ -252,9 +252,10 @@ SceneFileParser.prototype.parsePushButton = function (textures, normals, lightSe
         y = Number(elm[i].getAttribute("y"));
         w = Number(elm[i].getAttribute("weight"));
         h = Number(elm[i].getAttribute("height"));
+        p = Number(elm[i].getAttribute("platform"));
         type = elm[i].getAttribute("type");
 
-        mPushButton = new PushButton(x, y, w, h, textures[type], normals[type], lightSet);
+        mPushButton = new PushButton(x, y, w, h, p, textures[type], normals[type], lightSet);
         gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mPushButton);
 
         allPushButtons.addToSet(mPushButton);

@@ -16,11 +16,11 @@ function Wall(x, y, w, h, elmPixelPos, texture, normal, lgtSet) {
 
     GameObject.call(this, this.mWall);
 
-    let rigidShape = new RigidRectangle( this.getXform(), w, h);
+    let rigidShape = new RigidRectangle(this.getXform(), w, h);
     rigidShape.setMass(0);  // ensures no movements!
     rigidShape.setRestitution(0);
     rigidShape.setFriction(0);
-    rigidShape.setDrawBounds(false);
+    rigidShape.setDrawBounds(true);
     rigidShape.setColor([0, 0, 1, 1]);
     this.setPhysicsComponent(rigidShape);
 }
