@@ -52,9 +52,10 @@ Platform.prototype.update = function() {
     let s = vec2.fromValues(0,0);
     vec2.subtract(s, this.getXform().getPosition(), this.mInitialPosition);
     let len = vec2.length(s);
+
     if (len > this.mMovementRange) {
         let f = this.getCurrentFrontDir();
         f[0] = -f[0];
         f[1] = -f[1];
-    }   
+    }
 };
