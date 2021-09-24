@@ -237,7 +237,7 @@ Game.prototype.update = function () {
      * Si el personaje oprime el push button 3 o 4 activa el movimiento de la plataforma 2.
      */
     for (let i=0; i <4; i++) {
-        let col = mWaterCharacter.getPhysicsComponent().collided(this.mAllPushButtons.getObjectAt(i).getPhysicsComponent(), new CollisionInfo());   
+        let col = this.mAllCharacters.getObjectAt(0).getPhysicsComponent().collided(this.mAllPushButtons.getObjectAt(i).getPhysicsComponent(), new CollisionInfo());   
         if(col){
             this.numPushButtonCollided = i;
             this.mAllPushButtons.getObjectAt(i).pushButtonPressed();     
@@ -262,18 +262,11 @@ Game.prototype.update = function () {
                 this.mAllPlatforms.getObjectAt(1).setSpeed(0.00);
             }   
         }
-    }
-
+    }   
     
-    
-    
-
     //physics simulation
     gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllWalls);
     gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllPlatforms);
     gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllWaves);
-    gEngine.Physics.processObjSet(this.mAllPushButtons.getObjectAt(0), this.mAllCharacters);
-    gEngine.Physics.processObjSet(this.mAllPushButtons.getObjectAt(1), this.mAllCharacters);
-    gEngine.Physics.processObjSet(this.mAllPushButtons.getObjectAt(2), this.mAllCharacters);
-    gEngine.Physics.processObjSet(this.mAllPushButtons.getObjectAt(3), this.mAllCharacters);
+    gEngine.Physics.processSetSet(this.mAllPushButtons, this.mAllCharacters);
 };
