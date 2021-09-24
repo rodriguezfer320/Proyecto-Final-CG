@@ -34,7 +34,7 @@ function Character(x, y, texture, normal, lgtSet, player) {
     rigidShape.setRestitution(0);
     rigidShape.setFriction(0);
     rigidShape.setColor([0, 1, 0, 1]);
-    rigidShape.setDrawBounds(false);
+    rigidShape.setDrawBounds(true);
     this.setPhysicsComponent(rigidShape);
 
     let motionControls = {

@@ -118,11 +118,8 @@ function Game() {
     this.mAllWaves = null;
     this.mAllDoors = null;
     this.mAllPushButtons = null;
-    this.mAllDiamons = null;
-    this.mAllCharacters = null;   
-
-    //Aux variables
-    this.numPushButtonCollided = null;
+    this.mAllCharacters = null;
+    this.numPushButtonCollide = -1;
 }
 gEngine.Core.inheritPrototype(Game, Scene);
 
@@ -246,43 +243,35 @@ Game.prototype.update = function () {
         mWaterCharacter.setVisibility(false);
     }
 
-    //Colisión personajes con pushbuttons
     /**
      * Si el personaje oprime el push button 1 o 2 activa el movimiento de la plataforma 1.
      * Si el personaje oprime el push button 3 o 4 activa el movimiento de la plataforma 2.
      */
-    for (let i=0; i <4; i++) {
-        let col = this.mAllCharacters.getObjectAt(0).getPhysicsComponent().collided(this.mAllPushButtons.getObjectAt(i).getPhysicsComponent(), new CollisionInfo());   
+    for (let i = 0; i < this.mAllPushButtons.size(); i++) {
+        let pushButton = this.mAllPushButtons.getObjectAt(i);
+        let col = mWaterCharacter.getPhysicsComponent().collided(pushButton.getPhysicsComponent(), new CollisionInfo()); 
+
         if(col){
-            this.numPushButtonCollided = i;
-            this.mAllPushButtons.getObjectAt(i).pushButtonPressed();     
-            if((this.numPushButtonCollided == 0) || (this.numPushButtonCollided == 1)){
-                this.mAllPlatforms.getObjectAt(0).setSpeed(0.05);
-            }else if((this.numPushButtonCollided == 2) || (this.numPushButtonCollided == 3)){
-                this.mAllPlatforms.getObjectAt(1).setSpeed(0.05);
-            }      
+            let platform = this.mAllPlatforms.getObjectAt(pushButton.getPlatform());
+            this.numPushButtonCollide = i;
+
+            if(!platform.getIsMoving()){
+                pushButton.pushButtonPressed();
+                platform.changeDirectionMovement(true);
+            }
+        /**
+         * Si el personaje deja de oprimir el push button 1 o 2 desactiva el movimiento de la plataforma 1.
+         * Si el personaje deja de oprimir el push button 3 o 4 desactiva el movimiento de la plataforma 2.
+         */
+        }else if(i === this.numPushButtonCollide){
+            pushButton.pushButtonNotPressed();
+            this.numPushButtonCollide = -1;
+            this.mAllPlatforms.getObjectAt(pushButton.getPlatform()).changeDirectionMovement(false);
         }        
     }
 
-    /**
-     * Si el personaje deja de oprimir el push button 1 o 2 desactiva el movimiento de la plataforma 1.
-     * Si el personaje deja de oprimir el push button 3 o 4 desactiva el movimiento de la plataforma 2.
-     */
-    if(this.numPushButtonCollided != null){
-        if(!(mWaterCharacter.getPhysicsComponent().collided(this.mAllPushButtons.getObjectAt(this.numPushButtonCollided).getPhysicsComponent(), new CollisionInfo()))){
-            this.mAllPushButtons.getObjectAt(this.numPushButtonCollided).pushButtonNotPressed();
-            if((this.numPushButtonCollided == 0) || (this.numPushButtonCollided == 1)){
-                this.mAllPlatforms.getObjectAt(0).setSpeed(0.00);
-            }else if((this.numPushButtonCollided == 2) || (this.numPushButtonCollided == 3)){
-                this.mAllPlatforms.getObjectAt(1).setSpeed(0.00);
-            }   
-        }
-    }   
-
-    
     //physics simulation
     gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllWalls);
     gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllPlatforms);
     gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllWaves);
-    gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllPushButtons);
 };
