@@ -1,6 +1,6 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function Character(x, y, texture, normal, lgtSet) {
+function Character(x, y, texture, normal, lgtSet, player) {
     this.mCharacterState = Character.eCharacterState.eFace;
     this.mPreviousCharacterState = Character.eCharacterState.eFace;
     this.mIsMoving = false;
@@ -36,6 +36,13 @@ function Character(x, y, texture, normal, lgtSet) {
     rigidShape.setColor([0, 1, 0, 1]);
     rigidShape.setDrawBounds(false);
     this.setPhysicsComponent(rigidShape);
+
+    let motionControls = {
+        eLeft: (player === "water_character") ? gEngine.Input.keys.A : gEngine.Input.keys.Left,
+        eRight: (player === "water_character") ? gEngine.Input.keys.D : gEngine.Input.keys.Right,
+        eUp: (player === "water_character") ? gEngine.Input.keys.W : gEngine.Input.keys.Up
+    };
+    this.eMotionControls = Object.freeze(motionControls);
 }
 gEngine.Core.inheritPrototype(Character, GameObject);
 
@@ -74,7 +81,7 @@ Character.prototype.update = function () {
         }
 
         if(this.mCanMove === true){
-            if(gEngine.Input.isKeyPressed(gEngine.Input.keys.Left)){
+            if(gEngine.Input.isKeyPressed(this.eMotionControls.eLeft)){
                 if(this.mCharacterState === Character.eCharacterState.eFace
                     || this.mCharacterState === Character.eCharacterState.eRunRight
                     || this.mCharacterState === Character.eCharacterState.eJumpUp
@@ -92,7 +99,7 @@ Character.prototype.update = function () {
                 }
             }
 
-            if(gEngine.Input.isKeyPressed(gEngine.Input.keys.Right)){        
+            if(gEngine.Input.isKeyPressed(this.eMotionControls.eRight)){        
                 if(this.mCharacterState === Character.eCharacterState.eFace
                     || this.mCharacterState === Character.eCharacterState.eRunLeft
                     || this.mCharacterState === Character.eCharacterState.eJumpUp
@@ -123,7 +130,7 @@ Character.prototype.update = function () {
                 }
             }
 
-            if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Up)){
+            if(gEngine.Input.isKeyClicked(this.eMotionControls.eUp)){
                 this.mIsJumping = true;
         
                 if (this.mCharacterState === Character.eCharacterState.eFace){

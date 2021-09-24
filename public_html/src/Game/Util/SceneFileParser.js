@@ -265,7 +265,7 @@ SceneFileParser.prototype.parseCharacters = function(textures, normals, lightSet
         y = Number(elm[i].getAttribute("y"));
         type = elm[i].getAttribute("type");
 
-        mCharacter = new Character(x, y, textures[type], normals[type], lightSet);
+        mCharacter = new Character(x, y, textures[type], normals[type], lightSet, type);
 
         gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mCharacter);
         gEngine.LayerManager.addAsShadowCaster(mCharacter);
