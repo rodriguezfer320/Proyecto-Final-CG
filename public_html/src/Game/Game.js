@@ -120,6 +120,9 @@ function Game() {
     this.mAllPushButtons = null;
     this.mAllCharacters = null;
     this.numPushButtonCollide = -1;
+    this.scoreWaterCharacter = 0;
+    this.scoreFireCharacter = 0;
+    this.mMsg = null;
 }
 gEngine.Core.inheritPrototype(Game, Scene);
 
@@ -130,7 +133,7 @@ Game.prototype.loadScene = function () {
         if(this.kTextures[key] !== ""){
             gEngine.Textures.loadTexture(this.kTextures[key]);
         }else{
-            this.kTextures[key] = null;
+            this.kTextures[key] = null; 
         }
     }
     
@@ -197,6 +200,13 @@ Game.prototype.initialize = function () {
 
     //Characters
     this.mAllCharacters = parser.parseCharacters(this.kTextures, this.kNormals, this.mGlobalLightSet);
+
+    this.mMsg = new FontRenderable("Status Message");
+    this.mMsg.setColor([1, 1, 1, 1]);
+    this.mMsg.getXform().setPosition(8, 44);
+    this.mMsg.setTextHeight(2);
+
+    gEngine.LayerManager.addToLayer(gEngine.eLayer.eHUD, this.mMsg);
 };
 
 // This is the draw function, make sure to setup proper drawing environment, and more
@@ -212,7 +222,6 @@ Game.prototype.draw = function () {
 Game.prototype.update = function () {
     this.mCamera.update();
     gEngine.LayerManager.updateAllLayers();
-
 
     //Variables de objetos
     let mWaterCharacter = this.mAllCharacters.getObjectAt(0);
@@ -270,8 +279,27 @@ Game.prototype.update = function () {
         }        
     }
 
+    /**
+     * Si el personaje toca su respectivo diamante le suma un 1 a su score.
+     */
+    for (let i = 0; i < this.mAllDiamons.size(); i++) {
+        let diamond = this.mAllDiamons.getObjectAt(i);
+        let col = mWaterCharacter.getPhysicsComponent().collided(diamond.getPhysicsComponent(), new CollisionInfo()); 
+        let type = diamond.getType();
+
+        if(col && (type === "diamond_for_water")){
+            diamond.setVisibility(false);
+            this.scoreWaterCharacter++;    
+            this.mAllDiamons.removeFromSet(diamond);
+        } 
+    }
+
     //physics simulation
     gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllWalls);
     gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllPlatforms);
-    gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllWaves);
+    gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllWaves);  
+    
+    //Mensaje de score para los personajes
+    var msg = "Watergirl: " + this.scoreWaterCharacter + " Fireboy: " + this.scoreFireCharacter;
+    this.mMsg.setText(msg);
 };
