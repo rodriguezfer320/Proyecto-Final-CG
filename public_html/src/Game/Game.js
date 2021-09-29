@@ -120,6 +120,7 @@ function Game() {
     this.mAllPushButtons = null;
     this.mAllCharacters = null;
     this.numPushButtonCollide = -1;
+    this.mWin = [false, true];
 }
 gEngine.Core.inheritPrototype(Game, Scene);
 
@@ -149,15 +150,25 @@ Game.prototype.unloadScene = function () {
 
     for (const key in this.kTextures) {
         if(this.kTextures[key] !== null){
-            gEngine.Textures.unloadTextFile(this.kTextures[key]);
+            gEngine.Textures.unloadTexture(this.kTextures[key]);
         }
     }
     
     for (const key in this.kNormals) {
         if(this.kNormals[key] !== null){
-            gEngine.Textures.unloadTextFile(this.kNormals[key]);
+            gEngine.Textures.unloadTexture(this.kNormals[key]);
         }
     }
+
+    let menu = null;
+
+    if(this.mWin[0] && this.mWin[1]){
+        menu = new WinMenu();
+    }else{
+        //menu gameover
+    }
+
+    if(menu !== null) gEngine.Core.startScene(menu);
 };
 
 Game.prototype.initialize = function () {
@@ -213,7 +224,6 @@ Game.prototype.update = function () {
     this.mCamera.update();
     gEngine.LayerManager.updateAllLayers();
 
-
     //Variables de objetos
     let mWaterCharacter = this.mAllCharacters.getObjectAt(0);
     let door = this.mAllDoors.getObjectAt(0);
@@ -241,6 +251,8 @@ Game.prototype.update = function () {
     if(door.getCont() == 50){
         door.desactivateAnimation();
         mWaterCharacter.setVisibility(false);
+        this.mWin[0] = true;
+        gEngine.GameLoop.stop();
     }
 
     /**
