@@ -55,6 +55,10 @@ function Game() {
         //PushButton
         push_button: "assets/push_button.png",
 
+        //Diamons
+        diamond_for_water: "assets/diamond_for_water.png",
+        diamond_for_fire: "assets/diamond_for_fire.png",
+
         //Characters
         water_character: "assets/water_character.png"
     };
@@ -99,6 +103,10 @@ function Game() {
         //PushButton
         push_button: "",
 
+        //Diamons
+        diamond_for_water: "",
+        diamond_for_fire: "",
+
         //Characters
         water_character: "assets/water_character_normal.png"
     };
@@ -111,6 +119,11 @@ function Game() {
     this.mAllDoors = null;
     this.mAllPushButtons = null;
     this.mAllCharacters = null;
+    this.numPushButtonCollide = -1;
+    this.mWin = [false, true];
+    this.scoreWaterCharacter = 0;
+    this.scoreFireCharacter = 0;
+    this.mMsg = null;
 }
 gEngine.Core.inheritPrototype(Game, Scene);
 
@@ -121,7 +134,7 @@ Game.prototype.loadScene = function () {
         if(this.kTextures[key] !== ""){
             gEngine.Textures.loadTexture(this.kTextures[key]);
         }else{
-            this.kTextures[key] = null;
+            this.kTextures[key] = null; 
         }
     }
     
@@ -140,15 +153,25 @@ Game.prototype.unloadScene = function () {
 
     for (const key in this.kTextures) {
         if(this.kTextures[key] !== null){
-            gEngine.Textures.unloadTextFile(this.kTextures[key]);
+            gEngine.Textures.unloadTexture(this.kTextures[key]);
         }
     }
     
     for (const key in this.kNormals) {
         if(this.kNormals[key] !== null){
-            gEngine.Textures.unloadTextFile(this.kNormals[key]);
+            gEngine.Textures.unloadTexture(this.kNormals[key]);
         }
     }
+
+    let menu = null;
+
+    if(this.mWin[0] && this.mWin[1]){
+        menu = new WinMenu();
+    }else{
+        menu = new GameOverMenu();
+    }
+
+    if(menu !== null) gEngine.Core.startScene(menu);
 };
 
 Game.prototype.initialize = function () {
@@ -174,17 +197,27 @@ Game.prototype.initialize = function () {
     //Platforms
     this.mAllPlatforms = parser.parsePlatforms(this.kTextures, this.kNormals, this.mGlobalLightSet);
 
-    //Weves
-    this.mAllWaves = parser.parseWaves(this.kTextures, this.kNormals, this.mGlobalLightSet);
-
     //Doors 
     this.mAllDoors = parser.parseDoors(this.kTextures, this.kNormals, this.mGlobalLightSet);
 
-    //Añadir push button y recuperar objeto
+    //PushButtons
     this.mAllPushButtons = parser.parsePushButton(this.kTextures, this.kNormals, this.mGlobalLightSet);
+
+    //PushButtons
+    this.mAllDiamons = parser.parseDiamond(this.kTextures, this.kNormals, this.mGlobalLightSet);
 
     //Characters
     this.mAllCharacters = parser.parseCharacters(this.kTextures, this.kNormals, this.mGlobalLightSet);
+
+    //Weves
+    this.mAllWaves = parser.parseWaves(this.kTextures, this.kNormals, this.mGlobalLightSet);
+
+    this.mMsg = new FontRenderable("Status Message");
+    this.mMsg.setColor([1, 1, 1, 1]);
+    this.mMsg.getXform().setPosition(8, 44);
+    this.mMsg.setTextHeight(2);
+
+    gEngine.LayerManager.addToLayer(gEngine.eLayer.eHUD, this.mMsg);
 };
 
 // This is the draw function, make sure to setup proper drawing environment, and more
@@ -201,6 +234,7 @@ Game.prototype.update = function () {
     this.mCamera.update();
     gEngine.LayerManager.updateAllLayers();
 
+    //Variables de objetos
     let mWaterCharacter = this.mAllCharacters.getObjectAt(0);
     let door = this.mAllDoors.getObjectAt(0);
 
@@ -227,20 +261,69 @@ Game.prototype.update = function () {
     if(door.getCont() == 50){
         door.desactivateAnimation();
         mWaterCharacter.setVisibility(false);
+        this.mWin[0] = true;
+        gEngine.GameLoop.stop();
     }
 
-    //Colisión personaje agua con push button
-    let colPushWater = mWaterCharacter.getPhysicsComponent().collided(this.mAllPushButtons.getPhysicsComponent(), new CollisionInfo());
+    /**
+     * Si el personaje oprime el push button 1 o 2 activa el movimiento de la plataforma 1.
+     * Si el personaje oprime el push button 3 o 4 activa el movimiento de la plataforma 2.
+     */
+    for (let i = 0; i < this.mAllPushButtons.size(); i++) {
+        let pushButton = this.mAllPushButtons.getObjectAt(i);
+        let col = mWaterCharacter.getPhysicsComponent().collided(pushButton.getPhysicsComponent(), new CollisionInfo()); 
 
-    if (colPushWater) {
-        this.mAllPushButtons.pushButtonPressed();
-    }else {
-        this.mAllPushButtons.pushButtonNotPressed();
+        if(col){
+            let platform = this.mAllPlatforms.getObjectAt(pushButton.getPlatform());
+            this.numPushButtonCollide = i;
+
+            if(!platform.getIsMoving()){
+                pushButton.pushButtonPressed();
+                platform.changeDirectionMovement(true);
+            }
+        /**
+         * Si el personaje deja de oprimir el push button 1 o 2 desactiva el movimiento de la plataforma 1.
+         * Si el personaje deja de oprimir el push button 3 o 4 desactiva el movimiento de la plataforma 2.
+         */
+        }else if(i === this.numPushButtonCollide){
+            pushButton.pushButtonNotPressed();
+            this.numPushButtonCollide = -1;
+            this.mAllPlatforms.getObjectAt(pushButton.getPlatform()).changeDirectionMovement(false);
+        }        
+    }
+
+    //Colisión del personaje con el liquido
+    for (let i = 0; i < this.mAllWaves.size(); i++) {
+        let wave = this.mAllWaves.getObjectAt(i);
+        let character = (wave.getPlayerCollision() === 0) ? mWaterCharacter : null;
+        let col = (character !== null) ? character.getPhysicsComponent().collided(wave.getPhysicsComponent(), new CollisionInfo()) : false; 
+
+        if(col){
+            character.setVisibility(false);
+            gEngine.GameLoop.stop();
+        } 
+    }
+
+    /**
+     * Si el personaje toca su respectivo diamante le suma un 1 a su score.
+     */
+    for (let i = 0; i < this.mAllDiamons.size(); i++) {
+        let diamond = this.mAllDiamons.getObjectAt(i);
+        let col = mWaterCharacter.getPhysicsComponent().collided(diamond.getPhysicsComponent(), new CollisionInfo()); 
+        let type = diamond.getType();
+
+        if(col && (type === "diamond_for_water")){
+            diamond.setVisibility(false);
+            this.scoreWaterCharacter++;    
+            this.mAllDiamons.removeFromSet(diamond);
+        } 
     }
 
     //physics simulation
     gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllWalls);
-    gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllPlatforms);
-    gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllWaves);
-    gEngine.Physics.processObjSet(this.mAllPushButtons, this.mAllCharacters);
+    gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllPlatforms); 
+    
+    //Mensaje de score para los personajes
+    var msg = "Watergirl: " + this.scoreWaterCharacter + " Fireboy: " + this.scoreFireCharacter;
+    this.mMsg.setText(msg);
 };

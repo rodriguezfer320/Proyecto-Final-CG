@@ -1,6 +1,6 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function PushButton(x, y, w, h, texture, normal, lgtSet) {
+function PushButton(x, y, w, h, p, texture, normal, lgtSet) {
     if(normal !== null){
         this.mPushButton = new IllumRenderable(texture, normal);
     }else{
@@ -11,6 +11,7 @@ function PushButton(x, y, w, h, texture, normal, lgtSet) {
     this.mPushButton.getXform().setSize(w, h);
     this.mPushButton.setElementPixelPositions(0, 128, 0, 64);
     this.mPushButton.addLight(lgtSet.getLightAt(0));
+    this.platform = p;
 
     GameObject.call(this, this.mPushButton);
 
@@ -23,10 +24,14 @@ function PushButton(x, y, w, h, texture, normal, lgtSet) {
 
 gEngine.Core.inheritPrototype(PushButton, GameObject);
 
-PushButton.prototype.pushButtonPressed =function () {
+PushButton.prototype.pushButtonPressed = function () {
     this.mPushButton.setElementPixelPositions(128, 256, 0, 64);
-}
+};
 
-PushButton.prototype.pushButtonNotPressed =function () {
+PushButton.prototype.pushButtonNotPressed = function () {
     this.mPushButton.setElementPixelPositions(0, 128, 0, 64);
-}
+};
+
+PushButton.prototype.getPlatform = function () {
+    return this.platform;
+};

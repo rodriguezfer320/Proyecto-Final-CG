@@ -1,6 +1,6 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function Wave(x, y, w, h, texture, normal, lgtSet) {
+function Wave(x, y, w, h, pc, texture, normal, lgtSet) {
     if(normal !== null){
         this.mWave = new IllumRenderable(texture, normal);
     }else{
@@ -12,6 +12,7 @@ function Wave(x, y, w, h, texture, normal, lgtSet) {
     this.mWave.setSpriteSequence(64, 0, 256, 64, 4, 0);
     this.mWave.setAnimationSpeed(35);
     this.mWave.addLight(lgtSet.getLightAt(0));
+    this.mPlayerCollision = pc;
 
     GameObject.call(this, this.mWave);
 
@@ -28,3 +29,7 @@ Wave.prototype.update = function () {
     GameObject.prototype.update.call(this);
     this.mWave.updateAnimation();
 }
+
+Wave.prototype.getPlayerCollision = function (){
+    return this.mPlayerCollision;
+};
