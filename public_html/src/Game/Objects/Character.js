@@ -5,9 +5,12 @@ function Character(x, y, texture, normal, lgtSet, player) {
     this.mPreviousCharacterState = Character.eCharacterState.eFace;
     this.mIsMoving = false;
     this.mIsJumping = false;
+    this.mCanJump = true;
     this.mCanMove = true;
     this.mDelta = 0.4;
-    this.mOldPosX = 0;
+    this.mMinPosX = 0;
+    this.mMaxPosX = 0;
+    this.mJumpLimit = 0;
     this.mXAxisCorrection = -0.7;
     this.mYAxisCorrection = 1.5;
 
@@ -38,9 +41,9 @@ function Character(x, y, texture, normal, lgtSet, player) {
     this.setPhysicsComponent(rigidShape);
 
     let motionControls = {
-        eLeft: (player === "water_character") ? gEngine.Input.keys.A : gEngine.Input.keys.Left,
-        eRight: (player === "water_character") ? gEngine.Input.keys.D : gEngine.Input.keys.Right,
-        eUp: (player === "water_character") ? gEngine.Input.keys.W : gEngine.Input.keys.Up
+        eLeft: (player !== "water_character") ? gEngine.Input.keys.A : gEngine.Input.keys.Left,
+        eRight: (player !== "water_character") ? gEngine.Input.keys.D : gEngine.Input.keys.Right,
+        eUp: (player !== "water_character") ? gEngine.Input.keys.W : gEngine.Input.keys.Up
     };
     this.eMotionControls = Object.freeze(motionControls);
 }
@@ -66,51 +69,43 @@ Character.prototype.update = function () {
         this.mCharacter.getXform().setPosition(xform.getXPos() + this.mXAxisCorrection, xform.getYPos() + this.mYAxisCorrection);            
         this.mIsMoving = false;
 
-        if(velocity[1] < -0.3333333432674408){
-            if(this.mCharacterState === Character.eCharacterState.eFace
-                || this.mCharacterState === Character.eCharacterState.eRunRight
-                || this.mCharacterState === Character.eCharacterState.eRunLeft){
-                    this.mCharacterState = Character.eCharacterState.eFallDown;
-                    this.mIsJumping = true;
-                    this.mCanMove = false;
-            }
-        }else if(velocity[1] === -0.3333333432674408){
-            this.mIsJumping = false;
-            this.mCanMove = true;
-            velocity[0] = 0;
-        }
-
-        if(this.mCanMove === true){
+        if(this.mCanMove){
             if(gEngine.Input.isKeyPressed(this.eMotionControls.eLeft)){
                 if(this.mCharacterState === Character.eCharacterState.eFace
                     || this.mCharacterState === Character.eCharacterState.eRunRight
-                    || this.mCharacterState === Character.eCharacterState.eJumpUp
-                    || (this.mIsJumping === false && this.mCharacterState === Character.eCharacterState.eJumpLeft)
-                    || (this.mIsJumping === false && this.mCharacterState === Character.eCharacterState.eJumpRight)
+                    || this.mCharacterState === Character.eCharacterState.eJumpLeft
+                    || this.mCharacterState === Character.eCharacterState.eJumpRight
                     || this.mCharacterState === Character.eCharacterState.eFallDown){
                         this.mCharacterState = Character.eCharacterState.eRunLeft;
+                }else if(this.mCharacterState === Character.eCharacterState.eJumpUp){
+                    this.mCharacterState = Character.eCharacterState.eRunLeft;
+                    this.mCanJump = false;
                 }
-
-                if(this.mIsJumping && xform.getXPos() < (this.mOldPosX - 6.2)){
+                
+                if(this.mIsJumping && xform.getXPos() < this.mMinPosX){
                     this.mCanMove = false;
+                    velocity[1] = 0;
                 }else{
                     this.mIsMoving = true;
                     xform.incXPosBy(-this.mDelta);
                 }
             }
-
+        
             if(gEngine.Input.isKeyPressed(this.eMotionControls.eRight)){        
                 if(this.mCharacterState === Character.eCharacterState.eFace
                     || this.mCharacterState === Character.eCharacterState.eRunLeft
-                    || this.mCharacterState === Character.eCharacterState.eJumpUp
-                    || (this.mIsJumping === false && this.mCharacterState === Character.eCharacterState.eJumpLeft)
-                    || (this.mIsJumping === false && this.mCharacterState === Character.eCharacterState.eJumpRight)
+                    || this.mCharacterState === Character.eCharacterState.eJumpLeft
+                    || this.mCharacterState === Character.eCharacterState.eJumpRight
                     || this.mCharacterState === Character.eCharacterState.eFallDown){
                         this.mCharacterState = Character.eCharacterState.eRunRight;
+                }else if(this.mCharacterState === Character.eCharacterState.eJumpUp){
+                    this.mCharacterState = Character.eCharacterState.eRunRight;
+                    this.mCanJump = false;
                 }
 
-                if(this.mIsJumping && xform.getXPos() > (this.mOldPosX + 6.2)){
+                if(this.mIsJumping && xform.getXPos() > this.mMaxPosX){
                     this.mCanMove = false;
+                    velocity[1] = 0;
                 }else{
                     this.mIsMoving = true;
                     xform.incXPosBy(this.mDelta);
@@ -118,37 +113,58 @@ Character.prototype.update = function () {
             }
         }
 
-        if(this.mIsJumping === false){
-            if (this.mIsMoving === false) {    
-                if (this.mCharacterState === Character.eCharacterState.eRunLeft
-                    || this.mCharacterState === Character.eCharacterState.eRunRight
-                    || this.mCharacterState === Character.eCharacterState.eJumpUp
-                    || this.mCharacterState === Character.eCharacterState.eJumpRight
-                    || this.mCharacterState === Character.eCharacterState.eJumpLeft
-                    || this.mCharacterState === Character.eCharacterState.eFallDown){
-                        this.mCharacterState = Character.eCharacterState.eFace;
-                }
+        if(gEngine.Input.isKeyPressed(this.eMotionControls.eUp) && this.mCanJump){    
+            if (this.mCharacterState === Character.eCharacterState.eFace
+                || this.mCharacterState === Character.eCharacterState.eFallDown){
+                    this.mCharacterState = Character.eCharacterState.eJumpUp;
+                    this.mMinPosX = xform.getXPos() - 7;
+                    this.mMaxPosX = this.mMinPosX + 14;
+                    this.mIsJumping = true;
+                    this.mJumpLimit = 18;
+                    velocity[1] = 0;
+            }else if(this.mCharacterState === Character.eCharacterState.eRunRight){
+                this.mCharacterState = Character.eCharacterState.eJumpRight;
+                this.mCanMove = false;
+                this.mJumpLimit = 16;
+                velocity[0] = 8;
+                velocity[1] = 0; //Jump velocity
+            }else if(this.mCharacterState === Character.eCharacterState.eRunLeft){
+                this.mCharacterState = Character.eCharacterState.eJumpLeft;
+                this.mCanMove = false;
+                this.mJumpLimit = 16;
+                velocity[0] = -8;
+                velocity[1] = 0; //Jump velocity
             }
 
-            if(gEngine.Input.isKeyClicked(this.eMotionControls.eUp)){
-                this.mIsJumping = true;
-        
-                if (this.mCharacterState === Character.eCharacterState.eFace){
-                    this.mCharacterState = Character.eCharacterState.eJumpUp;
-                    velocity[1] = 23; //Jump velocity
-                    this.mOldPosX = xform.getXPos();
-                }else if(this.mCharacterState === Character.eCharacterState.eRunRight){
-                    this.mCharacterState = Character.eCharacterState.eJumpRight;
+            if(velocity[1] > this.mJumpLimit || velocity[1] <= -0.3333333432674408){
+                this.mCanJump = false;
+            }else{
+                velocity[1] += 1; //Jump velocity
+            }          
+        }
+
+        if(velocity[1] < -0.3333333432674408){
+            if(this.mCharacterState === Character.eCharacterState.eFace
+                || this.mCharacterState === Character.eCharacterState.eRunRight
+                || this.mCharacterState === Character.eCharacterState.eRunLeft
+                || this.mCharacterState === Character.eCharacterState.eJumpUp){
+                    this.mCharacterState = Character.eCharacterState.eFallDown;
                     this.mCanMove = false;
-                    velocity[1] = 20; //Jump velocity
-                    velocity[0] = 5;
-                }else if(this.mCharacterState === Character.eCharacterState.eRunLeft){
-                    this.mCharacterState = Character.eCharacterState.eJumpLeft;
-                    this.mCanMove = false;
-                    velocity[1] = 20; //Jump velocity
-                    velocity[0] = -5;
-                }  
+                    this.mIsJumping = false;
             }
+        }else if(velocity[1] === -0.3333333432674408 && !this.mIsMoving && !this.mIsJumping){
+            if (this.mCharacterState === Character.eCharacterState.eRunLeft
+                || this.mCharacterState === Character.eCharacterState.eRunRight
+                || this.mCharacterState === Character.eCharacterState.eJumpUp
+                || this.mCharacterState === Character.eCharacterState.eJumpRight
+                || this.mCharacterState === Character.eCharacterState.eJumpLeft
+                || this.mCharacterState === Character.eCharacterState.eFallDown){
+                    this.mCharacterState = Character.eCharacterState.eFace;
+            }
+
+            this.mCanMove = true;
+            this.mCanJump = true;
+            velocity[0] = 0;
         }
         
         this.changeAnimation();
@@ -186,8 +202,8 @@ Character.prototype.changeAnimation = function () {
                 break;
             case Character.eCharacterState.eJumpUp:
                 this.mCharacter.getXform().setSize(7, 7);
-                this.mCharacter.setSpriteSequence(2048, 256, 256, 256, 2, 0);
-                this.mCharacter.setAnimationSpeed(100);
+                this.mCharacter.setSpriteSequence(2048, 256, 256, 256, 1, 0);
+                this.mCharacter.setAnimationSpeed(0);
                 this.mXAxisCorrection = -0.5;
                 this.mYAxisCorrection = 1.5;
                 break;

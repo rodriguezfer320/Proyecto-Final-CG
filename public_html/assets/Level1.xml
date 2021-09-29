@@ -242,7 +242,7 @@
     <Wall x="-28" y="32" type="top_right_edge" weight="4" height="4" elementPixelPosition="0 242 0 256"/>
 
     <!-- Path 17 -->
-    <Wall x="-20" y="40" type="platform_single" weight="4.5" height="3.5" elementPixelPosition="0 256 64 256"/>
+    <Wall x="-20" y="38" type="platform_single" weight="4.5" height="3.5" elementPixelPosition="0 256 64 256"/>
 
     <!-- Path 18 -->
     <Wall x="-12" y="32" type="top_left_edge" weight="4" height="4" elementPixelPosition="13 256 0 256"/>
@@ -253,7 +253,7 @@
     <Wall x="4" y="32" type="platform_single" weight="4.5" height="3.5" elementPixelPosition="0 256 64 256"/>
 
     <!-- Path 20 -->
-    <Wall x="12" y="40" type="platform_single" weight="4.5" height="3.5" elementPixelPosition="0 256 64 256"/>
+    <Wall x="12" y="38" type="platform_single" weight="4.5" height="3.5" elementPixelPosition="0 256 64 256"/>
 
     <!-- Path 21 -->
     <Wall x="20" y="32" type="platform_single" weight="4.5" height="3.5" elementPixelPosition="0 256 64 256"/>
@@ -296,5 +296,5 @@
     <Diamond x="-34" y="26" type="diamond_for_fire" weight="4" height="4"/> 
 
     <!-- Character -->
-    <Character x="24" y="20" type="water_character" weight="8" height="8"/>
+    <Character x="-46" y="-44" type="water_character" weight="8" height="8"/>
 </Level>
