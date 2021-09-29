@@ -201,7 +201,7 @@ SceneFileParser.prototype.parsePlatforms = function (textures, normals, lightSet
 
 SceneFileParser.prototype.parseWaves = function (textures, normals, lightSet) {
     let elm = this._getElm("Wave");
-    let x, y, w, h, type, wave;
+    let x, y, w, h, pc, type, wave;
     let mAllWaves = new GameObjectSet();
 
     for (var index = 0; index < elm.length; index++) {
@@ -209,9 +209,10 @@ SceneFileParser.prototype.parseWaves = function (textures, normals, lightSet) {
         y = Number(elm[index].getAttribute("y"));
         w = Number(elm[index].getAttribute("weight"));
         h = Number(elm[index].getAttribute("height"));
+        pc = Number(elm[index].getAttribute("playerCollision"));
         type = elm[index].getAttribute("type");
 
-        wave = new Wave(x, y, w, h, textures[type], normals[type], lightSet);
+        wave = new Wave(x, y, w, h, pc, textures[type], normals[type], lightSet);
         gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, wave);
 
         mAllWaves.addToSet(wave);

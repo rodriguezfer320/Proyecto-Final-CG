@@ -124,7 +124,7 @@
     <Wall x="-36" y="-48" type="top_tile" weight="4" height="4" elementPixelPosition="0 242 0 256"/>
 
     <!-- Wave fire 1 -->
-    <Wave x="-30" y="-48" type="wave_fire" weight="8" height="2"/>
+    <Wave x="-30" y="-48" type="wave_fire" weight="8" height="2" playerCollision="0"/>
 
     <!-- Walls below fire 1 -->
     <Wall x="-32" y="-49.5" type="color_medium" weight="4" height="1" elementPixelPosition="0 256 0 128"/>
@@ -144,7 +144,7 @@
     <Wall x="0" y="-48" type="inner_corner_bottom_right" weight="4" height="4" elementPixelPosition="0 256 0 256"/>
 
     <!-- Wave water 1 -->
-    <Wave x="6" y="-48" type="wave_water" weight="8" height="2"/>
+    <Wave x="6" y="-48" type="wave_water" weight="8" height="2" playerCollision="1"/>
 
     <!-- Walls below water 1-->
     <Wall x="4" y="-49.5" type="color_medium" weight="4" height="1" elementPixelPosition="0 256 0 128"/>
@@ -171,7 +171,7 @@
     <Wall x="20" y="-24" type="top_tile" weight="4" height="4" elementPixelPosition="13 256 0 256"/>
     
     <!-- Wave fire 2 -->
-    <Wave x="14" y="-24" type="wave_fire" weight="8" height="2"/>
+    <Wave x="14" y="-24" type="wave_fire" weight="8" height="2" playerCollision="0"/>
 
     <!-- Walls below fire 2-->
     <Wall x="12" y="-25.5" type="color_medium" weight="4" height="1" elementPixelPosition="0 256 0 128"/>
@@ -222,7 +222,7 @@
     <Wall x="20" y="16" type="top_tile" weight="4" height="4" elementPixelPosition="13 256 0 256"/>
     
     <!-- Wave water 2 -->
-    <Wave x="14" y="16" type="wave_water" weight="8" height="2"/>
+    <Wave x="14" y="16" type="wave_water" weight="8" height="2" playerCollision="1"/>
 
     <!-- Walls below water 2-->
     <Wall x="16" y="14.5" type="color_medium" weight="4" height="1" elementPixelPosition="0 256 0 128"/>

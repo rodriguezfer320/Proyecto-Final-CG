@@ -165,7 +165,7 @@ Game.prototype.unloadScene = function () {
     if(this.mWin[0] && this.mWin[1]){
         menu = new WinMenu();
     }else{
-        //menu gameover
+        menu = new GameOverMenu();
     }
 
     if(menu !== null) gEngine.Core.startScene(menu);
@@ -194,8 +194,6 @@ Game.prototype.initialize = function () {
     //Platforms
     this.mAllPlatforms = parser.parsePlatforms(this.kTextures, this.kNormals, this.mGlobalLightSet);
 
-    //Weves
-    this.mAllWaves = parser.parseWaves(this.kTextures, this.kNormals, this.mGlobalLightSet);
 
     //Doors 
     this.mAllDoors = parser.parseDoors(this.kTextures, this.kNormals, this.mGlobalLightSet);
@@ -208,6 +206,9 @@ Game.prototype.initialize = function () {
 
     //Characters
     this.mAllCharacters = parser.parseCharacters(this.kTextures, this.kNormals, this.mGlobalLightSet);
+
+    //Weves
+    this.mAllWaves = parser.parseWaves(this.kTextures, this.kNormals, this.mGlobalLightSet);
 };
 
 // This is the draw function, make sure to setup proper drawing environment, and more
@@ -282,8 +283,19 @@ Game.prototype.update = function () {
         }        
     }
 
+    //Colisión del personaje con el liquido
+    for (let i = 0; i < this.mAllWaves.size(); i++) {
+        let wave = this.mAllWaves.getObjectAt(i);
+        let character = (wave.getPlayerCollision() === 0) ? mWaterCharacter : null;
+        let col = (character !== null) ? character.getPhysicsComponent().collided(wave.getPhysicsComponent(), new CollisionInfo()) : false; 
+
+        if(col){
+            character.setVisibility(false);
+            gEngine.GameLoop.stop();
+        }      
+    }
+
     //physics simulation
     gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllWalls);
     gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllPlatforms);
-    gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllWaves);
 };
