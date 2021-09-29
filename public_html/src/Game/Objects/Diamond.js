@@ -1,7 +1,7 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function Diamond(x, y, w, h, texture, normal, lgtSet) {
-
+function Diamond(x, y, w, h, texture, normal, lgtSet, type) {
+    this.type = type;
     if(normal !== null){
         this.mDiamond = new IllumRenderable(texture, normal);
     }else{
@@ -17,10 +17,14 @@ function Diamond(x, y, w, h, texture, normal, lgtSet) {
 
     var rigidShape = new RigidRectangle(this.getXform(), w-1, h);
     rigidShape.setMass(0);  // ensures no movements!
-    rigidShape.setDrawBounds(true);
+    rigidShape.setDrawBounds(false);
     rigidShape.setColor([0, 0, 1, 1]);
     this.setPhysicsComponent(rigidShape);
 }
 
 gEngine.Core.inheritPrototype(Diamond, GameObject);
+
+Diamond.prototype.getType =  function(){
+    return this.type;
+}
 

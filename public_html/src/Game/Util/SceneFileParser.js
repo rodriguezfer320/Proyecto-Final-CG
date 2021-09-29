@@ -297,7 +297,7 @@ SceneFileParser.prototype.parseDiamond = function (textures, normals, lightSet) 
         h = Number(elm[i].getAttribute("height"));
         type = elm[i].getAttribute("type");
 
-        mDiamond = new Diamond(x, y, w, h, textures[type], normals[type], lightSet);
+        mDiamond = new Diamond(x, y, w, h, textures[type], normals[type], lightSet, type);
         gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mDiamond);
 
         allDiamonds.addToSet(mDiamond); 
