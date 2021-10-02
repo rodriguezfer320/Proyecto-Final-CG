@@ -28,28 +28,35 @@ SceneFileParser.prototype._convertToNum = function (a) {
     }
 };
 
-SceneFileParser.prototype.parseCamera = function () {
+SceneFileParser.prototype.parseCameras = function () {
     let elm = this._getElm("Camera");
-    let x = Number(elm[0].getAttribute("x"));
-    let y = Number(elm[0].getAttribute("y"));
-    let width = Number(elm[0].getAttribute("width"));
-    let viewport = elm[0].getAttribute("viewport").split(" ");
-    let bound = Number(elm[0].getAttribute("bound"));
-    let color = elm[0].getAttribute("color").split(" ");
+    let i, x, y, width, viewport, bound, color;
+    let cams = [];
 
-    // make sure viewport and color are number
-    this._convertToNum(viewport);
-    this._convertToNum(color);
+    for (i = 0; i < elm.length; i++) {
+        x = Number(elm[i].getAttribute("x"));
+        y = Number(elm[i].getAttribute("y"));
+        width = Number(elm[i].getAttribute("width"));
+        viewport = elm[i].getAttribute("viewport").split(" ");
+        bound = Number(elm[i].getAttribute("bound"));
+        color = elm[i].getAttribute("color").split(" ");
 
-    let cam = new Camera(
-        vec2.fromValues(x, y), // position of the camera
-        width,                //  width of camera
-        viewport,            //   viewport (orgX, orgY, width, height)
-        bound
-    );
-    cam.setBackgroundColor(color);
+        // make sure viewport and color are number
+        this._convertToNum(viewport);
+        this._convertToNum(color);
 
-    return cam;
+        let cam = new Camera(
+            vec2.fromValues(x, y), // position of the camera
+            width,                //  width of camera
+            viewport,            //   viewport (orgX, orgY, width, height)
+            bound
+        );
+        cam.setBackgroundColor(color);
+
+        cams.push(cam);
+    }
+
+    return cams;
 };
 
 SceneFileParser.prototype.parseLights = function () {

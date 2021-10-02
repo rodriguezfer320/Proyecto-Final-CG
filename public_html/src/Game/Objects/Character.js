@@ -169,8 +169,6 @@ Character.prototype.update = function () {
         
         this.changeAnimation();
         this.mCharacter.updateAnimation();
-    }else{
-        this.mCharacter.getLightAt(0).isLightOn(false);
     }
 };
 
