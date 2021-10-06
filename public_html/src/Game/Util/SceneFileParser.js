@@ -294,7 +294,7 @@ SceneFileParser.prototype.parseCharacters = function (textures, normals, lightSe
 
 SceneFileParser.prototype.parseDiamond = function (textures, normals, lightSet) {
     let elm = this._getElm("Diamond");
-    let i, x, y, w, h, type, mDiamond;
+    let i, x, y, w, h, pc, type, mDiamond;
     let allDiamonds = new GameObjectSet();
 
     for (i = 0; i < elm.length; i++) {
@@ -302,9 +302,10 @@ SceneFileParser.prototype.parseDiamond = function (textures, normals, lightSet) 
         y = Number(elm[i].getAttribute("y"));
         w = Number(elm[i].getAttribute("weight"));
         h = Number(elm[i].getAttribute("height"));
-        type = elm[i].getAttribute("type");
+        pc = Number(elm[i].getAttribute("playerCollision"));
+        type = elm[i].getAttribute("type");       
 
-        mDiamond = new Diamond(x, y, w, h, textures[type], normals[type], lightSet, type);
+        mDiamond = new Diamond(x, y, w, h, pc, textures[type], normals[type], lightSet, type);
         gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mDiamond);
 
         allDiamonds.addToSet(mDiamond); 

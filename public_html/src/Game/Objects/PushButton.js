@@ -6,12 +6,13 @@ function PushButton(x, y, w, h, p, texture, normal, lgtSet) {
     }else{
         this.mPushButton = new LightRenderable(texture);
     }
-
+    
     this.mPushButton.getXform().setPosition(x, y);
     this.mPushButton.getXform().setSize(w, h);
     this.mPushButton.setElementPixelPositions(0, 128, 0, 64);
     this.mPushButton.addLight(lgtSet.getLightAt(0));
     this.platform = p;
+
 
     GameObject.call(this, this.mPushButton);
 
@@ -20,6 +21,8 @@ function PushButton(x, y, w, h, p, texture, normal, lgtSet) {
     rigidShape.setDrawBounds(false);
     rigidShape.setColor([0, 0, 1, 1]);
     this.setPhysicsComponent(rigidShape);
+
+    
 }
 
 gEngine.Core.inheritPrototype(PushButton, GameObject);
@@ -35,3 +38,4 @@ PushButton.prototype.pushButtonNotPressed = function () {
 PushButton.prototype.getPlatform = function () {
     return this.platform;
 };
+

@@ -13,6 +13,9 @@ function Character(x, y, texture, normal, lgtSet, player) {
     this.mJumpLimit = 0;
     this.mXAxisCorrection = -0.7;
     this.mYAxisCorrection = 1.5;
+    this.score = 0;
+    this.numPlatform = -1;
+    this.numPushButtonCollide = -1;
 
     if(normal !== null){
         this.mCharacter = new IllumRenderable(texture, normal);
@@ -37,7 +40,7 @@ function Character(x, y, texture, normal, lgtSet, player) {
     rigidShape.setRestitution(0);
     rigidShape.setFriction(0);
     rigidShape.setColor([0, 1, 0, 1]);
-    rigidShape.setDrawBounds(true);
+    rigidShape.setDrawBounds(false);
     this.setPhysicsComponent(rigidShape);
 
     let motionControls = {
@@ -228,4 +231,29 @@ Character.prototype.changeAnimation = function () {
                 break;
         }
     }
+};
+
+Character.prototype.getScore = function(){
+    return this.score;
+};
+
+Character.prototype.incrementScore = function(){
+    this.score++;
+};
+
+
+Character.prototype.getStatus  = function (){
+    return this.status;
+};
+
+Character.prototype.setStatus  = function (status){
+     this.status = status;
+};
+
+Character.prototype.getNumPushButtonCollide  = function (){
+    return this.numPushButtonCollide;
+};
+
+Character.prototype.setNumPushButtonCollide  = function (numPushButtonCollide){
+     this.numPushButtonCollide = numPushButtonCollide;
 };

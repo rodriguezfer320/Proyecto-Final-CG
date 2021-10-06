@@ -7,38 +7,32 @@
     <!--  notice the "comma" between x and y: Syntax error! -->
   
     <!-- Cameras -->
-    <Camera x="-18" y="-32.9" width="64" viewport="0 0 900 483" bound="0" color="0.9 0.9 0.9 1"/>
+    <!--<Camera x="-18" y="-32.9" width="64" viewport="0 0 900 483" bound="0" color="0.9 0.9 0.9 1"/> -->
+
+    <Camera x="18" y="10" width="64" viewport="0 0 900 483" bound="0" color="0.9 0.9 0.9 1"/>
 
     <!-- Mini map -->
     <Camera x="0" y="0" width="100" viewport="250 41.5 400 400" bound="2" color="0.3 0.2 0.1 1"/>
 
     <!-- Lights -->
+
+    <!-- Directional light -->
     <Light type="1" color="0.6 0.6 0.6 1" position="0 0 0" direction="0 0 -1" near="0" 
            far="0" inner="0" outer="0" intensity="1" dropOff="1" castShadow="true"/>
-
+ 
+    <!-- Water light -->
     <Light type="2" color="0 0.6 1 1" position="-46 -44 2" direction="0 0 -1" near="2" 
            far="3.6" inner="0.1" outer="2.6" intensity="2" dropOff="1.5" castShadow="true"/>
 
-    <Light 
-            type="1" 
-            color="0.3 0.3 1 1" 
-            position="0 0 0"
-            direction="-1 -1 -2" 
-            near="1"
-            far="1"
-            inner="0"
-            outer="0"
-            intensity="1" 
-            dropOff="1"
-            castShadow="false"
-        />
+    <Light type="2" color="0.65 0.04 0.04 1" position="-46 -44 2" direction="0 0 -1" near="2" 
+           far="3.6" inner="0.1" outer="2.6" intensity="2" dropOff="1.5" castShadow="true"/>
 
     <!-- Backgrounds -->
     <Background x="0" y="0" elementPixelPosition="0 900 124 1024" width="100" height="100"
-                parallaxScale="12" type="background" receiveShadow="false" lights="1"/>
+                parallaxScale="12" type="background" receiveShadow="false" lights="1 2" />
 
     <Background x="0" y="0" elementPixelPosition="0 900 124 1024" width="100" height="100"
-                parallaxScale="2" type="shadowBackground" receiveShadow="true" lights="1"/>
+                parallaxScale="2" type="shadowBackground" receiveShadow="true" lights="1 2"/>
 
     <!-- Right walls -->
     <Wall x="48" y="-48" type="color" weight="4" height="4" elementPixelPosition="0 256 0 256"/>
@@ -285,19 +279,23 @@
     <PushButton x="-30" y="35" type="push_button" weight="4" height="2" platform="1"/> 
 
     <!-- Diamonds -->
-    <Diamond x="-30" y="-36" type="diamond_for_water" weight="4" height="4"/> 
-    <Diamond x="6" y="-36" type="diamond_for_fire" weight="4" height="4"/> 
-    <Diamond x="14" y="-14" type="diamond_for_water" weight="4" height="4"/>    
-    <Diamond x="-26" y="-14" type="diamond_for_fire" weight="4" height="4"/> 
-    <Diamond x="-42" y="0" type="diamond_for_water" weight="4" height="4"/> 
-    <Diamond x="-8" y="8" type="diamond_for_fire" weight="4" height="4"/> 
-    <Diamond x="0" y="8" type="diamond_for_water" weight="4" height="4"/> 
-    <Diamond x="14" y="26" type="diamond_for_fire" weight="4" height="4"/> 
-    <Diamond x="-10" y="26" type="diamond_for_water" weight="4" height="4"/> 
-    <Diamond x="-18" y="26" type="diamond_for_fire" weight="4" height="4"/> 
-    <Diamond x="-26" y="26" type="diamond_for_water" weight="4" height="4"/> 
-    <Diamond x="-34" y="26" type="diamond_for_fire" weight="4" height="4"/> 
+    <Diamond x="-30" y="-36" weight="4" height="4" playerCollision="0" type="diamond_for_water"/> 
+    <Diamond x="6" y="-36" weight="4" height="4" playerCollision="1" type="diamond_for_fire"/> 
+    <Diamond x="14" y="-14" weight="4" height="4" playerCollision="0" type="diamond_for_water"/>    
+    <Diamond x="-26" y="-14" weight="4" height="4" playerCollision="1" type="diamond_for_fire"/> 
+    <Diamond x="-42" y="0" weight="4" height="4" playerCollision="0" type="diamond_for_water"/> 
+    <Diamond x="-8" y="8" weight="4" height="4" playerCollision="1" type="diamond_for_fire"/> 
+    <Diamond x="0" y="8" weight="4" height="4" playerCollision="0" type="diamond_for_water"/> 
+    <Diamond x="14" y="26" weight="4" height="4" playerCollision="1" type="diamond_for_fire"/> 
+    <Diamond x="-10" y="26" weight="4" height="4" playerCollision="0" type="diamond_for_water"/> 
+    <Diamond x="-18" y="26" weight="4" height="4" playerCollision="1" type="diamond_for_fire"/> 
+    <Diamond x="-26" y="26" weight="4" height="4" playerCollision="0" type="diamond_for_water"/> 
+    <Diamond x="-34" y="26" weight="4" height="4" playerCollision="1" type="diamond_for_fire"/> 
 
-    <!-- Character -->
-    <Character x="-46" y="-44" type="water_character" weight="8" height="8"/>
+    <!-- Character 
+    <Character x="-43" y="-44" type="water_character" weight="8" height="8"/>
+    <Character x="-38" y="-44" type="fire_character" weight="8" height="8"/> -->
+
+    <Character x="10" y="10" type="water_character" weight="8" height="8"/>
+    <Character x="20" y="10" type="fire_character" weight="8" height="8"/>
 </Level>
