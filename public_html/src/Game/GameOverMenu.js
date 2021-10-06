@@ -13,7 +13,7 @@
 
 function GameOverMenu() {
     this.kTextures = {
-        background: "assets/background.png",
+        background: "assets/backgrounds/background.png",
         menu: "assets/menu/game_over/gameover.png",
         menu_play: "assets/menu/game_over/gameover_play_selected.png",
         menu_exit: "assets/menu/game_over/gameover_exit_selected.png"
@@ -57,7 +57,7 @@ GameOverMenu.prototype.initialize = function () {
     this.mCamera = new Camera(
         vec2.fromValues(0, 0), // position of the camera
         100,                  //  width of camera
-        [0, 0, 900, 900],    //   viewport (orgX, orgY, width, height)
+        [0, 0, 900, 483],    //   viewport (orgX, orgY, width, height)
         0
     );
     this.mCamera.setBackgroundColor([0.9, 0.9, 0.9, 1]);
@@ -68,8 +68,8 @@ GameOverMenu.prototype.initialize = function () {
     this.mBackground.getXform().setPosition(0, 0);
 
     this.mMenu = new TextureRenderable(this.kTextures["menu"]);
-    this.mMenu.getXform().setSize(70, 80);
-    this.mMenu.getXform().setPosition(0, 5);
+    this.mMenu.getXform().setSize(45, 50);
+    this.mMenu.getXform().setPosition(0, 2.5);
 };
 
 // This is the draw function, make sure to setup proper drawing environment, and more
@@ -90,29 +90,31 @@ GameOverMenu.prototype.update = function () {
     let x = gEngine.Input.getMousePosX();
     let y = gEngine.Input.getMousePosY();
 
-    if(x >= 277 && x <= 443 && y >= 282 && y <= 438){
-        if(this.mMenuState === GameOverMenu.eMenuState.eMenu
-            || this.mMenuState === GameOverMenu.eMenuState.eMenuExit){
-                this.mMenuState = GameOverMenu.eMenuState.eMenuPlay;
-        }
+    if(y >= 130 && y <= 228){
+        if(x >= 338 && x <= 444){
+            if(this.mMenuState === MainMenu.eMenuState.eMenu
+                || this.mMenuState === MainMenu.eMenuState.eMenuExit){
+                    this.mMenuState = MainMenu.eMenuState.eMenuPlay;
+            }
+    
+            if(gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)){
+                this.mLoadSelection = new Game();
+                gEngine.GameLoop.stop();
+            }
+        }else if(x >= 467 && x <= 573){
+            if(this.mMenuState === MainMenu.eMenuState.eMenu
+                || this.mMenuState === MainMenu.eMenuState.eMenuPlay){
+                    this.mMenuState = MainMenu.eMenuState.eMenuExit;
+            }
 
-        if(gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)){
-            this.mLoadSelection = new Game();
-            gEngine.GameLoop.stop();
+            if(gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)){
+                this.mLoadSelection = new MainMenu();
+                gEngine.GameLoop.stop();
+            }
+        }else if(this.mMenuState === MainMenu.eMenuState.eMenuPlay
+            || this.mMenuState === MainMenu.eMenuState.eMenuExit){
+                this.mMenuState = MainMenu.eMenuState.eMenu;
         }
-    }else if(x >= 477 && x <= 642 && y >= 282 && y <= 438){
-        if(this.mMenuState === GameOverMenu.eMenuState.eMenu
-            || this.mMenuState === GameOverMenu.eMenuState.eMenuPlay){
-                this.mMenuState = GameOverMenu.eMenuState.eMenuExit;
-        }
-
-        if(gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)){
-            this.mLoadSelection = new MainMenu();
-            gEngine.GameLoop.stop();
-        }
-    }else if(this.mMenuState === GameOverMenu.eMenuState.eMenuPlay
-        || this.mMenuState === GameOverMenu.eMenuState.eMenuExit){
-            this.mMenuState = GameOverMenu.eMenuState.eMenu;
     }
 
     if(this.mMenuState !== this.mPreviousMenuState){

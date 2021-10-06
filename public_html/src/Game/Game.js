@@ -17,8 +17,8 @@ function Game() {
 
     this.kTextures = {
         //background and shadowBackground
-        background: "assets/background.png",
-        shadowBackground: "assets/shadow_background.png",
+        background: "assets/backgrounds/background.png",
+        shadowBackground: "assets/backgrounds/shadow_background.png",
 
         //Tileset
         bottom_left_edge: "assets/walls/bottom_left_edge.png",
@@ -43,24 +43,24 @@ function Game() {
         top_tile: "assets/walls/top_tile.png",
 
         //Platform
-        platform: "assets/platform.png",
+        platform: "assets/platform/platform.png",
 
         //Waves
-        wave_fire: "assets/wave_fire.png",
-        wave_water: "assets/wave_water.png",
+        wave_fire: "assets/wave/wave_fire.png",
+        wave_water: "assets/wave/wave_water.png",
 
         //Door
-        door: "assets/door.png",
+        door: "assets/door/door.png",
 
         //PushButton
-        push_button: "assets/push_button.png",
+        push_button: "assets/push_button/push_button.png",
 
         //Diamons
-        diamond_for_water: "assets/diamond_for_water.png",
-        diamond_for_fire: "assets/diamond_for_fire.png",
+        diamond_for_water: "assets/diamonds/diamond_for_water.png",
+        diamond_for_fire: "assets/diamonds/diamond_for_fire.png",
 
         //Characters
-        water_character: "assets/water_character.png"
+        water_character: "assets/characters/water_character.png"
     };
 
     this.kNormals = {
@@ -91,7 +91,7 @@ function Game() {
         top_tile: "assets/walls/top_tile_normal.png",
 
         //Platform
-        platform: "assets/platform_normal.png",
+        platform: "assets/platform/platform_normal.png",
 
         //Waves
         wave_fire: "",
@@ -108,10 +108,10 @@ function Game() {
         diamond_for_fire: "",
 
         //Characters
-        water_character: "assets/water_character_normal.png"
+        water_character: "assets/characters/water_character_normal.png"
     };
 
-    this.mCamera = null;
+    this.mAllCameras = null;
     this.mGlobalLightSet = null;
     this.mAllWalls = null;
     this.mAllPlatforms = null;
@@ -124,6 +124,7 @@ function Game() {
     this.scoreWaterCharacter = 0;
     this.scoreFireCharacter = 0;
     this.mMsg = null;
+    this.mIsVisibleMap = false;
 }
 gEngine.Core.inheritPrototype(Game, Scene);
 
@@ -183,13 +184,13 @@ Game.prototype.initialize = function () {
     let parser = new SceneFileParser(this.kFileLevel);
 
     //Camera
-    this.mCamera = parser.parseCamera();
+    this.mAllCameras = parser.parseCameras();
 
     //Lights
     this.mGlobalLightSet = parser.parseLights();
 
     //Background and shadowBackground
-    parser.parseBackgrounds(this.kTextures, this.kNormals, this.mGlobalLightSet, this.mCamera);
+    parser.parseBackgrounds(this.kTextures, this.kNormals, this.mGlobalLightSet, this.mAllCameras[0]);
 
     //Walls
     this.mAllWalls = parser.parseWalls(this.kTextures, this.kNormals, this.mGlobalLightSet);
@@ -214,7 +215,7 @@ Game.prototype.initialize = function () {
 
     this.mMsg = new FontRenderable("Status Message");
     this.mMsg.setColor([1, 1, 1, 1]);
-    this.mMsg.getXform().setPosition(8, 44);
+    this.mMsg.getXform().setPosition(-14, -17);
     this.mMsg.setTextHeight(2);
 
     gEngine.LayerManager.addToLayer(gEngine.eLayer.eHUD, this.mMsg);
@@ -224,14 +225,22 @@ Game.prototype.initialize = function () {
 // importantly, make sure to _NOT_ change any state.
 Game.prototype.draw = function () {
     gEngine.Core.clearCanvas([1, 1, 1, 1]); 
-    this.mCamera.setupViewProjection();
-    gEngine.LayerManager.drawAllLayers(this.mCamera);
+    this.mAllCameras[0].setupViewProjection();
+    gEngine.LayerManager.drawAllLayers(this.mAllCameras[0]);
+
+    if(this.mIsVisibleMap){
+        this.mAllCameras[1].setupViewProjection();
+
+        for(let i = 0; i < 4; i++){
+            gEngine.LayerManager.drawLayer(i, this.mAllCameras[1]);
+        }
+    }
 };
 
 // The Update function, updates the application state. Make sure to _NOT_ draw
 // anything from this function!
 Game.prototype.update = function () {
-    this.mCamera.update();
+    this.mAllCameras[0].update();
     gEngine.LayerManager.updateAllLayers();
 
     //Variables de objetos
@@ -240,7 +249,61 @@ Game.prototype.update = function () {
 
     //Mover la camara
     let xf = mWaterCharacter.getXform();
-    this.mCamera.setWCCenter(xf.getXPos(), xf.getYPos());
+    let posText = this.mMsg.getXform().getPosition();
+    let status = this.mAllCameras[0].collideWCBound(xf, 1);
+
+    if (status !== BoundingBox.eboundCollideStatus.eInside) {
+        let p1 = this.mAllCameras[0].getWCCenter();
+
+        if ((status & BoundingBox.eboundCollideStatus.eCollideTop) !== 0) {
+            if(p1[1] === -32.900001525878906){
+                p1[1] += 16;
+                posText[1] += 16;
+            }
+            else if(p1[1] === -16.900001525878906){
+                p1[1] += 24;
+                posText[1] += 24;
+            }
+            else if(p1[1] === 7.099998474121094){
+                p1[1] += 12;
+                posText[1] += 12;
+            }
+            else if(p1[1] === 19.099998474121094){
+                p1[1] += 13.8000030518;
+                posText[1] += 13.8000030518;
+            } 
+        }else if ((status & BoundingBox.eboundCollideStatus.eCollideBottom) !== 0) {
+            if(p1[1] === -16.900001525878906){
+                p1[1] -= 16;
+                posText[1] -= 16
+            } 
+            else if(p1[1] === 7.099998474121094){
+                p1[1] -= 24;
+                posText[1] -= 24;
+            }
+            else if(p1[1] === 19.099998474121094){
+                p1[1] -= 12;
+                posText[1] -= 12;
+            }
+            else if( p1[1] === 32.900001525878906){
+                p1[1] -= 13.8000030518;
+                posText[1] -= 13.8000030518;
+            } 
+        }else if ((status & BoundingBox.eboundCollideStatus.eCollideRight) !== 0) {
+            if(p1[0] === -18){
+                p1[0] += 36;
+                posText[0] += 1.6;
+            }
+        }else if ((status & BoundingBox.eboundCollideStatus.eCollideLeft) !== 0) {
+            if(p1[0] === 18){
+                p1[0] -= 36;
+                posText[0] -= 1.6;
+            }
+        }
+
+        this.mAllCameras[0].panTo(p1[0], p1[1]);
+        this.mMsg.getXform().setPosition(posText[0], posText[1]);
+    }
 
     //Mover la luz del personaje
     let p = vec2.clone(mWaterCharacter.getPhysicsComponent().getXform().getPosition());
@@ -299,6 +362,7 @@ Game.prototype.update = function () {
         let col = (character !== null) ? character.getPhysicsComponent().collided(wave.getPhysicsComponent(), new CollisionInfo()) : false; 
 
         if(col){
+            this.mGlobalLightSet.getLightAt(1).setLightTo(false);
             character.setVisibility(false);
             gEngine.GameLoop.stop();
         } 
@@ -322,8 +386,17 @@ Game.prototype.update = function () {
     //physics simulation
     gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllWalls);
     gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllPlatforms); 
+
+    //se habilita y deshabilita el mapa
+    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Space)){
+        if(!this.mIsVisibleMap){
+            this.mIsVisibleMap = true;
+        }else{
+            this.mIsVisibleMap = false;
+        }
+    }
     
     //Mensaje de score para los personajes
-    var msg = "Watergirl: " + this.scoreWaterCharacter + " Fireboy: " + this.scoreFireCharacter;
+    let msg = "Watergirl: " + this.scoreWaterCharacter + " Fireboy: " + this.scoreFireCharacter;
     this.mMsg.setText(msg);
 };

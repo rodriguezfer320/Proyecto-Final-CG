@@ -6,8 +6,11 @@
     <!--  e.g., do NOT do:  x="20", y="30" -->
     <!--  notice the "comma" between x and y: Syntax error! -->
   
-    <!-- Camera -->
-    <Camera x="0" y="0" width="100" viewport="0 0 900 900" bound="0" color="0.9 0.9 0.9 1"/>
+    <!-- Cameras -->
+    <Camera x="-18" y="-32.9" width="64" viewport="0 0 900 483" bound="0" color="0.9 0.9 0.9 1"/>
+
+    <!-- Mini map -->
+    <Camera x="0" y="0" width="100" viewport="250 41.5 400 400" bound="2" color="0.3 0.2 0.1 1"/>
 
     <!-- Lights -->
     <Light type="1" color="0.6 0.6 0.6 1" position="0 0 0" direction="0 0 -1" near="0" 
@@ -32,7 +35,7 @@
 
     <!-- Backgrounds -->
     <Background x="0" y="0" elementPixelPosition="0 900 124 1024" width="100" height="100"
-                parallaxScale="100" type="background" receiveShadow="false" lights="1"/>
+                parallaxScale="12" type="background" receiveShadow="false" lights="1"/>
 
     <Background x="0" y="0" elementPixelPosition="0 900 124 1024" width="100" height="100"
                 parallaxScale="2" type="shadowBackground" receiveShadow="true" lights="1"/>
