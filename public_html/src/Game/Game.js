@@ -250,7 +250,20 @@ Game.prototype.update = function () {
     let mWaterCharacter = this.mAllCharacters.getObjectAt(0);
     let mFireCharacter = this.mAllCharacters.getObjectAt(1);
 
-    //Mover la camara
+    this.camera(mWaterCharacter, mFireCharacter);
+    this.auroraCharacter(mWaterCharacter, 1);
+    this.auroraCharacter(mFireCharacter, 2);
+    this.colCharacterWave(mWaterCharacter, mFireCharacter);
+    this.colCharacterDiamond(mWaterCharacter, mFireCharacter);
+    this.colCharacterPushButton(mWaterCharacter, mFireCharacter);
+    this.colCharacterDoor(mWaterCharacter, mFireCharacter);
+    this.physicsSimulation();
+    this.miniMapa();
+    this.msjScore(mWaterCharacter, mFireCharacter);
+};
+
+//Mover la camara
+Game.prototype.camera = function (mWaterCharacter, mFireCharacter) {
     let xf = mWaterCharacter.getXform();
     let posText = this.mMsg.getXform().getPosition();
     let status = this.mAllCameras[0].collideWCBound(xf, 1);
@@ -307,16 +320,70 @@ Game.prototype.update = function () {
         this.mAllCameras[0].panTo(p1[0], p1[1]);
         this.mMsg.getXform().setPosition(posText[0], posText[1]);
     }
+};
 
-    //Aurora del personaje de agua
-    let auroraWater = vec2.clone(mWaterCharacter.getPhysicsComponent().getXform().getPosition());
-    this.mGlobalLightSet.getLightAt(1).set2DPosition(auroraWater);
+//Función que activa las fisicas del juego
+Game.prototype.physicsSimulation = function () {
+    gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllWalls);
+    gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllPlatforms);
+};
 
-    //Aurora del personaje de fuego
-    let auroraFire = vec2.clone(mFireCharacter.getPhysicsComponent().getXform().getPosition());
-    this.mGlobalLightSet.getLightAt(2).set2DPosition(auroraFire);
+//Función que activa y desactiva el minimapa
+Game.prototype.miniMapa = function () {
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Space)) {
+        if (!this.mIsVisibleMap) {
+            this.mIsVisibleMap = true;
+        } else {
+            this.mIsVisibleMap = false;
+        }
+    }
+};
 
-    //Colisión de puertas con cada personaje
+//Mensaje de score para los personajes
+Game.prototype.msjScore = function (mWaterCharacter, mFireCharacter) {
+    let msg = "Watergirl: " + mWaterCharacter.getScore() + " Fireboy: " + mFireCharacter.getScore();
+    this.mMsg.setText(msg);
+};
+
+//Función que crear las auroras de los personajes
+Game.prototype.auroraCharacter = function (character, pos) {
+    let auroraCharacter = vec2.clone(character.getPhysicsComponent().getXform().getPosition());
+    this.mGlobalLightSet.getLightAt(pos).set2DPosition(auroraCharacter);
+
+};
+
+//Colisión del personaje con el liquido
+Game.prototype.colCharacterWave = function (mWaterCharacter, mFireCharacter) {
+    for (let i = 0; i < this.mAllWaves.size(); i++) {
+        let wave = this.mAllWaves.getObjectAt(i);
+        let character = (wave.getPlayerCollision() === 0) ? mWaterCharacter : mFireCharacter;
+        let col = (character !== null) ? character.getPhysicsComponent().collided(wave.getPhysicsComponent(), new CollisionInfo()) : false;
+
+        if (col) {
+            this.mGlobalLightSet.getLightAt(1).setLightTo(false);
+            character.setVisibility(false);
+            gEngine.GameLoop.stop();
+        }
+    }
+};
+
+//Colisión del personaje con su respectivo diamante
+Game.prototype.colCharacterDiamond = function (mWaterCharacter, mFireCharacter) {
+    for (let i = 0; i < this.mAllDiamons.size(); i++) {
+        let diamond = this.mAllDiamons.getObjectAt(i);
+        let character = (diamond.getPlayerCollision() === 0) ? mWaterCharacter : mFireCharacter;
+        let col = (character !== null) ? character.getPhysicsComponent().collided(diamond.getPhysicsComponent(), new CollisionInfo()) : false;
+
+        if (col) {
+            diamond.setVisibility(false);
+            character.incrementScore();
+            this.mAllDiamons.removeFromSet(diamond);
+        }
+    }
+};
+
+//Colisión del personaje con su respectiva puerta
+Game.prototype.colCharacterDoor = function (mWaterCharacter, mFireCharacter) {
     for (let i = 0; i < this.mAllDoors.size(); i++) {
         let door = this.mAllDoors.getObjectAt(i);
         let character = (door.getPlayerCollision() === 0) ? mWaterCharacter : mFireCharacter;
@@ -327,26 +394,27 @@ Game.prototype.update = function () {
                 door.activateAnimation();
                 door.setStatus(true);
             }
-    
+
             if (door.getStatus() && (door.getCont() < 50)) {
                 door.increment();
             }
-    
+
             if (door.getCont() == 50) {
                 door.desactivateAnimation();
-                character.setVisibility(false);  
-                character.setInDoor(true);              
+                character.setVisibility(false);
+                character.setInDoor(true);
             }
         }
     }
-    
-    //Función que verifica si cada personaje entro a sus respectivas puertas
+
     if (mWaterCharacter.getInDoor() && mFireCharacter.getInDoor()) {
         this.mWin[0] = true;
         gEngine.GameLoop.stop();
     }
+};
 
-    //Colisión de los personajes con los botones
+//Colisión del personaje con los botones para activar las plataformas
+Game.prototype.colCharacterPushButton = function (mWaterCharacter, mFireCharacter) {
     for (let i = 0; i < this.mAllPushButtons.size(); i++) {
         let pushButton = this.mAllPushButtons.getObjectAt(i);
         let colWater = mWaterCharacter.getPhysicsComponent().collided(pushButton.getPhysicsComponent(), new CollisionInfo());
@@ -368,53 +436,9 @@ Game.prototype.update = function () {
             mFireCharacter.setNumPushButtonCollide(-1);
         }
     }
-
-    //Colisión del personaje con el liquido
-    for (let i = 0; i < this.mAllWaves.size(); i++) {
-        let wave = this.mAllWaves.getObjectAt(i);
-        let character = (wave.getPlayerCollision() === 0) ? mWaterCharacter : mFireCharacter;
-        let col = (character !== null) ? character.getPhysicsComponent().collided(wave.getPhysicsComponent(), new CollisionInfo()) : false;
-
-        if (col) {
-            this.mGlobalLightSet.getLightAt(1).setLightTo(false);
-            character.setVisibility(false);
-            gEngine.GameLoop.stop();
-        }
-    }
-
-    /**
-     * Si el personaje toca su respectivo diamante le suma un 1 a su score.
-     */
-    for (let i = 0; i < this.mAllDiamons.size(); i++) {
-        let diamond = this.mAllDiamons.getObjectAt(i);
-        let character = (diamond.getPlayerCollision() === 0) ? mWaterCharacter : mFireCharacter;
-        let col = (character !== null) ? character.getPhysicsComponent().collided(diamond.getPhysicsComponent(), new CollisionInfo()) : false;
-
-        if (col) {
-            diamond.setVisibility(false);
-            character.incrementScore();
-            this.mAllDiamons.removeFromSet(diamond);
-        }
-    }
-
-    //physics simulation
-    gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllWalls);
-    gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllPlatforms);
-
-    //se habilita y deshabilita el mapa
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Space)) {
-        if (!this.mIsVisibleMap) {
-            this.mIsVisibleMap = true;
-        } else {
-            this.mIsVisibleMap = false;
-        }
-    }
-
-    //Mensaje de score para los personajes
-    let msg = "Watergirl: " + mWaterCharacter.getScore() + " Fireboy: " + mFireCharacter.getScore();
-    this.mMsg.setText(msg);
 };
 
+//Función auxiliar activar plataforma
 Game.prototype.activatePlatform = function (pushButton, character, i) {
     character.setStatus(pushButton.getPlatform());
 
@@ -427,9 +451,14 @@ Game.prototype.activatePlatform = function (pushButton, character, i) {
     }
 };
 
+//Función auxiliar desactivar plataforma
 Game.prototype.desactivatePlatform = function (pushButton, character) {
     pushButton.pushButtonNotPressed();
 
     this.mAllPlatforms.getObjectAt(pushButton.getPlatform()).changeDirectionMovement(false);
     character.setStatus(-1);
 };
+
+
+
+
