@@ -16,6 +16,7 @@ function Character(x, y, texture, normal, lgtSet, player) {
     this.score = 0;
     this.numPlatform = -1;
     this.numPushButtonCollide = -1;
+    this.inDoor = false;
 
     if(normal !== null){
         this.mCharacter = new IllumRenderable(texture, normal);
@@ -257,3 +258,12 @@ Character.prototype.getNumPushButtonCollide  = function (){
 Character.prototype.setNumPushButtonCollide  = function (numPushButtonCollide){
      this.numPushButtonCollide = numPushButtonCollide;
 };
+
+Character.prototype.getInDoor  = function (){
+    return this.inDoor;
+};
+
+Character.prototype.setInDoor  = function (inDoor){
+     this.inDoor = inDoor;
+};
+

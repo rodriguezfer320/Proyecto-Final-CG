@@ -230,7 +230,7 @@ SceneFileParser.prototype.parseWaves = function (textures, normals, lightSet) {
 
 SceneFileParser.prototype.parseDoors = function (textures, normals, lightSet) {
     let elm = this._getElm("Door");
-    let i, x, y, w, h, type, mDoor;
+    let i, x, y, w, h, pc, type, mDoor;
     let allDoors = new GameObjectSet();
 
     for (i = 0; i < elm.length; i++) {
@@ -238,9 +238,10 @@ SceneFileParser.prototype.parseDoors = function (textures, normals, lightSet) {
         y = Number(elm[i].getAttribute("y"));
         w = Number(elm[i].getAttribute("weight"));
         h = Number(elm[i].getAttribute("height"));
+        pc = Number(elm[i].getAttribute("playerCollision"));
         type = elm[i].getAttribute("type");
 
-        mDoor = new Door(x, y, w, h, textures[type], normals[type], lightSet);
+        mDoor = new Door(x, y, w, h, pc, textures[type], normals[type], lightSet);
 
         gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mDoor);
 

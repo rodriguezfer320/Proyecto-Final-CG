@@ -1,6 +1,6 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function Door(x, y, w, h, texture, normal, lgtSet) {
+function Door(x, y, w, h, pc, texture, normal, lgtSet) {
     this.cont = 0;
     this.status = false;
 
@@ -15,6 +15,7 @@ function Door(x, y, w, h, texture, normal, lgtSet) {
     this.kDoor.setSpriteSequence(256, 0, 256, 256, 1, 0);
     this.kDoor.setAnimationSpeed(0);
     this.kDoor.addLight(lgtSet.getLightAt(0));
+    this.mPlayerCollision = pc;
 
     GameObject.call(this, this.kDoor);
 
@@ -57,3 +58,7 @@ Door.prototype.getCont = function(){
 Door.prototype.increment = function(){
    this.cont ++; 
 }
+
+Door.prototype.getPlayerCollision = function (){
+    return this.mPlayerCollision;
+};

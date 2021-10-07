@@ -24,18 +24,18 @@ function Game() {
         bottom_left_edge: "assets/walls/bottom_left_edge.png",
         bottom_right_edge: "assets/walls/bottom_right_edge.png",
         bottom_tile: "assets/walls/bottom_tile.png",
-        color: "assets/walls/color.png", 
-        color_medium: "assets/walls/color_medium.png", 
+        color: "assets/walls/color.png",
+        color_medium: "assets/walls/color_medium.png",
         inner_corner_bottom_left: "assets/walls/inner_corner_bottom_left.png",
         inner_corner_bottom_right: "assets/walls/inner_corner_bottom_right.png",
-        inner_corner_top_left: "assets/walls/inner_corner_top_left.png",   
-        inner_corner_top_right: "assets/walls/inner_corner_top_right.png",     
+        inner_corner_top_left: "assets/walls/inner_corner_top_left.png",
+        inner_corner_top_right: "assets/walls/inner_corner_top_right.png",
         left_edge_repeating: "assets/walls/left_edge_repeating.png",
-        platform_inner_repeating: "assets/walls/platform_inner_repeating.png",  
+        platform_inner_repeating: "assets/walls/platform_inner_repeating.png",
         platform_left_edge: "assets/walls/platform_left_edge.png",
         platform_right_edge: "assets/walls/platform_right_edge.png",
         platform_single: "assets/walls/platform_single.png",
-        left_tile: "assets/walls/left_tile.png",        
+        left_tile: "assets/walls/left_tile.png",
         right_edge_repeating: "assets/walls/right_edge_repeating.png",
         right_tile: "assets/walls/right_tile.png",
         top_left_edge: "assets/walls/top_left_edge.png",
@@ -50,7 +50,8 @@ function Game() {
         wave_water: "assets/wave/wave_water.png",
 
         //Door
-        door: "assets/door/door.png",
+        door_water: "assets/door/door_water.png",
+        door_fire: "assets/door/door_fire.png",
 
         //PushButton
         push_button: "assets/push_button/push_button.png",
@@ -62,7 +63,7 @@ function Game() {
         //Characters
         water_character: "assets/characters/water_character.png",
         fire_character: "assets/characters/fire_character.png"
-        
+
     };
 
     this.kNormals = {
@@ -74,18 +75,18 @@ function Game() {
         bottom_left_edge: "assets/walls/bottom_left_edge_normal.png",
         bottom_right_edge: "assets/walls/bottom_right_edge_normal.png",
         bottom_tile: "assets/walls/bottom_tile_normal.png",
-        color: "assets/walls/color_normal.png", 
-        color_medium: "assets/walls/color_medium_normal.png", 
+        color: "assets/walls/color_normal.png",
+        color_medium: "assets/walls/color_medium_normal.png",
         inner_corner_bottom_left: "assets/walls/inner_corner_bottom_left_normal.png",
         inner_corner_bottom_right: "assets/walls/inner_corner_bottom_right_normal.png",
-        inner_corner_top_left: "assets/walls/inner_corner_top_left_normal.png",   
-        inner_corner_top_right: "assets/walls/inner_corner_top_right_normal.png",     
+        inner_corner_top_left: "assets/walls/inner_corner_top_left_normal.png",
+        inner_corner_top_right: "assets/walls/inner_corner_top_right_normal.png",
         left_edge_repeating: "assets/walls/left_edge_repeating_normal.png",
-        platform_inner_repeating: "assets/walls/platform_inner_repeating_normal.png",  
+        platform_inner_repeating: "assets/walls/platform_inner_repeating_normal.png",
         platform_left_edge: "assets/walls/platform_left_edge_normal.png",
         platform_right_edge: "assets/walls/platform_right_edge_normal.png",
         platform_single: "assets/walls/platform_single_normal.png",
-        left_tile: "assets/walls/left_tile_normal.png",        
+        left_tile: "assets/walls/left_tile_normal.png",
         right_edge_repeating: "assets/walls/right_edge_repeating_normal.png",
         right_tile: "assets/walls/right_tile_normal.png",
         top_left_edge: "assets/walls/top_left_edge_normal.png",
@@ -100,7 +101,8 @@ function Game() {
         wave_water: "",
 
         //Door
-        door: "",
+        door_water: "",
+        door_fire: "",
 
         //PushButton
         push_button: "",
@@ -133,17 +135,17 @@ Game.prototype.loadScene = function () {
     gEngine.TextFileLoader.loadTextFile(this.kFileLevel, gEngine.TextFileLoader.eTextFileType.eXMLFile);
 
     for (const key in this.kTextures) {
-        if(this.kTextures[key] !== ""){
+        if (this.kTextures[key] !== "") {
             gEngine.Textures.loadTexture(this.kTextures[key]);
-        }else{
-            this.kTextures[key] = null; 
+        } else {
+            this.kTextures[key] = null;
         }
     }
-    
+
     for (const key in this.kNormals) {
-        if(this.kNormals[key] !== ""){
+        if (this.kNormals[key] !== "") {
             gEngine.Textures.loadTexture(this.kNormals[key]);
-        }else{
+        } else {
             this.kNormals[key] = null;
         }
     }
@@ -154,26 +156,26 @@ Game.prototype.unloadScene = function () {
     gEngine.TextFileLoader.unloadTextFile(this.kFileLevel);
 
     for (const key in this.kTextures) {
-        if(this.kTextures[key] !== null){
+        if (this.kTextures[key] !== null) {
             gEngine.Textures.unloadTexture(this.kTextures[key]);
         }
     }
-    
+
     for (const key in this.kNormals) {
-        if(this.kNormals[key] !== null){
+        if (this.kNormals[key] !== null) {
             gEngine.Textures.unloadTexture(this.kNormals[key]);
         }
     }
 
     let menu = null;
 
-    if(this.mWin[0] && this.mWin[1]){
+    if (this.mWin[0] && this.mWin[1]) {
         menu = new WinMenu();
-    }else{
+    } else {
         menu = new GameOverMenu();
     }
 
-    if(menu !== null) gEngine.Core.startScene(menu);
+    if (menu !== null) gEngine.Core.startScene(menu);
 };
 
 Game.prototype.initialize = function () {
@@ -225,14 +227,14 @@ Game.prototype.initialize = function () {
 // This is the draw function, make sure to setup proper drawing environment, and more
 // importantly, make sure to _NOT_ change any state.
 Game.prototype.draw = function () {
-    gEngine.Core.clearCanvas([1, 1, 1, 1]); 
+    gEngine.Core.clearCanvas([1, 1, 1, 1]);
     this.mAllCameras[0].setupViewProjection();
     gEngine.LayerManager.drawAllLayers(this.mAllCameras[0]);
 
-    if(this.mIsVisibleMap){
+    if (this.mIsVisibleMap) {
         this.mAllCameras[1].setupViewProjection();
 
-        for(let i = 0; i < 4; i++){
+        for (let i = 0; i < 4; i++) {
             gEngine.LayerManager.drawLayer(i, this.mAllCameras[1]);
         }
     }
@@ -248,8 +250,6 @@ Game.prototype.update = function () {
     let mWaterCharacter = this.mAllCharacters.getObjectAt(0);
     let mFireCharacter = this.mAllCharacters.getObjectAt(1);
 
-    let door = this.mAllDoors.getObjectAt(0);
-
     //Mover la camara
     let xf = mWaterCharacter.getXform();
     let posText = this.mMsg.getXform().getPosition();
@@ -259,46 +259,46 @@ Game.prototype.update = function () {
         let p1 = this.mAllCameras[0].getWCCenter();
 
         if ((status & BoundingBox.eboundCollideStatus.eCollideTop) !== 0) {
-            if(p1[1] === -32.900001525878906){
+            if (p1[1] === -32.900001525878906) {
                 p1[1] += 16;
                 posText[1] += 16;
             }
-            else if(p1[1] === -16.900001525878906){
+            else if (p1[1] === -16.900001525878906) {
                 p1[1] += 24;
                 posText[1] += 24;
             }
-            else if(p1[1] === 7.099998474121094){
+            else if (p1[1] === 7.099998474121094) {
                 p1[1] += 12;
                 posText[1] += 12;
             }
-            else if(p1[1] === 19.099998474121094){
+            else if (p1[1] === 19.099998474121094) {
                 p1[1] += 13.8000030518;
                 posText[1] += 13.8000030518;
-            } 
-        }else if ((status & BoundingBox.eboundCollideStatus.eCollideBottom) !== 0) {
-            if(p1[1] === -16.900001525878906){
+            }
+        } else if ((status & BoundingBox.eboundCollideStatus.eCollideBottom) !== 0) {
+            if (p1[1] === -16.900001525878906) {
                 p1[1] -= 16;
                 posText[1] -= 16
-            } 
-            else if(p1[1] === 7.099998474121094){
+            }
+            else if (p1[1] === 7.099998474121094) {
                 p1[1] -= 24;
                 posText[1] -= 24;
             }
-            else if(p1[1] === 19.099998474121094){
+            else if (p1[1] === 19.099998474121094) {
                 p1[1] -= 12;
                 posText[1] -= 12;
             }
-            else if( p1[1] === 32.900001525878906){
+            else if (p1[1] === 32.900001525878906) {
                 p1[1] -= 13.8000030518;
                 posText[1] -= 13.8000030518;
-            } 
-        }else if ((status & BoundingBox.eboundCollideStatus.eCollideRight) !== 0) {
-            if(p1[0] === -18){
+            }
+        } else if ((status & BoundingBox.eboundCollideStatus.eCollideRight) !== 0) {
+            if (p1[0] === -18) {
                 p1[0] += 36;
                 posText[0] += 1.6;
             }
-        }else if ((status & BoundingBox.eboundCollideStatus.eCollideLeft) !== 0) {
-            if(p1[0] === 18){
+        } else if ((status & BoundingBox.eboundCollideStatus.eCollideLeft) !== 0) {
+            if (p1[0] === 18) {
                 p1[0] -= 36;
                 posText[0] -= 1.6;
             }
@@ -308,67 +308,78 @@ Game.prototype.update = function () {
         this.mMsg.getXform().setPosition(posText[0], posText[1]);
     }
 
-    //Mover la luz del personaje
+    //Aurora del personaje de agua
     let auroraWater = vec2.clone(mWaterCharacter.getPhysicsComponent().getXform().getPosition());
     this.mGlobalLightSet.getLightAt(1).set2DPosition(auroraWater);
 
+    //Aurora del personaje de fuego
     let auroraFire = vec2.clone(mFireCharacter.getPhysicsComponent().getXform().getPosition());
     this.mGlobalLightSet.getLightAt(2).set2DPosition(auroraFire);
 
+    //Colisión de puertas con cada personaje
+    for (let i = 0; i < this.mAllDoors.size(); i++) {
+        let door = this.mAllDoors.getObjectAt(i);
+        let character = (door.getPlayerCollision() === 0) ? mWaterCharacter : mFireCharacter;
+        let col = (character !== null) ? character.getPhysicsComponent().collided(door.getPhysicsComponent(), new CollisionInfo()) : false;
 
-    //Colisión puerta con el personaje de agua 
-    let collidedDoor = mWaterCharacter.getPhysicsComponent().collided(door.getPhysicsComponent(), new CollisionInfo());
+        if (col) {
+            if (!(door.getStatus())) {
+                door.activateAnimation();
+                door.setStatus(true);
+            }
     
-    if (collidedDoor && !(door.getStatus())) {
-        door.activateAnimation();
-        door.setStatus(true);
+            if (door.getStatus() && (door.getCont() < 50)) {
+                door.increment();
+            }
+    
+            if (door.getCont() == 50) {
+                door.desactivateAnimation();
+                character.setVisibility(false);  
+                character.setInDoor(true);              
+            }
+        }
     }
-
-    if (door.getStatus() && (door.getCont() < 50)) {
-        door.increment();
-    }
-
-    if(door.getCont() == 50){
-        door.desactivateAnimation();
-        mWaterCharacter.setVisibility(false);
+    
+    //Función que verifica si cada personaje entro a sus respectivas puertas
+    if (mWaterCharacter.getInDoor() && mFireCharacter.getInDoor()) {
         this.mWin[0] = true;
         gEngine.GameLoop.stop();
     }
-    
+
     //Colisión de los personajes con los botones
-    for (let i = 0; i < this.mAllPushButtons.size(); i++) { 
+    for (let i = 0; i < this.mAllPushButtons.size(); i++) {
         let pushButton = this.mAllPushButtons.getObjectAt(i);
-        let colWater = mWaterCharacter.getPhysicsComponent().collided(pushButton.getPhysicsComponent(), new CollisionInfo()); 
+        let colWater = mWaterCharacter.getPhysicsComponent().collided(pushButton.getPhysicsComponent(), new CollisionInfo());
         let colFire = mFireCharacter.getPhysicsComponent().collided(pushButton.getPhysicsComponent(), new CollisionInfo());
 
-        if(colWater && (mWaterCharacter.getStatus() != pushButton.getPlatform())){                          
-            this.activatePlatform(pushButton, mFireCharacter, i);  
+        if (colWater && (mWaterCharacter.getStatus() != pushButton.getPlatform())) {
+            this.activatePlatform(pushButton, mFireCharacter, i);
             mWaterCharacter.setNumPushButtonCollide(i);
-        }else if(i === mWaterCharacter.getNumPushButtonCollide()){
+        } else if (i === mWaterCharacter.getNumPushButtonCollide()) {
             this.desactivatePlatform(pushButton, mFireCharacter);
             mWaterCharacter.setNumPushButtonCollide(-1);
-        } 
-        
-        if(colFire && (mFireCharacter.getStatus() != pushButton.getPlatform())){                          
-            this.activatePlatform(pushButton, mWaterCharacter, i);  
+        }
+
+        if (colFire && (mFireCharacter.getStatus() != pushButton.getPlatform())) {
+            this.activatePlatform(pushButton, mWaterCharacter, i);
             mFireCharacter.setNumPushButtonCollide(i);
-        }else if(i === mFireCharacter.getNumPushButtonCollide()){
+        } else if (i === mFireCharacter.getNumPushButtonCollide()) {
             this.desactivatePlatform(pushButton, mWaterCharacter);
             mFireCharacter.setNumPushButtonCollide(-1);
-        } 
+        }
     }
 
     //Colisión del personaje con el liquido
     for (let i = 0; i < this.mAllWaves.size(); i++) {
         let wave = this.mAllWaves.getObjectAt(i);
         let character = (wave.getPlayerCollision() === 0) ? mWaterCharacter : mFireCharacter;
-        let col = (character !== null) ? character.getPhysicsComponent().collided(wave.getPhysicsComponent(), new CollisionInfo()) : false; 
+        let col = (character !== null) ? character.getPhysicsComponent().collided(wave.getPhysicsComponent(), new CollisionInfo()) : false;
 
-        if(col){
+        if (col) {
             this.mGlobalLightSet.getLightAt(1).setLightTo(false);
             character.setVisibility(false);
             gEngine.GameLoop.stop();
-        } 
+        }
     }
 
     /**
@@ -377,49 +388,48 @@ Game.prototype.update = function () {
     for (let i = 0; i < this.mAllDiamons.size(); i++) {
         let diamond = this.mAllDiamons.getObjectAt(i);
         let character = (diamond.getPlayerCollision() === 0) ? mWaterCharacter : mFireCharacter;
-        let col = (character !== null) ? character.getPhysicsComponent().collided(diamond.getPhysicsComponent(), new CollisionInfo()) : false; 
-        
-        if(col){
+        let col = (character !== null) ? character.getPhysicsComponent().collided(diamond.getPhysicsComponent(), new CollisionInfo()) : false;
+
+        if (col) {
             diamond.setVisibility(false);
-            character.incrementScore();    
+            character.incrementScore();
             this.mAllDiamons.removeFromSet(diamond);
-        } 
+        }
     }
 
     //physics simulation
     gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllWalls);
-    gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllPlatforms); 
+    gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllPlatforms);
 
     //se habilita y deshabilita el mapa
-    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Space)){
-        if(!this.mIsVisibleMap){
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Space)) {
+        if (!this.mIsVisibleMap) {
             this.mIsVisibleMap = true;
-        }else{
+        } else {
             this.mIsVisibleMap = false;
         }
     }
-    
+
     //Mensaje de score para los personajes
     let msg = "Watergirl: " + mWaterCharacter.getScore() + " Fireboy: " + mFireCharacter.getScore();
     this.mMsg.setText(msg);
 };
 
-Game.prototype.activatePlatform = function(pushButton, character, i){
+Game.prototype.activatePlatform = function (pushButton, character, i) {
     character.setStatus(pushButton.getPlatform());
 
     let platform = this.mAllPlatforms.getObjectAt(pushButton.getPlatform());
-    
-    
-    if(!platform.getIsMoving()){
-        pushButton.pushButtonPressed();                    
+
+
+    if (!platform.getIsMoving()) {
+        pushButton.pushButtonPressed();
         platform.changeDirectionMovement(true);
     }
 };
 
-Game.prototype.desactivatePlatform = function(pushButton, character){
+Game.prototype.desactivatePlatform = function (pushButton, character) {
     pushButton.pushButtonNotPressed();
-            
-    
+
     this.mAllPlatforms.getObjectAt(pushButton.getPlatform()).changeDirectionMovement(false);
     character.setStatus(-1);
 };
