@@ -60,6 +60,9 @@ function Game() {
         diamond_for_water: "assets/diamonds/diamond_for_water.png",
         diamond_for_fire: "assets/diamonds/diamond_for_fire.png",
 
+        //Particles
+        particle : "assets/particle/particle.png",
+
         //Characters
         water_character: "assets/characters/water_character.png",
         fire_character: "assets/characters/fire_character.png"
@@ -111,6 +114,9 @@ function Game() {
         diamond_for_water: "",
         diamond_for_fire: "",
 
+        //Particle
+        particle: "",
+
         //Characters
         water_character: "assets/characters/water_character_normal.png",
         fire_character: "assets/characters/fire_character_normal.png"
@@ -122,11 +128,14 @@ function Game() {
     this.mAllPlatforms = null;
     this.mAllWaves = null;
     this.mAllDoors = null;
-    this.mAllPushButtons = null;
+    this.mAllPushButtons = null;    
     this.mAllCharacters = null;
     this.mWin = [false, true];
     this.mMsg = null;
     this.mIsVisibleMap = false;
+    this.parser = null;
+    this.mAllParticles = new ParticleGameObjectSet();    
+    this.cont = 0;
 
 }
 gEngine.Core.inheritPrototype(Game, Scene);
@@ -184,37 +193,40 @@ Game.prototype.initialize = function () {
     gEngine.DefaultResources.setGlobalAmbientIntensity(1);
 
     //initialize parser
-    let parser = new SceneFileParser(this.kFileLevel);
+    this.parser = new SceneFileParser(this.kFileLevel);
 
     //Camera
-    this.mAllCameras = parser.parseCameras();
+    this.mAllCameras = this.parser.parseCameras();
 
     //Lights
-    this.mGlobalLightSet = parser.parseLights();
+    this.mGlobalLightSet = this.parser.parseLights();
 
     //Background and shadowBackground
-    parser.parseBackgrounds(this.kTextures, this.kNormals, this.mGlobalLightSet, this.mAllCameras[0]);
+    this.parser.parseBackgrounds(this.kTextures, this.kNormals, this.mGlobalLightSet, this.mAllCameras[0]);
 
     //Walls
-    this.mAllWalls = parser.parseWalls(this.kTextures, this.kNormals, this.mGlobalLightSet);
+    this.mAllWalls = this.parser.parseWalls(this.kTextures, this.kNormals, this.mGlobalLightSet);
 
     //Platforms
-    this.mAllPlatforms = parser.parsePlatforms(this.kTextures, this.kNormals, this.mGlobalLightSet);
+    this.mAllPlatforms = this.parser.parsePlatforms(this.kTextures, this.kNormals, this.mGlobalLightSet);
 
     //Doors 
-    this.mAllDoors = parser.parseDoors(this.kTextures, this.kNormals, this.mGlobalLightSet);
+    this.mAllDoors = this.parser.parseDoors(this.kTextures, this.kNormals, this.mGlobalLightSet);
 
     //PushButtons
-    this.mAllPushButtons = parser.parsePushButton(this.kTextures, this.kNormals, this.mGlobalLightSet);
+    this.mAllPushButtons = this.parser.parsePushButton(this.kTextures, this.kNormals, this.mGlobalLightSet);
 
     //PushButtons
-    this.mAllDiamons = parser.parseDiamond(this.kTextures, this.kNormals, this.mGlobalLightSet);
+    this.mAllDiamons = this.parser.parseDiamond(this.kTextures, this.kNormals, this.mGlobalLightSet);
+
+    
 
     //Characters
-    this.mAllCharacters = parser.parseCharacters(this.kTextures, this.kNormals, this.mGlobalLightSet);
+    this.mAllCharacters = this.parser.parseCharacters(this.kTextures, this.kNormals, this.mGlobalLightSet);
 
     //Weves
-    this.mAllWaves = parser.parseWaves(this.kTextures, this.kNormals, this.mGlobalLightSet);
+    this.mAllWaves = this.parser.parseWaves(this.kTextures, this.kNormals, this.mGlobalLightSet);
+    
 
     this.mMsg = new FontRenderable("Status Message");
     this.mMsg.setColor([1, 1, 1, 1]);
@@ -222,15 +234,20 @@ Game.prototype.initialize = function () {
     this.mMsg.setTextHeight(2);
 
     gEngine.LayerManager.addToLayer(gEngine.eLayer.eHUD, this.mMsg);
+
+    
+       
+      
 };
 
 // This is the draw function, make sure to setup proper drawing environment, and more
 // importantly, make sure to _NOT_ change any state.
 Game.prototype.draw = function () {
-    gEngine.Core.clearCanvas([1, 1, 1, 1]);
+    gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
+
     this.mAllCameras[0].setupViewProjection();
     gEngine.LayerManager.drawAllLayers(this.mAllCameras[0]);
-
+    
     if (this.mIsVisibleMap) {
         this.mAllCameras[1].setupViewProjection();
 
@@ -238,6 +255,7 @@ Game.prototype.draw = function () {
             gEngine.LayerManager.drawLayer(i, this.mAllCameras[1]);
         }
     }
+    this.mAllParticles.draw(this.mAllCameras[0]);
 };
 
 // The Update function, updates the application state. Make sure to _NOT_ draw
@@ -246,17 +264,20 @@ Game.prototype.update = function () {
     this.mAllCameras[0].update();
     gEngine.LayerManager.updateAllLayers();
 
+    this.mAllParticles.update();
+
     //Variables de objetos
     let mWaterCharacter = this.mAllCharacters.getObjectAt(0);
     let mFireCharacter = this.mAllCharacters.getObjectAt(1);
 
     this.camera(mWaterCharacter, mFireCharacter);
     this.auroraCharacter(mWaterCharacter, 1);
+    this.timeParticles();    
     this.auroraCharacter(mFireCharacter, 2);
     this.colCharacterWave(mWaterCharacter, mFireCharacter);
     this.colCharacterDiamond(mWaterCharacter, mFireCharacter);
     this.colCharacterPushButton(mWaterCharacter, mFireCharacter);
-    this.colCharacterDoor(mWaterCharacter, mFireCharacter);
+    this.colCharacterDoor(mWaterCharacter, mFireCharacter);  
     this.physicsSimulation();
     this.miniMapa();
     this.msjScore(mWaterCharacter, mFireCharacter);
@@ -349,7 +370,6 @@ Game.prototype.msjScore = function (mWaterCharacter, mFireCharacter) {
 Game.prototype.auroraCharacter = function (character, pos) {
     let auroraCharacter = vec2.clone(character.getPhysicsComponent().getXform().getPosition());
     this.mGlobalLightSet.getLightAt(pos).set2DPosition(auroraCharacter);
-
 };
 
 //Colisión del personaje con el liquido
@@ -408,8 +428,7 @@ Game.prototype.colCharacterDoor = function (mWaterCharacter, mFireCharacter) {
     }
 
     if (mWaterCharacter.getInDoor() && mFireCharacter.getInDoor()) {
-        this.mWin[0] = true;
-        gEngine.GameLoop.stop();
+        this.gameover();
     }
 };
 
@@ -444,7 +463,6 @@ Game.prototype.activatePlatform = function (pushButton, character, i) {
 
     let platform = this.mAllPlatforms.getObjectAt(pushButton.getPlatform());
 
-
     if (!platform.getIsMoving()) {
         pushButton.pushButtonPressed();
         platform.changeDirectionMovement(true);
@@ -458,6 +476,34 @@ Game.prototype.desactivatePlatform = function (pushButton, character) {
     this.mAllPlatforms.getObjectAt(pushButton.getPlatform()).changeDirectionMovement(false);
     character.setStatus(-1);
 };
+
+//Función que calcula el tiempo de parada de las particulas
+Game.prototype.timeParticles = function(){
+    if(this.cont < 100){
+        this.loadParticles();
+    }
+    if(this.mAllParticles.size() === 0){
+        this.cont = 0;
+    }
+}
+
+//Función que carga las particulas
+Game.prototype.loadParticles = function(){
+    
+    if(this.cont < 100){
+        var p = this.parser.parseParticle(this.kTextures);
+        this.mAllParticles.addToSet(p);
+        this.cont++; 
+    }    
+ 
+};
+
+//Functión que para el juego.
+Game.prototype.gameover = function(){
+    this.mWin[0] = true;
+    gEngine.GameLoop.stop();
+};
+
 
 
 

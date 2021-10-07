@@ -304,13 +304,47 @@ SceneFileParser.prototype.parseDiamond = function (textures, normals, lightSet) 
         w = Number(elm[i].getAttribute("weight"));
         h = Number(elm[i].getAttribute("height"));
         pc = Number(elm[i].getAttribute("playerCollision"));
-        type = elm[i].getAttribute("type");       
+        type = elm[i].getAttribute("type");
 
         mDiamond = new Diamond(x, y, w, h, pc, textures[type], normals[type], lightSet, type);
         gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mDiamond);
 
-        allDiamonds.addToSet(mDiamond); 
+        allDiamonds.addToSet(mDiamond);
     }
     return allDiamonds;
+};
+
+SceneFileParser.prototype.parseParticle = function (textures) {
+    let elm = this._getElm("Particle");
+    let i, x, y, p, type;
+
+    for (i = 0; i < elm.length; i++) {
+        x = Number(elm[i].getAttribute("x"));
+        y = Number(elm[i].getAttribute("y"));
+        type = elm[i].getAttribute("type");
+
+        var life = 30 + Math.random() * 200;
+        p = new ParticleGameObject(textures[type], x, y, life);
+        p.getRenderable().setColor([0.15, 0.83, 0.15, 1]);
+    
+        // size of the particle
+        var r = 1.5 + Math.random() * 0.5;
+        p.getXform().setSize(r, r);
+        
+        // final color
+        var fr = 0.15 + Math.random();
+        var fg = 0.83 + 0.01 * Math.random();
+        var fb = 0.15 + 0.01 * Math.random();
+        p.setFinalColor([fr, fg, fb, 0.6]);
+        
+        // velocity on the particle
+        var fx = 10 - 20 * Math.random();
+        var fy = 10 * Math.random();
+        p.getPhysicsComponent().setVelocity([fx, fy]);
+        
+        // size delta
+        p.setSizeDelta(0.98);
+    }
+    return p;
 };
 

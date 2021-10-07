@@ -6,10 +6,8 @@
        <!--  e.g., do NOT do: x="20", y="30" -->
        <!--  notice the "comma" between x and y: Syntax error! -->
 
-       <!-- Cameras -->
-       <!--<Camera x="-18" y="-32.9" width="64" viewport="0 0 900 483" bound="0" color="0.9 0.9 0.9 1"/> -->
-
-       <Camera x="18" y="40" width="64" viewport="0 0 900 483" bound="0" color="0.9 0.9 0.9 1"/>
+       <!-- Camera -->
+       <Camera x="-18" y="-32.9" width="64" viewport="0 0 900 483" bound="0" color="0.9 0.9 0.9 1"/> 
 
        <!-- Mini map -->
        <Camera x="0" y="0" width="100" viewport="250 41.5 400 400" bound="2" color="0.3 0.2 0.1 1"/>
@@ -280,10 +278,11 @@
        <Diamond x="-26" y="26" weight="4" height="4" playerCollision="0" type="diamond_for_water"/>
        <Diamond x="-34" y="26" weight="4" height="4" playerCollision="1" type="diamond_for_fire"/>
 
-       <!-- Character 
-       <Character x="-43" y="-44" type="water_character" weight="8" height="8"/>
-       <Character x="-38" y="-44" type="fire_character" weight="8" height="8"/> -->
+       <!-- Particles -->
+       <Particle x="-20" y ="-24" type="particle"/>
 
-       <Character x="24" y="40" type="water_character" weight="8" height="8"/>
-       <Character x="24" y="40" type="fire_character" weight="8" height="8"/>
+       <!-- Characters -->
+       <Character x="-43" y="-44" type="water_character" weight="8" height="8"/>
+       <Character x="-38" y="-44" type="fire_character" weight="8" height="8"/>
+
        </Level>
