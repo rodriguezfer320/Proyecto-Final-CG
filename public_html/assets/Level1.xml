@@ -282,7 +282,7 @@
        <Particle x="-20" y ="-24" type="particle"/> 
 
        <!-- Characters -->
-       <Character x="-43" y="-44" type="water_character" weight="8" height="8"/>
-       <Character x="-38" y="-44" type="fire_character" weight="8" height="8"/>
+       <Character x="-30" y="-10" type="water_character" weight="8" height="8"/>
+       <Character x="-30" y="-10" type="fire_character" weight="8" height="8"/>
 
        </Level>
