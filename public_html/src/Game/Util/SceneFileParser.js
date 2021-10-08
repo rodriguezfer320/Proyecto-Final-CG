@@ -272,7 +272,7 @@ SceneFileParser.prototype.parsePushButton = function (textures, normals, lightSe
     return allPushButtons;
 };
 
-SceneFileParser.prototype.parseCharacters = function (textures, normals, lightSet) {
+SceneFileParser.prototype.parseCharacters = function (textures, normals, lightSet, kSounds) {
     let elm = this._getElm("Character");
     let i, x, y, type, mCharacter;
     let allCharacters = new GameObjectSet();
@@ -282,7 +282,7 @@ SceneFileParser.prototype.parseCharacters = function (textures, normals, lightSe
         y = Number(elm[i].getAttribute("y"));
         type = elm[i].getAttribute("type");
 
-        mCharacter = new Character(x, y, textures[type], normals[type], lightSet, type);
+        mCharacter = new Character(x, y, textures[type], normals[type], lightSet, type, kSounds);
 
         gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mCharacter);
         gEngine.LayerManager.addAsShadowCaster(mCharacter);

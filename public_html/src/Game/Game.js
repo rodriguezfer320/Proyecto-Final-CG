@@ -61,7 +61,7 @@ function Game() {
         diamond_for_fire: "assets/diamonds/diamond_for_fire.png",
 
         //Particles
-        particle : "assets/particle/particle.png",
+        particle: "assets/particle/particle.png",
 
         //Characters
         water_character: "assets/characters/water_character.png",
@@ -123,15 +123,15 @@ function Game() {
     };
 
     this.kSounds = {
-        background : "assets/sounds/background.mp3",
-        death : "assets/sounds/death.mp3",
-        diamond : "assets/sounds/diamond.mp3",
-        ending : "assets/sounds/ending.mp3",
-        finish : "assets/sounds/finish.mp3",
-        jump_fire : "assets/sounds/jump_fire.mp3",
-        jump_water : "assets/sounds/jump_water.mp3",
-        wave_fire : "assets/sounds/wave_fire.mp3",
-        wave_water : "assets/sounds/wave_water.mp3"
+        background: "assets/sounds/background.mp3",
+        death: "assets/sounds/death.mp3",
+        diamond: "assets/sounds/diamond.mp3",
+        ending: "assets/sounds/ending.mp3",
+        finish: "assets/sounds/finish.mp3",
+        fire_character_jump: "assets/sounds/fire_character_jump.mp3",
+        water_character_jump: "assets/sounds/water_character_jump.mp3",
+        fire_character_wave_walking: "assets/sounds/fire_character_wave_walking.mp3",
+        water_character_wave_walking: "assets/sounds/water_character_wave_walking.mp3"
     };
 
     this.mAllCameras = null;
@@ -140,15 +140,15 @@ function Game() {
     this.mAllPlatforms = null;
     this.mAllWaves = null;
     this.mAllDoors = null;
-    this.mAllPushButtons = null;    
+    this.mAllPushButtons = null;
     this.mAllCharacters = null;
     this.mWin = [false, true];
     this.mMsg = null;
     this.mIsVisibleMap = false;
     this.parser = null;
-    this.mAllParticles = new ParticleGameObjectSet();    
+    this.mAllParticles = new ParticleGameObjectSet();
     this.cont = 0;
-    this.activateSoundWalking = true;
+    this.activateSoundWalking = 0;
 
 }
 gEngine.Core.inheritPrototype(Game, Scene);
@@ -179,7 +179,7 @@ Game.prototype.loadScene = function () {
             this.kSounds[key] = null;
         }
     }
-   
+
 };
 
 Game.prototype.unloadScene = function () {
@@ -251,7 +251,7 @@ Game.prototype.initialize = function () {
     this.mAllDiamons = this.parser.parseDiamond(this.kTextures, this.kNormals, this.mGlobalLightSet);
 
     //Characters
-    this.mAllCharacters = this.parser.parseCharacters(this.kTextures, this.kNormals, this.mGlobalLightSet);
+    this.mAllCharacters = this.parser.parseCharacters(this.kTextures, this.kNormals, this.mGlobalLightSet, this.kSounds);
 
     //Weves
     this.mAllWaves = this.parser.parseWaves(this.kTextures, this.kNormals, this.mGlobalLightSet);
@@ -263,7 +263,7 @@ Game.prototype.initialize = function () {
 
     gEngine.LayerManager.addToLayer(gEngine.eLayer.eHUD, this.mMsg);
 
-    gEngine.AudioClips.playBackgroundAudio(this.kSounds["background"]); 
+    gEngine.AudioClips.playBackgroundAudio(this.kSounds["background"]);
 };
 
 // This is the draw function, make sure to setup proper drawing environment, and more
@@ -273,7 +273,7 @@ Game.prototype.draw = function () {
 
     this.mAllCameras[0].setupViewProjection();
     gEngine.LayerManager.drawAllLayers(this.mAllCameras[0]);
-    
+
     if (this.mIsVisibleMap) {
         this.mAllCameras[1].setupViewProjection();
 
@@ -298,13 +298,16 @@ Game.prototype.update = function () {
 
     this.camera(mWaterCharacter, mFireCharacter);
     this.auroraCharacter(mWaterCharacter, 1);
-    this.timeParticles();       
+    this.timeParticles();
     this.auroraCharacter(mFireCharacter, 2);
     this.colCharacterWave(mWaterCharacter, mFireCharacter);
+
+    this.colCharacterWaveWalking(mWaterCharacter, mFireCharacter);
+    
     this.colCharacterDiamond(mWaterCharacter, mFireCharacter);
     this.colCharacterPushButton(mWaterCharacter, mFireCharacter);
-    this.colCharacterDoor(mWaterCharacter, mFireCharacter);  
-    this.colCharacterParticle(mWaterCharacter, mFireCharacter); 
+    this.colCharacterDoor(mWaterCharacter, mFireCharacter);
+    this.colCharacterParticle(mWaterCharacter, mFireCharacter);
     this.physicsSimulation();
     this.miniMapa();
     this.msjScore(mWaterCharacter, mFireCharacter);
@@ -401,17 +404,33 @@ Game.prototype.auroraCharacter = function (character, pos) {
 
 //Colisión del personaje con el liquido
 Game.prototype.colCharacterWave = function (mWaterCharacter, mFireCharacter) {
+
     for (let i = 0; i < this.mAllWaves.size(); i++) {
         let wave = this.mAllWaves.getObjectAt(i);
         let character = (wave.getPlayerCollision() === 0) ? mWaterCharacter : mFireCharacter;
+
         let col = (character !== null) ? character.getPhysicsComponent().collided(wave.getPhysicsComponent(), new CollisionInfo()) : false;
 
         if (col) {
             gEngine.AudioClips.playACue(this.kSounds["death"]);
+            gEngine.AudioClips.playACue(this.kSounds["finish"]);
             this.mGlobalLightSet.getLightAt(1).setLightTo(false);
             character.setVisibility(false);
             gEngine.GameLoop.stop();
-            gEngine.AudioClips.playACue(this.kSounds["ending"]);
+        }
+    }
+};
+
+//Función que detecta que personaje camina sobre su wave y reproduce el camino (en producción)
+Game.prototype.colCharacterWaveWalking = function (mWaterCharacter, mFireCharacter) {
+    for (let i = 0; i < this.mAllWaves.size(); i++) {
+        let wave = this.mAllWaves.getObjectAt(i);
+        let characterWalking = (wave.getPlayerCollision() === 0) ? mFireCharacter : mWaterCharacter;
+        let colWalking = (characterWalking !== null) ? characterWalking.getPhysicsComponent().collided(wave.getPhysicsComponent(), new CollisionInfo()) : false;
+
+        if (colWalking && (this.activateSoundWalking == 0)) {
+            characterWalking.playSoundWalking();
+            this.activateSoundWalking = 1;
         }
     }
 };
@@ -460,7 +479,7 @@ Game.prototype.colCharacterDoor = function (mWaterCharacter, mFireCharacter) {
 
     if (mWaterCharacter.getInDoor() && mFireCharacter.getInDoor()) {
         this.gameover();
-        
+
     }
 };
 
@@ -510,39 +529,39 @@ Game.prototype.desactivatePlatform = function (pushButton, character) {
 };
 
 //Función que calcula el tiempo de parada de las particulas
-Game.prototype.timeParticles = function(){
-    if(this.cont < 100){
+Game.prototype.timeParticles = function () {
+    if (this.cont < 100) {
         this.loadParticles();
     }
-    if(this.mAllParticles.size() === 0){
+    if (this.mAllParticles.size() === 0) {
         this.cont = 0;
     }
 }
 
 //Función que carga las particulas
-Game.prototype.loadParticles = function(){
-    
-    if(this.cont < 100){
+Game.prototype.loadParticles = function () {
+
+    if (this.cont < 100) {
         var p = this.parser.parseParticle(this.kTextures);
         this.mAllParticles.addToSet(p);
-        this.cont++; 
-    }    
- 
+        this.cont++;
+    }
+
 };
 
 //Colisión entre personajes y sustancia tóxica.
-Game.prototype.colCharacterParticle = function(mWaterCharacter, mFireCharacter){
+Game.prototype.colCharacterParticle = function (mWaterCharacter, mFireCharacter) {
     for (let i = 0; i < this.mAllParticles.size(); i++) {
         let particle = this.mAllParticles.getObjectAt(i);
-        
+
     }
 }
 
 //Functión que para el juego.
-Game.prototype.gameover = function(){   
+Game.prototype.gameover = function () {
     this.mWin[0] = true;
     gEngine.GameLoop.stop();
-    
+
 };
 
 

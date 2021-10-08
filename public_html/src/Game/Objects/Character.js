@@ -1,6 +1,6 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function Character(x, y, texture, normal, lgtSet, player) {
+function Character(x, y, texture, normal, lgtSet, player, kSounds) {
     this.mCharacterState = Character.eCharacterState.eFace;
     this.mPreviousCharacterState = Character.eCharacterState.eFace;
     this.mIsMoving = false;
@@ -16,7 +16,10 @@ function Character(x, y, texture, normal, lgtSet, player) {
     this.score = 0;
     this.numPlatform = -1;
     this.numPushButtonCollide = -1;
-    this.inDoor = false;
+    this.inDoor = false;  
+    this.kSounds = kSounds;
+    this.soundJump = player + "_jump";
+    this.soundWalking = player + "_wave_walking";
 
     if(normal !== null){
         this.mCharacter = new IllumRenderable(texture, normal);
@@ -126,25 +129,30 @@ Character.prototype.update = function () {
                     this.mIsJumping = true;
                     this.mJumpLimit = 18;
                     velocity[1] = 0;
+                    gEngine.AudioClips.playACue(this.kSounds[this.soundJump]); 
+                      
             }else if(this.mCharacterState === Character.eCharacterState.eRunRight){
                 this.mCharacterState = Character.eCharacterState.eJumpRight;
                 this.mCanMove = false;
                 this.mJumpLimit = 16;
                 velocity[0] = 8;
                 velocity[1] = 0; //Jump velocity
+                gEngine.AudioClips.playACue(this.kSounds[this.soundJump]);  
             }else if(this.mCharacterState === Character.eCharacterState.eRunLeft){
                 this.mCharacterState = Character.eCharacterState.eJumpLeft;
                 this.mCanMove = false;
                 this.mJumpLimit = 16;
                 velocity[0] = -8;
                 velocity[1] = 0; //Jump velocity
+                gEngine.AudioClips.playACue(this.kSounds[this.soundJump]); 
             }
 
             if(velocity[1] > this.mJumpLimit || velocity[1] <= -0.3333333432674408){
                 this.mCanJump = false;
             }else{
                 velocity[1] += 1; //Jump velocity
-            }          
+            }  
+                 
         }
 
         if(velocity[1] < -0.3333333432674408){
@@ -266,4 +274,8 @@ Character.prototype.getInDoor  = function (){
 Character.prototype.setInDoor  = function (inDoor){
      this.inDoor = inDoor;
 };
+
+Character.prototype.playSoundWalking = function(){
+    return gEngine.AudioClips.playACue(this.kSounds[this.soundWalking]);
+}
 
