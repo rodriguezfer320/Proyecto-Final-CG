@@ -11,7 +11,7 @@ function Diamond(x, y, w, h, pc, texture, normal, lgtSet, type) {
     this.mDiamond.getXform().setPosition(x, y);
     this.mDiamond.getXform().setSize(w, h);
     this.mDiamond.setElementPixelPositions(0, 256, 0, 256);
-    this.mDiamond.addLight(lgtSet.getLightAt(0));
+    this.mDiamond.addLight(lgtSet.getLightAt(0)); 
     this.mPlayerCollision = pc;
 
     GameObject.call(this, this.mDiamond); 

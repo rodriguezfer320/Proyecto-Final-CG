@@ -122,6 +122,8 @@ function Game() {
         fire_character: "assets/characters/fire_character_normal.png"
     };
 
+    this.kBgClip = "assets/sounds/BGClip.mp3"; 
+
     this.mAllCameras = null;
     this.mGlobalLightSet = null;
     this.mAllWalls = null;
@@ -158,6 +160,8 @@ Game.prototype.loadScene = function () {
             this.kNormals[key] = null;
         }
     }
+
+    gEngine.AudioClips.loadAudio(this.kBgClip);
 };
 
 Game.prototype.unloadScene = function () {
@@ -219,14 +223,11 @@ Game.prototype.initialize = function () {
     //PushButtons
     this.mAllDiamons = this.parser.parseDiamond(this.kTextures, this.kNormals, this.mGlobalLightSet);
 
-    
-
     //Characters
     this.mAllCharacters = this.parser.parseCharacters(this.kTextures, this.kNormals, this.mGlobalLightSet);
 
     //Weves
     this.mAllWaves = this.parser.parseWaves(this.kTextures, this.kNormals, this.mGlobalLightSet);
-    
 
     this.mMsg = new FontRenderable("Status Message");
     this.mMsg.setColor([1, 1, 1, 1]);
@@ -234,10 +235,8 @@ Game.prototype.initialize = function () {
     this.mMsg.setTextHeight(2);
 
     gEngine.LayerManager.addToLayer(gEngine.eLayer.eHUD, this.mMsg);
-
-    
-       
-      
+    //gEngine.AudioClips.playBackgroundAudio(this.kBgClip);
+ 
 };
 
 // This is the draw function, make sure to setup proper drawing environment, and more
@@ -272,12 +271,13 @@ Game.prototype.update = function () {
 
     this.camera(mWaterCharacter, mFireCharacter);
     this.auroraCharacter(mWaterCharacter, 1);
-    this.timeParticles();    
+    this.timeParticles();       
     this.auroraCharacter(mFireCharacter, 2);
     this.colCharacterWave(mWaterCharacter, mFireCharacter);
     this.colCharacterDiamond(mWaterCharacter, mFireCharacter);
     this.colCharacterPushButton(mWaterCharacter, mFireCharacter);
     this.colCharacterDoor(mWaterCharacter, mFireCharacter);  
+    this.colCharacterParticle(mWaterCharacter, mFireCharacter); 
     this.physicsSimulation();
     this.miniMapa();
     this.msjScore(mWaterCharacter, mFireCharacter);
@@ -498,8 +498,16 @@ Game.prototype.loadParticles = function(){
  
 };
 
+//Colisión entre personajes y sustancia tóxica.
+Game.prototype.colCharacterParticle = function(mWaterCharacter, mFireCharacter){
+    for (let i = 0; i < this.mAllParticles.size(); i++) {
+        let particle = this.mAllParticles.getObjectAt(i);
+        
+    }
+}
+
 //Functión que para el juego.
-Game.prototype.gameover = function(){
+Game.prototype.gameover = function(){   
     this.mWin[0] = true;
     gEngine.GameLoop.stop();
 };
