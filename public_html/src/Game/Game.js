@@ -122,7 +122,17 @@ function Game() {
         fire_character: "assets/characters/fire_character_normal.png"
     };
 
-    this.kBgClip = "assets/sounds/BGClip.mp3"; 
+    this.kSounds = {
+        background : "assets/sounds/background.mp3",
+        death : "assets/sounds/death.mp3",
+        diamond : "assets/sounds/diamond.mp3",
+        ending : "assets/sounds/ending.mp3",
+        finish : "assets/sounds/finish.mp3",
+        jump_fire : "assets/sounds/jump_fire.mp3",
+        jump_water : "assets/sounds/jump_water.mp3",
+        wave_fire : "assets/sounds/wave_fire.mp3",
+        wave_water : "assets/sounds/wave_water.mp3"
+    };
 
     this.mAllCameras = null;
     this.mGlobalLightSet = null;
@@ -138,6 +148,7 @@ function Game() {
     this.parser = null;
     this.mAllParticles = new ParticleGameObjectSet();    
     this.cont = 0;
+    this.activateSoundWalking = true;
 
 }
 gEngine.Core.inheritPrototype(Game, Scene);
@@ -161,7 +172,14 @@ Game.prototype.loadScene = function () {
         }
     }
 
-    gEngine.AudioClips.loadAudio(this.kBgClip);
+    for (const key in this.kSounds) {
+        if (this.kSounds[key] !== "") {
+            gEngine.AudioClips.loadAudio(this.kSounds[key]);
+        } else {
+            this.kSounds[key] = null;
+        }
+    }
+   
 };
 
 Game.prototype.unloadScene = function () {
@@ -181,6 +199,14 @@ Game.prototype.unloadScene = function () {
         }
     }
 
+    for (const key in this.kSounds) {
+        if (this.kSounds[key] !== "") {
+            gEngine.AudioClips.unloadAudio(this.kSounds[key]);
+        } else {
+            this.kSounds[key] = null;
+        }
+    }
+
     let menu = null;
 
     if (this.mWin[0] && this.mWin[1]) {
@@ -190,7 +216,6 @@ Game.prototype.unloadScene = function () {
     }
 
     if (menu !== null) gEngine.Core.startScene(menu);
-    gEngine.AudioClips.unloadAudio(this.kBgClip);
 };
 
 Game.prototype.initialize = function () {
@@ -237,8 +262,8 @@ Game.prototype.initialize = function () {
     this.mMsg.setTextHeight(2);
 
     gEngine.LayerManager.addToLayer(gEngine.eLayer.eHUD, this.mMsg);
-    gEngine.AudioClips.playBackgroundAudio(this.kBgClip);
- 
+
+    gEngine.AudioClips.playBackgroundAudio(this.kSounds["background"]); 
 };
 
 // This is the draw function, make sure to setup proper drawing environment, and more
@@ -382,12 +407,15 @@ Game.prototype.colCharacterWave = function (mWaterCharacter, mFireCharacter) {
         let col = (character !== null) ? character.getPhysicsComponent().collided(wave.getPhysicsComponent(), new CollisionInfo()) : false;
 
         if (col) {
+            gEngine.AudioClips.playACue(this.kSounds["death"]);
             this.mGlobalLightSet.getLightAt(1).setLightTo(false);
             character.setVisibility(false);
             gEngine.GameLoop.stop();
+            gEngine.AudioClips.playACue(this.kSounds["ending"]);
         }
     }
 };
+
 
 //Colisión del personaje con su respectivo diamante
 Game.prototype.colCharacterDiamond = function (mWaterCharacter, mFireCharacter) {
@@ -397,6 +425,7 @@ Game.prototype.colCharacterDiamond = function (mWaterCharacter, mFireCharacter) 
         let col = (character !== null) ? character.getPhysicsComponent().collided(diamond.getPhysicsComponent(), new CollisionInfo()) : false;
 
         if (col) {
+            gEngine.AudioClips.playACue(this.kSounds["diamond"]);
             diamond.setVisibility(false);
             character.incrementScore();
             this.mAllDiamons.removeFromSet(diamond);
@@ -431,6 +460,7 @@ Game.prototype.colCharacterDoor = function (mWaterCharacter, mFireCharacter) {
 
     if (mWaterCharacter.getInDoor() && mFireCharacter.getInDoor()) {
         this.gameover();
+        
     }
 };
 
@@ -512,6 +542,7 @@ Game.prototype.colCharacterParticle = function(mWaterCharacter, mFireCharacter){
 Game.prototype.gameover = function(){   
     this.mWin[0] = true;
     gEngine.GameLoop.stop();
+    
 };
 
 
