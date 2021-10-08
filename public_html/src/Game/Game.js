@@ -168,6 +168,7 @@ Game.prototype.unloadScene = function () {
     gEngine.LayerManager.cleanUp();
     gEngine.TextFileLoader.unloadTextFile(this.kFileLevel);
 
+    gEngine.AudioClips.stopBackgroundAudio();
     for (const key in this.kTextures) {
         if (this.kTextures[key] !== null) {
             gEngine.Textures.unloadTexture(this.kTextures[key]);
@@ -189,6 +190,7 @@ Game.prototype.unloadScene = function () {
     }
 
     if (menu !== null) gEngine.Core.startScene(menu);
+    gEngine.AudioClips.unloadAudio(this.kBgClip);
 };
 
 Game.prototype.initialize = function () {
@@ -235,7 +237,7 @@ Game.prototype.initialize = function () {
     this.mMsg.setTextHeight(2);
 
     gEngine.LayerManager.addToLayer(gEngine.eLayer.eHUD, this.mMsg);
-    //gEngine.AudioClips.playBackgroundAudio(this.kBgClip);
+    gEngine.AudioClips.playBackgroundAudio(this.kBgClip);
  
 };
 
