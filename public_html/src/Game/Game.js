@@ -148,7 +148,6 @@ function Game() {
     this.parser = null;
     this.mAllParticles = new ParticleGameObjectSet();
     this.cont = 0;
-    this.activateSoundWalking = 0;
 
 }
 gEngine.Core.inheritPrototype(Game, Scene);
@@ -221,7 +220,7 @@ Game.prototype.unloadScene = function () {
 Game.prototype.initialize = function () {
     //set ambient lighting
     gEngine.DefaultResources.setGlobalAmbientColor([0.5, 0.5, 0.5, 1]);
-    gEngine.DefaultResources.setGlobalAmbientIntensity(1);
+    gEngine.DefaultResources.setGlobalAmbientIntensity(2);
 
     //initialize parser
     this.parser = new SceneFileParser(this.kFileLevel);
@@ -263,7 +262,7 @@ Game.prototype.initialize = function () {
 
     gEngine.LayerManager.addToLayer(gEngine.eLayer.eHUD, this.mMsg);
 
-    gEngine.AudioClips.playBackgroundAudio(this.kSounds["background"]);
+    gEngine.AudioClips.playBackgroundAudio(this.kSounds["background"]);    
 };
 
 // This is the draw function, make sure to setup proper drawing environment, and more
@@ -428,9 +427,10 @@ Game.prototype.colCharacterWaveWalking = function (mWaterCharacter, mFireCharact
         let characterWalking = (wave.getPlayerCollision() === 0) ? mFireCharacter : mWaterCharacter;
         let colWalking = (characterWalking !== null) ? characterWalking.getPhysicsComponent().collided(wave.getPhysicsComponent(), new CollisionInfo()) : false;
 
-        if (colWalking && (this.activateSoundWalking == 0)) {
+        if (colWalking) {
             characterWalking.playSoundWalking();
-            this.activateSoundWalking = 1;
+        }else{
+           
         }
     }
 };
@@ -448,9 +448,7 @@ Game.prototype.colCharacterDiamond = function (mWaterCharacter, mFireCharacter) 
             diamond.setVisibility(false);
             character.incrementScore();
             this.mAllDiamons.removeFromSet(diamond);
-        }
-
-        
+        }        
     }
 };
 
