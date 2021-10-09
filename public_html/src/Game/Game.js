@@ -449,6 +449,8 @@ Game.prototype.colCharacterDiamond = function (mWaterCharacter, mFireCharacter) 
             character.incrementScore();
             this.mAllDiamons.removeFromSet(diamond);
         }
+
+        
     }
 };
 

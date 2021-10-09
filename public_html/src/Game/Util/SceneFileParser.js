@@ -144,6 +144,7 @@ SceneFileParser.prototype.parseBackgrounds = function (textures, normals, lightS
             }
         }
 
+        console.log(lights);
         background = new ParallaxGameObject(background, parallaxScale, camera);
 
         if (receiveShadow === "true") {

@@ -22,7 +22,7 @@
 
        <!-- Fire aurora -->
        <Light type="2" color="0.65 0.04 0.04 1" position="-46 -44 2" direction="0 0 -1" near="2" far="3.6" inner="0.1" outer="2.6" intensity="2" dropOff="1.5" castShadow="true"/>
-
+        
        <!-- Backgrounds -->
        <Background x="0" y="0" elementPixelPosition="0 900 124 1024" width="100" height="100" parallaxScale="12" type="background" receiveShadow="false" lights="1 2" />
 
@@ -279,10 +279,10 @@
        <Diamond x="-34" y="26" weight="4" height="4" playerCollision="1" type="diamond_for_fire"/>
 
        <!-- Particles -->
-       <Particle x="-20" y ="-24" type="particle"/> 
+       <Particle x="-20" y ="-24" type="particle"/>
 
        <!-- Characters -->
-       <Character x="-30" y="-10" type="water_character" weight="8" height="8"/>
-       <Character x="-30" y="-10" type="fire_character" weight="8" height="8"/>
+       <Character x="-43" y="-44" type="water_character" weight="8" height="8"/>
+       <Character x="-38" y="-44" type="fire_character" weight="8" height="8"/>
 
        </Level>
