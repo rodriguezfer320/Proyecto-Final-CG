@@ -474,8 +474,9 @@ Game.prototype.colCharacterDoor = function (mWaterCharacter, mFireCharacter) {
     }
 
     if (mWaterCharacter.getInDoor() && mFireCharacter.getInDoor()) {
-        gEngine.AudioClips.playACue(this.kSounds["ending"]);
+        
         this.gameover();
+        gEngine.AudioClips.playACue(this.kSounds["ending"]);
     }
 };
 
