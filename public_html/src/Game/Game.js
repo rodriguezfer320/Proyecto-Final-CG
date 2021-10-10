@@ -220,7 +220,7 @@ Game.prototype.unloadScene = function () {
 Game.prototype.initialize = function () {
     //set ambient lighting
     gEngine.DefaultResources.setGlobalAmbientColor([0.5, 0.5, 0.5, 1]);
-    gEngine.DefaultResources.setGlobalAmbientIntensity(2);
+    gEngine.DefaultResources.setGlobalAmbientIntensity(1);
 
     //initialize parser
     this.parser = new SceneFileParser(this.kFileLevel);
@@ -427,11 +427,7 @@ Game.prototype.colCharacterWaveWalking = function (mWaterCharacter, mFireCharact
         let characterWalking = (wave.getPlayerCollision() === 0) ? mFireCharacter : mWaterCharacter;
         let colWalking = (characterWalking !== null) ? characterWalking.getPhysicsComponent().collided(wave.getPhysicsComponent(), new CollisionInfo()) : false;
 
-        if (colWalking) {
-            characterWalking.playSoundWalking();
-        }else{
-           
-        }
+     
     }
 };
 

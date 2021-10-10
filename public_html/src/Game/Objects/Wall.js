@@ -20,7 +20,7 @@ function Wall(x, y, w, h, elmPixelPos, texture, normal, lgtSet) {
     rigidShape.setMass(0);  // ensures no movements!
     rigidShape.setRestitution(0);
     rigidShape.setFriction(0);
-    rigidShape.setDrawBounds(true);
+    rigidShape.setDrawBounds(false);
     rigidShape.setColor([0, 0, 1, 1]);
     this.setPhysicsComponent(rigidShape);
 }
