@@ -41,6 +41,7 @@ function Game() {
         top_left_edge: "assets/walls/top_left_edge.png",
         top_right_edge: "assets/walls/top_right_edge.png",
         top_tile: "assets/walls/top_tile.png",
+        toxic_tile: "assets/walls/toxic_tile.png",
 
         //Platform
         platform: "assets/platform/platform.png",
@@ -95,6 +96,7 @@ function Game() {
         top_left_edge: "assets/walls/top_left_edge_normal.png",
         top_right_edge: "assets/walls/top_right_edge_normal.png",
         top_tile: "assets/walls/top_tile_normal.png",
+        toxic_tile: "assets/walls/toxic_tile_normal.png",
 
         //Platform
         platform: "assets/platform/platform_normal.png",

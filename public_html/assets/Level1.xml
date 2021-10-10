@@ -168,7 +168,7 @@
        <Wall x="0" y="-24" type="top_tile" weight="4" height="4" elementPixelPosition="0 256 0 256"/>
        <Wall x="-4" y="-24" type="top_tile" weight="4" height="4" elementPixelPosition="0 256 0 256"/>
        <Wall x="-8" y="-24" type="top_tile" weight="4" height="4" elementPixelPosition="0 256 0 256"/>
-       <Wall x="-12" y="-24" type="top_tile" weight="4" height="4" elementPixelPosition="0 256 0 256"/>
+       <Wall x="-12" y="-24" type="toxic_tile" weight="4" height="4" elementPixelPosition="0 256 0 256"/>
        <Wall x="-16" y="-24" type="top_tile" weight="4" height="4" elementPixelPosition="0 256 0 256"/>
        <Wall x="-20" y="-24" type="top_left_edge" weight="4" height="4" elementPixelPosition="13 256 0 256"/>
 
@@ -283,7 +283,7 @@
 
 
        <!-- Particles -->
-       <Particle x="-20" y ="-24" type="particle"/>
+       <Particle x="-12" y ="-24.5" type="particle"/>
 
        <!-- Characters -->
        <Character x="-43" y="-44" type="water_character" weight="8" height="8"/>
