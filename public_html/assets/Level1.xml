@@ -12,6 +12,9 @@
        <!-- Mini map -->
        <Camera x="0" y="0" width="100" viewport="250 41.5 400 400" bound="2" color="0.3 0.2 0.1 1"/>
 
+       <!-- Pause -->
+       <Camera x="0" y="0" width="89" viewport="250 41.5 400 400" bound="2" color="0.6 0.5 0.4 1"/>
+
        <!-- Lights -->
 
        <!-- Directional light -->
@@ -277,6 +280,7 @@
        <Diamond x="-18" y="26" weight="4" height="4" playerCollision="1" type="diamond_for_fire"/>
        <Diamond x="-26" y="26" weight="4" height="4" playerCollision="0" type="diamond_for_water"/>
        <Diamond x="-34" y="26" weight="4" height="4" playerCollision="1" type="diamond_for_fire"/>
+
 
        <!-- Particles -->
        <Particle x="-20" y ="-24" type="particle"/>

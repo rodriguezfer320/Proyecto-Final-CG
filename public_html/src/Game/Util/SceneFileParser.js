@@ -347,4 +347,3 @@ SceneFileParser.prototype.parseParticle = function (textures) {
     }
     return p;
 };
-

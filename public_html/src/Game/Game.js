@@ -134,6 +134,15 @@ function Game() {
         water_character_wave_walking: "assets/sounds/water_character_wave_walking.mp3"
     };
 
+    this.kMenuPause = {
+        menu_pause_activate_sound: "assets/menu_pause/menu_pause_activate_sound/menu_pause_activate_sound.png",
+        menu_pause_activate_sound_finish_game: "assets/menu_pause/menu_pause_activate_sound/menu_pause_activate_sound_finish_game.png",
+        menu_pause_activate_sound_resume: "assets/menu_pause/menu_pause_activate_sound/menu_pause_activate_sound_resume.png",
+        menu_pause_desactivate_sound: "assets/menu_pause/menu_pause_desactivate_sound/menu_pause_desactivate_sound.png",
+        menu_pause_desactivate_sound_finish_game: "assets/menu_pause/menu_pause_desactivate_sound/menu_pause_desactivate_sound_finish_game.png",
+        menu_pause_desactivate_sound_resume: "assets/menu_pause/menu_pause_desactivate_sound/menu_pause_desactivate_sound_resume.png",
+    };
+
     this.mAllCameras = null;
     this.mGlobalLightSet = null;
     this.mAllWalls = null;
@@ -142,12 +151,20 @@ function Game() {
     this.mAllDoors = null;
     this.mAllPushButtons = null;
     this.mAllCharacters = null;
-    this.mWin = [false, true];
     this.mMsg = null;
     this.mIsVisibleMap = false;
+    this.mIsVisibleMenuPause = false;
     this.parser = null;
     this.mAllParticles = new ParticleGameObjectSet();
     this.cont = 0;
+
+    this.pause = false;
+
+    this.mMenuPause = null;
+
+    this.loadSelection = null;
+
+    this.prefixMenuPause = "";
 
 }
 gEngine.Core.inheritPrototype(Game, Scene);
@@ -179,6 +196,14 @@ Game.prototype.loadScene = function () {
         }
     }
 
+    for (const key in this.kMenuPause) {
+        if (this.kMenuPause[key] !== "") {
+            gEngine.Textures.loadTexture(this.kMenuPause[key]);
+        } else {
+            this.kMenuPause[key] = null;
+        }
+    }
+
 };
 
 Game.prototype.unloadScene = function () {
@@ -186,6 +211,7 @@ Game.prototype.unloadScene = function () {
     gEngine.TextFileLoader.unloadTextFile(this.kFileLevel);
 
     gEngine.AudioClips.stopBackgroundAudio();
+    
     for (const key in this.kTextures) {
         if (this.kTextures[key] !== null) {
             gEngine.Textures.unloadTexture(this.kTextures[key]);
@@ -206,15 +232,16 @@ Game.prototype.unloadScene = function () {
         }
     }
 
-    let menu = null;
-
-    if (this.mWin[0] && this.mWin[1]) {
-        menu = new WinMenu();
-    } else {
-        menu = new GameOverMenu();
+    for (const key in this.kMenuPause) {
+        if (this.kMenuPause[key] !== "") {
+            gEngine.Textures.unloadTexture(this.kMenuPause[key]);
+        } else {
+            this.kMenuPause[key] = null;
+        }
     }
 
-    if (menu !== null) gEngine.Core.startScene(menu);
+
+    if (this.loadSelection !== null) gEngine.Core.startScene(this.loadSelection);
 };
 
 Game.prototype.initialize = function () {
@@ -252,6 +279,7 @@ Game.prototype.initialize = function () {
     //Characters
     this.mAllCharacters = this.parser.parseCharacters(this.kTextures, this.kNormals, this.mGlobalLightSet, this.kSounds);
 
+
     //Weves
     this.mAllWaves = this.parser.parseWaves(this.kTextures, this.kNormals, this.mGlobalLightSet);
 
@@ -262,7 +290,13 @@ Game.prototype.initialize = function () {
 
     gEngine.LayerManager.addToLayer(gEngine.eLayer.eHUD, this.mMsg);
 
-    gEngine.AudioClips.playBackgroundAudio(this.kSounds["background"]);    
+    gEngine.AudioClips.playBackgroundAudio(this.kSounds["background"]);
+
+    this.mMenuPause = new LightRenderable(this.kMenuPause["menu_pause_activate_sound"]);  
+    this.mMenuPause.addLight(this.mGlobalLightSet.getLightAt(0));
+    this.mMenuPause.getXform().setSize(90, 90);
+    this.mMenuPause.getXform().setPosition(0, 0);
+
 };
 
 // This is the draw function, make sure to setup proper drawing environment, and more
@@ -272,45 +306,124 @@ Game.prototype.draw = function () {
 
     this.mAllCameras[0].setupViewProjection();
     gEngine.LayerManager.drawAllLayers(this.mAllCameras[0]);
+    this.mAllParticles.draw(this.mAllCameras[0]);
 
     if (this.mIsVisibleMap) {
         this.mAllCameras[1].setupViewProjection();
 
         for (let i = 0; i < 4; i++) {
             gEngine.LayerManager.drawLayer(i, this.mAllCameras[1]);
+      
+        }
+        this.mAllParticles.draw(this.mAllCameras[1]);
+    }
+
+    if (this.mIsVisibleMenuPause) {
+        this.mAllCameras[2].setupViewProjection(); 
+        this.mMenuPause.draw(this.mAllCameras[2]);     
+        this.menuPause();        
+    }
+    
+};
+
+Game.prototype.menuPause = function () {    
+    let x =  gEngine.Input.getMousePosX();
+    let y =  gEngine.Input.getMousePosY();
+    
+    if (y >= 298 && y <= 316) {
+        if (x >= 462 && x <= 486) {           
+            if (gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)) {
+                this.prefixMenuPause = "des";
+                this.mMenuPause.setTexture(this.kMenuPause["menu_pause_"+ this.prefixMenuPause + "activate_sound"]);
+                gEngine.AudioClips.stopBackgroundAudio(this.kSounds["background"]);  
+            }
         }
     }
-    this.mAllParticles.draw(this.mAllCameras[0]);
-};
+ 
+    if (y >= 298 && y <= 316) {
+        if (x >= 480 && x <= 504) {           
+            if (gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)) {
+                this.prefixMenuPause = "";
+                this.mMenuPause.setTexture(this.kMenuPause["menu_pause_"+ this.prefixMenuPause + "activate_sound"]);
+                gEngine.AudioClips.playBackgroundAudio(this.kSounds["background"]);  
+            }
+        }
+    }
+
+    if (y >= 208 && y <= 256) {
+        if (x >= 358 && x <= 528) {          
+            this.mMenuPause.setTexture(this.kMenuPause["menu_pause_"+ this.prefixMenuPause + "activate_sound_resume"]);
+            if (gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)) {
+                this.mIsVisibleMenuPause = false;
+                this.pause = false;
+                this.mMenuPause.setTexture(this.kMenuPause["menu_pause_"+ this.prefixMenuPause + "activate_sound"]);
+            }
+        }
+    }else{
+        this.mMenuPause.setTexture(this.kMenuPause["menu_pause_"+ this.prefixMenuPause + "activate_sound"]);
+    }
+
+    if(y >= 386 && y <= 425){
+        if(x >= 580 && x <= 642){
+            if (gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)) {
+            this.mIsVisibleMenuPause = false;
+            this.pause = false;
+            this.mMenuPause.setTexture(this.kMenuPause["menu_pause_"+ this.prefixMenuPause + "activate_sound"]);
+            }
+        }
+    }
+
+    if (y >= 130 && y <= 183) {
+        if (x >= 368 && x <= 519) {           
+            this.mMenuPause.setTexture(this.kMenuPause["menu_pause_"+ this.prefixMenuPause + "activate_sound_finish_game"]);
+            if (gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)) {
+                this.loadSelection = new MainMenu();
+                gEngine.GameLoop.stop();        
+            }
+        }
+    }
+
+    
+
+}
 
 // The Update function, updates the application state. Make sure to _NOT_ draw
 // anything from this function!
 Game.prototype.update = function () {
-    this.mAllCameras[0].update();
-    gEngine.LayerManager.updateAllLayers();
-
-    this.mAllParticles.update();
-
-    //Variables de objetos
-    let mWaterCharacter = this.mAllCharacters.getObjectAt(0);
-    let mFireCharacter = this.mAllCharacters.getObjectAt(1);
-
-    this.camera(mWaterCharacter, mFireCharacter);
-    this.auroraCharacter(mWaterCharacter, 1);
-    this.timeParticles();
-    this.auroraCharacter(mFireCharacter, 2);
-    this.colCharacterWave(mWaterCharacter, mFireCharacter);
-
-    this.colCharacterWaveWalking(mWaterCharacter, mFireCharacter);
     
-    this.colCharacterDiamond(mWaterCharacter, mFireCharacter);
-    this.colCharacterPushButton(mWaterCharacter, mFireCharacter);
-    this.colCharacterDoor(mWaterCharacter, mFireCharacter);
-    this.colCharacterParticle(mWaterCharacter, mFireCharacter);
-    this.physicsSimulation();
-    this.miniMapa();
-    this.msjScore(mWaterCharacter, mFireCharacter);
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.P)) {
+        this.mIsVisibleMenuPause = true;
+        this.pause = true;
+    }
+  
+    this.mAllCameras[2].update();
+
+    if (!this.pause) {
+        this.mAllCameras[0].update();
+        gEngine.LayerManager.updateAllLayers();
+
+        this.mAllParticles.update();
+
+        //Variables de objetos
+        let mWaterCharacter = this.mAllCharacters.getObjectAt(0);
+        let mFireCharacter = this.mAllCharacters.getObjectAt(1);
+
+        this.camera(mWaterCharacter, mFireCharacter);
+        this.auroraCharacter(mWaterCharacter, 1);
+        this.timeParticles();
+        this.auroraCharacter(mFireCharacter, 2);
+        this.colCharacterWave(mWaterCharacter, mFireCharacter);
+        this.colCharacterDiamond(mWaterCharacter, mFireCharacter);
+        this.colCharacterPushButton(mWaterCharacter, mFireCharacter);
+        this.colCharacterDoor(mWaterCharacter, mFireCharacter);
+        this.colCharacterParticle(mWaterCharacter.getXform(), mFireCharacter.getXform());
+        this.physicsSimulation();
+        this.miniMapa();
+        this.msjScore(mWaterCharacter, mFireCharacter);
+    }
+
 };
+
 
 //Mover la camara
 Game.prototype.camera = function (mWaterCharacter, mFireCharacter) {
@@ -415,19 +528,10 @@ Game.prototype.colCharacterWave = function (mWaterCharacter, mFireCharacter) {
             gEngine.AudioClips.playACue(this.kSounds["finish"]);
             this.mGlobalLightSet.getLightAt(1).setLightTo(false);
             character.setVisibility(false);
+
+            this.loadSelection = new GameOverMenu();
             gEngine.GameLoop.stop();
         }
-    }
-};
-
-//Función que detecta que personaje camina sobre su wave y reproduce el camino (en producción)
-Game.prototype.colCharacterWaveWalking = function (mWaterCharacter, mFireCharacter) {
-    for (let i = 0; i < this.mAllWaves.size(); i++) {
-        let wave = this.mAllWaves.getObjectAt(i);
-        let characterWalking = (wave.getPlayerCollision() === 0) ? mFireCharacter : mWaterCharacter;
-        let colWalking = (characterWalking !== null) ? characterWalking.getPhysicsComponent().collided(wave.getPhysicsComponent(), new CollisionInfo()) : false;
-
-     
     }
 };
 
@@ -444,7 +548,7 @@ Game.prototype.colCharacterDiamond = function (mWaterCharacter, mFireCharacter) 
             diamond.setVisibility(false);
             character.incrementScore();
             this.mAllDiamons.removeFromSet(diamond);
-        }        
+        }
     }
 };
 
@@ -474,8 +578,8 @@ Game.prototype.colCharacterDoor = function (mWaterCharacter, mFireCharacter) {
     }
 
     if (mWaterCharacter.getInDoor() && mFireCharacter.getInDoor()) {
-        
-        this.gameover();
+        this.loadSelection = new WinMenu();
+        gEngine.GameLoop.stop();
         gEngine.AudioClips.playACue(this.kSounds["ending"]);
     }
 };
@@ -548,18 +652,25 @@ Game.prototype.loadParticles = function () {
 
 //Colisión entre personajes y sustancia tóxica.
 Game.prototype.colCharacterParticle = function (mWaterCharacter, mFireCharacter) {
+    var bboxWater = new BoundingBox(mWaterCharacter.getPosition(), mWaterCharacter.getWidth(), mWaterCharacter.getHeight());
+    var bboxFire = new BoundingBox(mFireCharacter.getPosition(), mFireCharacter.getWidth(), mFireCharacter.getHeight());
     for (let i = 0; i < this.mAllParticles.size(); i++) {
-        let particle = this.mAllParticles.getObjectAt(i);
+        let particle = this.mAllParticles.getObjectAt(i).getXform();        
+        var particleBound = new BoundingBox(particle.getPosition(), particle.getWidth(), particle.getHeight());
+        var colWater = particleBound.boundCollideStatus(bboxWater);
+        var colFire = particleBound.boundCollideStatus(bboxFire);
 
+        if((colFire !=0) || (colWater != 0)){
+            gEngine.AudioClips.playACue(this.kSounds["death"]);
+            gEngine.AudioClips.playACue(this.kSounds["finish"]);
+            this.loadSelection = new GameOverMenu();
+            gEngine.GameLoop.stop();
+        }
     }
+
+
 }
 
-//Functión que para el juego.
-Game.prototype.gameover = function () {
-    this.mWin[0] = true;
-    gEngine.GameLoop.stop();
-
-};
 
 
 
