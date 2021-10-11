@@ -29,6 +29,8 @@ function Platform(x, y, velocity, movementRange, texture, normal, lightSet) {
     }
 
     this.mPlatform.addLight(lightSet.getLightAt(0));
+    this.mPlatform.addLight(lightSet.getLightAt(1));
+    this.mPlatform.addLight(lightSet.getLightAt(2));
 
     GameObject.call(this, this.mPlatform);
     this.getXform().setSize(this.kPlatformWidth, this.kPlatformHeight);

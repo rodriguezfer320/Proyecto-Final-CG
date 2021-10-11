@@ -28,11 +28,12 @@ function Character(x, y, texture, normal, lgtSet, player, kSounds) {
     }
     
     this.mCharacter.getXform().setPosition(x, y);
-    this.mCharacter.getXform().setZPos(2);
+    this.mCharacter.getXform().setZPos(1);
     this.mCharacter.getXform().setSize(7, 7);
     this.mCharacter.setSpriteSequence(2048, 0, 256, 256, 1, 0);
     this.mCharacter.setAnimationSpeed(0);
     this.mCharacter.addLight(lgtSet.getLightAt(0));
+    this.mCharacter.addLight(lgtSet.getLightAt(3));
 
     GameObject.call(this, this.mCharacter);
 

@@ -11,6 +11,8 @@ function PushButton(x, y, w, h, p, texture, normal, lgtSet) {
     this.mPushButton.getXform().setSize(w, h);
     this.mPushButton.setElementPixelPositions(0, 128, 0, 64);
     this.mPushButton.addLight(lgtSet.getLightAt(0));
+    this.mPushButton.addLight(lgtSet.getLightAt(1));
+    this.mPushButton.addLight(lgtSet.getLightAt(2));
     this.platform = p;
 
 
