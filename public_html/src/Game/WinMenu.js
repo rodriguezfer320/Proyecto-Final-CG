@@ -13,10 +13,10 @@
 
 function WinMenu() {
     this.kTextures = {
-        background: "assets/backgrounds/background.png",
-        menu: "assets/menu/win/winner.png",
-        menu_play: "assets/menu/win/winner_play_selected.png",
-        menu_exit: "assets/menu/win/winner_exit_selected.png"
+        background: "assets/images/backgrounds/background.png",
+        menu: "assets/images/menu/win/winner.png",
+        menu_play: "assets/images/menu/win/winner_play_selected.png",
+        menu_exit: "assets/images/menu/win/winner_exit_selected.png"
     };
 
     this.mCamera = null;

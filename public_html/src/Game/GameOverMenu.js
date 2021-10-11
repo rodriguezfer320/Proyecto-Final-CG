@@ -13,10 +13,10 @@
 
 function GameOverMenu() {
     this.kTextures = {
-        background: "assets/backgrounds/background.png",
-        menu: "assets/menu/game_over/gameover.png",
-        menu_play: "assets/menu/game_over/gameover_play_selected.png",
-        menu_exit: "assets/menu/game_over/gameover_exit_selected.png"
+        background: "assets/images/backgrounds/background.png",
+        menu: "assets/images/menu/game_over/gameover.png",
+        menu_play: "assets/images/menu/game_over/gameover_play_selected.png",
+        menu_exit: "assets/images/menu/game_over/gameover_exit_selected.png"
     };
 
     this.mCamera = null;

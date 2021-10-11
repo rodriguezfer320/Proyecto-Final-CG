@@ -20,10 +20,8 @@ function PushButton(x, y, w, h, p, texture, normal, lgtSet) {
     rigidShape.setMass(0);  // ensures no movements!
     rigidShape.setDrawBounds(false);
     rigidShape.setColor([0, 0, 1, 1]);
-    this.setPhysicsComponent(rigidShape);
-
-    
-}
+    this.setPhysicsComponent(rigidShape);    
+};
 
 gEngine.Core.inheritPrototype(PushButton, GameObject);
 

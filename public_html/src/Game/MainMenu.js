@@ -13,10 +13,10 @@
 
 function MainMenu() {
     this.kTextures = {
-        background: "assets/backgrounds/background.png",
-        menu: "assets/menu/main/welcome.png",
-        menu_play: "assets/menu/main/welcome_play_selected.png",
-        menu_exit: "assets/menu/main/welcome_exit_selected.png"
+        background: "assets/images/backgrounds/background.png",
+        menu: "assets/images/menu/main/welcome.png",
+        menu_play: "assets/images/menu/main/welcome_play_selected.png",
+        menu_exit: "assets/images/menu/main/welcome_exit_selected.png"
     };
 
     this.mCamera = null;

@@ -17,56 +17,56 @@ function Game() {
 
     this.kTextures = {
         //background and shadowBackground
-        background: "assets/backgrounds/background.png",
-        shadowBackground: "assets/backgrounds/shadow_background.png",
+        background: "assets/images/backgrounds/background.png",
+        shadowBackground: "assets/images/backgrounds/shadow_background.png",
 
         //Tileset
-        bottom_left_edge: "assets/walls/bottom_left_edge.png",
-        bottom_right_edge: "assets/walls/bottom_right_edge.png",
-        bottom_tile: "assets/walls/bottom_tile.png",
-        color: "assets/walls/color.png",
-        color_medium: "assets/walls/color_medium.png",
-        inner_corner_bottom_left: "assets/walls/inner_corner_bottom_left.png",
-        inner_corner_bottom_right: "assets/walls/inner_corner_bottom_right.png",
-        inner_corner_top_left: "assets/walls/inner_corner_top_left.png",
-        inner_corner_top_right: "assets/walls/inner_corner_top_right.png",
-        left_edge_repeating: "assets/walls/left_edge_repeating.png",
-        platform_inner_repeating: "assets/walls/platform_inner_repeating.png",
-        platform_left_edge: "assets/walls/platform_left_edge.png",
-        platform_right_edge: "assets/walls/platform_right_edge.png",
-        platform_single: "assets/walls/platform_single.png",
-        left_tile: "assets/walls/left_tile.png",
-        right_edge_repeating: "assets/walls/right_edge_repeating.png",
-        right_tile: "assets/walls/right_tile.png",
-        top_left_edge: "assets/walls/top_left_edge.png",
-        top_right_edge: "assets/walls/top_right_edge.png",
-        top_tile: "assets/walls/top_tile.png",
-        toxic_tile: "assets/walls/toxic_tile.png",
+        bottom_left_edge: "assets/images/walls/bottom_left_edge.png",
+        bottom_right_edge: "assets/images/walls/bottom_right_edge.png",
+        bottom_tile: "assets/images/walls/bottom_tile.png",
+        color: "assets/images/walls/color.png",
+        color_medium: "assets/images/walls/color_medium.png",
+        inner_corner_bottom_left: "assets/images/walls/inner_corner_bottom_left.png",
+        inner_corner_bottom_right: "assets/images/walls/inner_corner_bottom_right.png",
+        inner_corner_top_left: "assets/images/walls/inner_corner_top_left.png",
+        inner_corner_top_right: "assets/images/walls/inner_corner_top_right.png",
+        left_edge_repeating: "assets/images/walls/left_edge_repeating.png",
+        platform_inner_repeating: "assets/images/walls/platform_inner_repeating.png",
+        platform_left_edge: "assets/images/walls/platform_left_edge.png",
+        platform_right_edge: "assets/images/walls/platform_right_edge.png",
+        platform_single: "assets/images/walls/platform_single.png",
+        left_tile: "assets/images/walls/left_tile.png",
+        right_edge_repeating: "assets/images/walls/right_edge_repeating.png",
+        right_tile: "assets/images/walls/right_tile.png",
+        top_left_edge: "assets/images/walls/top_left_edge.png",
+        top_right_edge: "assets/images/walls/top_right_edge.png",
+        top_tile: "assets/images/walls/top_tile.png",
+        toxic_tile: "assets/images/walls/toxic_tile.png",
 
         //Platform
-        platform: "assets/platform/platform.png",
+        platform: "assets/images/platform/platform.png",
 
         //Waves
-        wave_fire: "assets/wave/wave_fire.png",
-        wave_water: "assets/wave/wave_water.png",
+        wave_fire: "assets/images/wave/wave_fire.png",
+        wave_water: "assets/images/wave/wave_water.png",
 
         //Door
-        door_water: "assets/door/door_water.png",
-        door_fire: "assets/door/door_fire.png",
+        door_water: "assets/images/door/door_water.png",
+        door_fire: "assets/images/door/door_fire.png",
 
         //PushButton
-        push_button: "assets/push_button/push_button.png",
+        push_button: "assets/images/push_button/push_button.png",
 
         //Diamons
-        diamond_for_water: "assets/diamonds/diamond_for_water.png",
-        diamond_for_fire: "assets/diamonds/diamond_for_fire.png",
+        diamond_for_water: "assets/images/diamonds/diamond_for_water.png",
+        diamond_for_fire: "assets/images/diamonds/diamond_for_fire.png",
 
         //Particles
-        particle: "assets/particle/particle.png",
+        particle: "assets/images/particle/particle.png",
 
         //Characters
-        water_character: "assets/characters/water_character.png",
-        fire_character: "assets/characters/fire_character.png"
+        water_character: "assets/images/characters/water_character.png",
+        fire_character: "assets/images/characters/fire_character.png"
 
     };
 
@@ -76,30 +76,30 @@ function Game() {
         shadowBackground: "",
 
         //Tileset
-        bottom_left_edge: "assets/walls/bottom_left_edge_normal.png",
-        bottom_right_edge: "assets/walls/bottom_right_edge_normal.png",
-        bottom_tile: "assets/walls/bottom_tile_normal.png",
-        color: "assets/walls/color_normal.png",
-        color_medium: "assets/walls/color_medium_normal.png",
-        inner_corner_bottom_left: "assets/walls/inner_corner_bottom_left_normal.png",
-        inner_corner_bottom_right: "assets/walls/inner_corner_bottom_right_normal.png",
-        inner_corner_top_left: "assets/walls/inner_corner_top_left_normal.png",
-        inner_corner_top_right: "assets/walls/inner_corner_top_right_normal.png",
-        left_edge_repeating: "assets/walls/left_edge_repeating_normal.png",
-        platform_inner_repeating: "assets/walls/platform_inner_repeating_normal.png",
-        platform_left_edge: "assets/walls/platform_left_edge_normal.png",
-        platform_right_edge: "assets/walls/platform_right_edge_normal.png",
-        platform_single: "assets/walls/platform_single_normal.png",
-        left_tile: "assets/walls/left_tile_normal.png",
-        right_edge_repeating: "assets/walls/right_edge_repeating_normal.png",
-        right_tile: "assets/walls/right_tile_normal.png",
-        top_left_edge: "assets/walls/top_left_edge_normal.png",
-        top_right_edge: "assets/walls/top_right_edge_normal.png",
-        top_tile: "assets/walls/top_tile_normal.png",
-        toxic_tile: "assets/walls/toxic_tile_normal.png",
+        bottom_left_edge: "assets/images/walls/bottom_left_edge_normal.png",
+        bottom_right_edge: "assets/images/walls/bottom_right_edge_normal.png",
+        bottom_tile: "assets/images/walls/bottom_tile_normal.png",
+        color: "assets/images/walls/color_normal.png",
+        color_medium: "assets/images/walls/color_medium_normal.png",
+        inner_corner_bottom_left: "assets/images/walls/inner_corner_bottom_left_normal.png",
+        inner_corner_bottom_right: "assets/images/walls/inner_corner_bottom_right_normal.png",
+        inner_corner_top_left: "assets/images/walls/inner_corner_top_left_normal.png",
+        inner_corner_top_right: "assets/images/walls/inner_corner_top_right_normal.png",
+        left_edge_repeating: "assets/images/walls/left_edge_repeating_normal.png",
+        platform_inner_repeating: "assets/images/walls/platform_inner_repeating_normal.png",
+        platform_left_edge: "assets/images/walls/platform_left_edge_normal.png",
+        platform_right_edge: "assets/images/walls/platform_right_edge_normal.png",
+        platform_single: "assets/images/walls/platform_single_normal.png",
+        left_tile: "assets/images/walls/left_tile_normal.png",
+        right_edge_repeating: "assets/images/walls/right_edge_repeating_normal.png",
+        right_tile: "assets/images/walls/right_tile_normal.png",
+        top_left_edge: "assets/images/walls/top_left_edge_normal.png",
+        top_right_edge: "assets/images/walls/top_right_edge_normal.png",
+        top_tile: "assets/images/walls/top_tile_normal.png",
+        toxic_tile: "assets/images/walls/toxic_tile_normal.png",
 
         //Platform
-        platform: "assets/platform/platform_normal.png",
+        platform: "assets/images/platform/platform_normal.png",
 
         //Waves
         wave_fire: "",
@@ -120,8 +120,8 @@ function Game() {
         particle: "",
 
         //Characters
-        water_character: "assets/characters/water_character_normal.png",
-        fire_character: "assets/characters/fire_character_normal.png"
+        water_character: "assets/images/characters/water_character_normal.png",
+        fire_character: "assets/images/characters/fire_character_normal.png"
     };
 
     this.kSounds = {
@@ -131,18 +131,16 @@ function Game() {
         ending: "assets/sounds/ending.mp3",
         finish: "assets/sounds/finish.mp3",
         fire_character_jump: "assets/sounds/fire_character_jump.mp3",
-        water_character_jump: "assets/sounds/water_character_jump.mp3",
-        fire_character_wave_walking: "assets/sounds/fire_character_wave_walking.mp3",
-        water_character_wave_walking: "assets/sounds/water_character_wave_walking.mp3"
+        water_character_jump: "assets/sounds/water_character_jump.mp3"
     };
 
     this.kMenuPause = {
-        menu_pause_activate_sound: "assets/menu_pause/menu_pause_activate_sound/menu_pause_activate_sound.png",
-        menu_pause_activate_sound_finish_game: "assets/menu_pause/menu_pause_activate_sound/menu_pause_activate_sound_finish_game.png",
-        menu_pause_activate_sound_resume: "assets/menu_pause/menu_pause_activate_sound/menu_pause_activate_sound_resume.png",
-        menu_pause_desactivate_sound: "assets/menu_pause/menu_pause_desactivate_sound/menu_pause_desactivate_sound.png",
-        menu_pause_desactivate_sound_finish_game: "assets/menu_pause/menu_pause_desactivate_sound/menu_pause_desactivate_sound_finish_game.png",
-        menu_pause_desactivate_sound_resume: "assets/menu_pause/menu_pause_desactivate_sound/menu_pause_desactivate_sound_resume.png",
+        menu_pause_activate_sound: "assets/images/menu_pause/menu_pause_activate_sound/menu_pause_activate_sound.png",
+        menu_pause_activate_sound_finish_game: "assets/images/menu_pause/menu_pause_activate_sound/menu_pause_activate_sound_finish_game.png",
+        menu_pause_activate_sound_resume: "assets/images/menu_pause/menu_pause_activate_sound/menu_pause_activate_sound_resume.png",
+        menu_pause_desactivate_sound: "assets/images/menu_pause/menu_pause_desactivate_sound/menu_pause_desactivate_sound.png",
+        menu_pause_desactivate_sound_finish_game: "assets/images/menu_pause/menu_pause_desactivate_sound/menu_pause_desactivate_sound_finish_game.png",
+        menu_pause_desactivate_sound_resume: "assets/images/menu_pause/menu_pause_desactivate_sound/menu_pause_desactivate_sound_resume.png",
     };
 
     this.mAllCameras = null;
