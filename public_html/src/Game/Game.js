@@ -282,7 +282,7 @@ Game.prototype.initialize = function () {
     // Score
     this.mMsg = new FontRenderable("");
     this.mMsg.setColor([1, 1, 1, 1]);
-    this.mMsg.getXform().setPosition(-14, -17);
+    this.mMsg.getXform().setPosition(0, 44);
     this.mMsg.setTextHeight(2);
 
     // Menu Pause
@@ -346,7 +346,6 @@ Game.prototype.updateLevel1 = function () {
         let mWaterCharacter = this.mAllCharacters.getObjectAt(0);
         let mFireCharacter = this.mAllCharacters.getObjectAt(1);
 
-        this.camera(mWaterCharacter, mFireCharacter);
         this.auroraCharacter(mWaterCharacter, 1);
         this.timeParticles();
         this.auroraCharacter(mFireCharacter, 2);
@@ -434,66 +433,6 @@ Game.prototype.menuPause = function () {
     }
 };
 
-// Function that is responsible for moving the camera
-Game.prototype.camera = function (mWaterCharacter, mFireCharacter) {
-    let xf = mWaterCharacter.getXform();
-    let posText = this.mMsg.getXform().getPosition();
-    let status = this.mAllCameras[0].collideWCBound(xf, 1);
-
-    if (status !== BoundingBox.eboundCollideStatus.eInside) {
-        let p1 = this.mAllCameras[0].getWCCenter();
-
-        if ((status & BoundingBox.eboundCollideStatus.eCollideTop) !== 0) {
-            if (p1[1] === -32.900001525878906) {
-                p1[1] += 16;
-                posText[1] += 16;
-            }
-            else if (p1[1] === -16.900001525878906) {
-                p1[1] += 24;
-                posText[1] += 24;
-            }
-            else if (p1[1] === 7.099998474121094) {
-                p1[1] += 12;
-                posText[1] += 12;
-            }
-            else if (p1[1] === 19.099998474121094) {
-                p1[1] += 13.8000030518;
-                posText[1] += 13.8000030518;
-            }
-        } else if ((status & BoundingBox.eboundCollideStatus.eCollideBottom) !== 0) {
-            if (p1[1] === -16.900001525878906) {
-                p1[1] -= 16;
-                posText[1] -= 16
-            }
-            else if (p1[1] === 7.099998474121094) {
-                p1[1] -= 24;
-                posText[1] -= 24;
-            }
-            else if (p1[1] === 19.099998474121094) {
-                p1[1] -= 12;
-                posText[1] -= 12;
-            }
-            else if (p1[1] === 32.900001525878906) {
-                p1[1] -= 13.8000030518;
-                posText[1] -= 13.8000030518;
-            }
-        } else if ((status & BoundingBox.eboundCollideStatus.eCollideRight) !== 0) {
-            if (p1[0] === -18) {
-                p1[0] += 36;
-                posText[0] += 1.6;
-            }
-        } else if ((status & BoundingBox.eboundCollideStatus.eCollideLeft) !== 0) {
-            if (p1[0] === 18) {
-                p1[0] -= 36;
-                posText[0] -= 1.6;
-            }
-        }
-
-        this.mAllCameras[0].panTo(p1[0], p1[1]);
-        this.mMsg.getXform().setPosition(posText[0], posText[1]);
-    }
-};
-
 // Function that is responsible for activating the physics of the game
 Game.prototype.physicsSimulation = function () {
     gEngine.Physics.processSetSet(this.mAllCharacters, this.mAllWalls);
@@ -534,7 +473,7 @@ Game.prototype.colCharacterWave = function (mWaterCharacter, mFireCharacter) {
         if (col) {
             gEngine.AudioClips.playACue(this.kSounds["death"]);
             gEngine.AudioClips.playACue(this.kSounds["finish"]);
-            this.mGlobalLightSet.getLightAt(1).setLightTo(false);
+            this.mGlobalLightSet.getLightAt(wave.getPlayerCollision() + 1).setLightTo(false);
             character.setVisibility(false);
 
             this.mLoadSelection = new GameOverMenu();

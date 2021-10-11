@@ -57,7 +57,7 @@ WinMenu.prototype.initialize = function () {
     this.mCamera = new Camera(
         vec2.fromValues(0, 0), // position of the camera
         100,                  //  width of camera
-        [0, 0, 900, 483],    //   viewport (orgX, orgY, width, height)
+        [0, 0, 900, 900],    //   viewport (orgX, orgY, width, height)
         0
     );
     this.mCamera.setBackgroundColor([0.9, 0.9, 0.9, 1]);
@@ -90,31 +90,29 @@ WinMenu.prototype.update = function () {
     let x = gEngine.Input.getMousePosX();
     let y = gEngine.Input.getMousePosY();
 
-    if(y >= 130 && y <= 228){
-        if(x >= 338 && x <= 444){
-            if(this.mMenuState === MainMenu.eMenuState.eMenu
-                || this.mMenuState === MainMenu.eMenuState.eMenuExit){
-                    this.mMenuState = MainMenu.eMenuState.eMenuPlay;
-            }
-    
-            if(gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)){
-                this.mLoadSelection = new Game();
-                gEngine.GameLoop.stop();
-            }
-        }else if(x >= 467 && x <= 573){
-            if(this.mMenuState === MainMenu.eMenuState.eMenu
-                || this.mMenuState === MainMenu.eMenuState.eMenuPlay){
-                    this.mMenuState = MainMenu.eMenuState.eMenuExit;
-            }
-
-            if(gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)){
-                this.mLoadSelection = new MainMenu();
-                gEngine.GameLoop.stop();
-            }
-        }else if(this.mMenuState === MainMenu.eMenuState.eMenuPlay
-            || this.mMenuState === MainMenu.eMenuState.eMenuExit){
-                this.mMenuState = MainMenu.eMenuState.eMenu;
+    if(x >= 277 && x <= 443 && y >= 282 && y <= 438){
+        if(this.mMenuState === WinMenu.eMenuState.eMenu
+            || this.mMenuState === WinMenu.eMenuState.eMenuExit){
+                this.mMenuState = WinMenu.eMenuState.eMenuPlay;
         }
+
+        if(gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)){
+            this.mLoadSelection = new Game();
+            gEngine.GameLoop.stop();
+        }
+    }else if(x >= 477 && x <= 642 && y >= 282 && y <= 438){
+        if(this.mMenuState === WinMenu.eMenuState.eMenu
+            || this.mMenuState === WinMenu.eMenuState.eMenuPlay){
+                this.mMenuState = WinMenu.eMenuState.eMenuExit;
+        }
+
+        if(gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)){
+            this.mLoadSelection = new MainMenu();
+            gEngine.GameLoop.stop();
+        }
+    }else if(this.mMenuState === WinMenu.eMenuState.eMenuPlay
+        || this.mMenuState === WinMenu.eMenuState.eMenuExit){
+            this.mMenuState = WinMenu.eMenuState.eMenu;
     }
 
     if(this.mMenuState !== this.mPreviousMenuState){
