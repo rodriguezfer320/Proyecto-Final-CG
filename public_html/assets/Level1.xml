@@ -7,7 +7,7 @@
        <!--  notice the "comma" between x and y: Syntax error! -->
 
        <!-- Camera -->
-       <Camera x="-18" y="-32.9" width="64" viewport="0 0 900 483" bound="0" color="0.9 0.9 0.9 1"/> 
+       <Camera x="-18" y="-32.9" width="64" viewport="0 0 900 483" bound="0" color="0.9 0.9 0.9 1"/>
 
        <!-- Mini map -->
        <Camera x="0" y="0" width="100" viewport="250 41.5 400 400" bound="2" color="0.3 0.2 0.1 1"/>
@@ -25,7 +25,7 @@
 
        <!-- Fire aurora -->
        <Light type="2" color="0.65 0.04 0.04 1" position="-46 -44 2" direction="0 0 -1" near="2" far="3.6" inner="0.1" outer="2.6" intensity="2" dropOff="1.5" castShadow="true"/>
-       
+
        <!-- Backgrounds -->
        <Background x="0" y="0" elementPixelPosition="0 900 124 1024" width="100" height="100" parallaxScale="12" type="background" receiveShadow="false" lights="1 2" />
 
@@ -253,7 +253,7 @@
 
        <!-- Doors -->
        <Door x="35" y="42" type="door_water" playerCollision="0" weight="8" height="8"/>
-       <Door x="43" y="42" type="door_fire" playerCollision="1" weight="8" height="8"/>       
+       <Door x="43" y="42" type="door_fire" playerCollision="1" weight="8" height="8"/>
 
        <!-- Push buttons -->
        <PushButton x="16" y="3" type="push_button" weight="4" height="2" platform="0"/>
@@ -288,4 +288,4 @@
        <Character x="-43" y="-44" type="water_character" weight="8" height="8"/>
        <Character x="-38" y="-44" type="fire_character" weight="8" height="8"/>
 
-       </Level>
+</Level>
