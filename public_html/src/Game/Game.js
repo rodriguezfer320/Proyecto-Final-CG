@@ -282,7 +282,7 @@ Game.prototype.initialize = function () {
     // Score
     this.mMsg = new FontRenderable("");
     this.mMsg.setColor([1, 1, 1, 1]);
-    this.mMsg.getXform().setPosition(0, 44);
+    this.mMsg.getXform().setPosition(0, 45);
     this.mMsg.setTextHeight(2);
 
     // Menu Pause
@@ -375,7 +375,7 @@ Game.prototype.menuPause = function () {
     let y = gEngine.Input.getMousePosY();
 
     // Mute sound 
-    if (y >= 298 && y <= 316) {
+    if (y >= 507 && y <= 524) {
         if (x >= 464 && x <= 485) {
             if (gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)) {
                 this.mPrefixMenuPase = "des";
@@ -386,7 +386,7 @@ Game.prototype.menuPause = function () {
     }
 
     // Unmute sound 
-    if (y >= 298 && y <= 316) {
+    if (y >= 507 && y <= 524) {
         if (x >= 487 && x <= 504) {
             if (gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)) {
                 this.mPrefixMenuPase = "";
@@ -397,7 +397,7 @@ Game.prototype.menuPause = function () {
     }
 
     // Resume
-    if (y >= 208 && y <= 256) {
+    if (y >= 417 && y <= 464) {
         if (x >= 358 && x <= 528) {
             this.mMenuPause.setTexture(this.kMenuPause["menu_pause_" + this.mPrefixMenuPase + "activate_sound_resume"]);
             if (gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)) {
@@ -411,7 +411,7 @@ Game.prototype.menuPause = function () {
     }
 
     // Resume exit button
-    if (y >= 386 && y <= 425) {
+    if (y >= 581 && y <= 646) {
         if (x >= 580 && x <= 642) {
             if (gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)) {
                 this.mIsVisibleMenuPause = false;
@@ -422,7 +422,7 @@ Game.prototype.menuPause = function () {
     }
 
     // Finish game
-    if (y >= 130 && y <= 183) {
+    if (y >= 339 && y <= 388) {
         if (x >= 368 && x <= 519) {
             this.mMenuPause.setTexture(this.kMenuPause["menu_pause_" + this.mPrefixMenuPase + "activate_sound_finish_game"]);
             if (gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)) {
@@ -475,7 +475,6 @@ Game.prototype.colCharacterWave = function (mWaterCharacter, mFireCharacter) {
             gEngine.AudioClips.playACue(this.kSounds["finish"]);
             this.mGlobalLightSet.getLightAt(wave.getPlayerCollision() + 1).setLightTo(false);
             character.setVisibility(false);
-
             this.mLoadSelection = new GameOverMenu();
             gEngine.GameLoop.stop();
         }
