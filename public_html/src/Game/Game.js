@@ -282,7 +282,7 @@ Game.prototype.initialize = function () {
     // Score
     this.mMsg = new FontRenderable("");
     this.mMsg.setColor([1, 1, 1, 1]);
-    this.mMsg.getXform().setPosition(0, 44);
+    this.mMsg.getXform().setPosition(0, 45);
     this.mMsg.setTextHeight(2);
 
     // Menu Pause
