@@ -234,8 +234,8 @@
        <Wall x="-4" y="32" type="top_right_edge" weight="4" height="4" elementPixelPosition="0 242 0 256"/>
 
        <!-- Path 19 -->
-       <Wall x="8" y="32" type="top_left_edge" weight="4" height="3.5" elementPixelPosition="0 256 64 256"/>
-       <Wall x="12" y="32" type="top_right_edge" weight="4" height="3.5" elementPixelPosition="0 256 64 256"/>
+       <Wall x="8" y="35" type="top_left_edge" weight="4" height="3.5" elementPixelPosition="0 256 64 256"/>
+       <Wall x="12" y="35" type="top_right_edge" weight="4" height="3.5" elementPixelPosition="0 256 64 256"/>
 
        <!-- Path 20 -->
        <Wall x="20" y="32" type="top_left_edge" weight="4" height="3.5" elementPixelPosition="0 256 64 256"/>
