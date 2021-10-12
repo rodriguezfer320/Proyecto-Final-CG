@@ -12,7 +12,7 @@ function Door(x, y, w, h, pc, texture, normal, lgtSet) {
 
     this.kDoor.getXform().setPosition(x, y);
     this.kDoor.getXform().setSize(w, h);
-    this.kDoor.setSpriteSequence(256, 0, 256, 256, 1, 0);
+    this.kDoor.setSpriteSequence(256, 0, 256, 256, 1, 0); 
     this.kDoor.setAnimationSpeed(0);
     this.kDoor.addLight(lgtSet.getLightAt(0));
     this.mPlayerCollision = pc;
