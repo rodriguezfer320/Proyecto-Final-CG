@@ -1,6 +1,6 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function Character(x, y, texture, normal, lgtSet, player) {
+function Character(x, y, texture, normal, lgtSet, player, kSounds) {
     this.mCharacterState = Character.eCharacterState.eFace;
     this.mPreviousCharacterState = Character.eCharacterState.eFace;
     this.mIsMoving = false;
@@ -13,6 +13,13 @@ function Character(x, y, texture, normal, lgtSet, player) {
     this.mJumpLimit = 0;
     this.mXAxisCorrection = -0.7;
     this.mYAxisCorrection = 1.5;
+    this.score = 0;
+    this.numPlatform = -1;
+    this.numPushButtonCollide = -1;
+    this.inDoor = false;  
+    this.kSounds = kSounds;
+    this.soundJump = player + "_jump";
+    this.soundWalking = player + "_wave_walking";
 
     if(normal !== null){
         this.mCharacter = new IllumRenderable(texture, normal);
@@ -21,11 +28,12 @@ function Character(x, y, texture, normal, lgtSet, player) {
     }
     
     this.mCharacter.getXform().setPosition(x, y);
-    this.mCharacter.getXform().setZPos(2);
+    this.mCharacter.getXform().setZPos(1);
     this.mCharacter.getXform().setSize(7, 7);
     this.mCharacter.setSpriteSequence(2048, 0, 256, 256, 1, 0);
     this.mCharacter.setAnimationSpeed(0);
     this.mCharacter.addLight(lgtSet.getLightAt(0));
+    this.mCharacter.addLight(lgtSet.getLightAt(3));
 
     GameObject.call(this, this.mCharacter);
 
@@ -37,7 +45,7 @@ function Character(x, y, texture, normal, lgtSet, player) {
     rigidShape.setRestitution(0);
     rigidShape.setFriction(0);
     rigidShape.setColor([0, 1, 0, 1]);
-    rigidShape.setDrawBounds(true);
+    rigidShape.setDrawBounds(false);
     this.setPhysicsComponent(rigidShape);
 
     let motionControls = {
@@ -122,25 +130,30 @@ Character.prototype.update = function () {
                     this.mIsJumping = true;
                     this.mJumpLimit = 18;
                     velocity[1] = 0;
+                    gEngine.AudioClips.playACue(this.kSounds[this.soundJump]); 
+                      
             }else if(this.mCharacterState === Character.eCharacterState.eRunRight){
                 this.mCharacterState = Character.eCharacterState.eJumpRight;
                 this.mCanMove = false;
                 this.mJumpLimit = 16;
                 velocity[0] = 8;
                 velocity[1] = 0; //Jump velocity
+                gEngine.AudioClips.playACue(this.kSounds[this.soundJump]);  
             }else if(this.mCharacterState === Character.eCharacterState.eRunLeft){
                 this.mCharacterState = Character.eCharacterState.eJumpLeft;
                 this.mCanMove = false;
                 this.mJumpLimit = 16;
                 velocity[0] = -8;
                 velocity[1] = 0; //Jump velocity
+                gEngine.AudioClips.playACue(this.kSounds[this.soundJump]); 
             }
 
             if(velocity[1] > this.mJumpLimit || velocity[1] <= -0.3333333432674408){
                 this.mCanJump = false;
             }else{
                 velocity[1] += 1; //Jump velocity
-            }          
+            }  
+                 
         }
 
         if(velocity[1] < -0.3333333432674408){
@@ -169,8 +182,6 @@ Character.prototype.update = function () {
         
         this.changeAnimation();
         this.mCharacter.updateAnimation();
-    }else{
-        this.mCharacter.getLightAt(0).isLightOn(false);
     }
 };
 
@@ -231,3 +242,41 @@ Character.prototype.changeAnimation = function () {
         }
     }
 };
+
+Character.prototype.getScore = function(){
+    return this.score;
+};
+
+Character.prototype.incrementScore = function(){
+    this.score++;
+};
+
+
+Character.prototype.getStatus  = function (){
+    return this.status;
+};
+
+Character.prototype.setStatus  = function (status){
+     this.status = status;
+};
+
+Character.prototype.getNumPushButtonCollide  = function (){
+    return this.numPushButtonCollide;
+};
+
+Character.prototype.setNumPushButtonCollide  = function (numPushButtonCollide){
+     this.numPushButtonCollide = numPushButtonCollide;
+};
+
+Character.prototype.getInDoor  = function (){
+    return this.inDoor;
+};
+
+Character.prototype.setInDoor  = function (inDoor){
+     this.inDoor = inDoor;
+};
+
+Character.prototype.playSoundWalking = function(){
+    return gEngine.AudioClips.playACue(this.kSounds[this.soundWalking]);
+}
+

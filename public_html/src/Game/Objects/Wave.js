@@ -14,7 +14,7 @@ function Wave(x, y, w, h, pc, texture, normal, lgtSet) {
     this.mWave.addLight(lgtSet.getLightAt(0));
     this.mPlayerCollision = pc;
 
-    GameObject.call(this, this.mWave);
+    GameObject.call(this, this.mWave); 
 
     var rigidShape = new RigidRectangle(this.getXform(), w, h);
     rigidShape.setMass(0);  // ensures no movements!

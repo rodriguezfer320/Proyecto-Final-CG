@@ -13,10 +13,10 @@
 
 function GameOverMenu() {
     this.kTextures = {
-        background: "assets/background.png",
-        menu: "assets/menu/game_over/gameover.png",
-        menu_play: "assets/menu/game_over/gameover_play_selected.png",
-        menu_exit: "assets/menu/game_over/gameover_exit_selected.png"
+        background: "assets/images/backgrounds/background.png",
+        menu: "assets/images/menu/game_over/gameover.png",
+        menu_play: "assets/images/menu/game_over/gameover_play_selected.png",
+        menu_exit: "assets/images/menu/game_over/gameover_exit_selected.png"
     };
 
     this.mCamera = null;
@@ -68,8 +68,8 @@ GameOverMenu.prototype.initialize = function () {
     this.mBackground.getXform().setPosition(0, 0);
 
     this.mMenu = new TextureRenderable(this.kTextures["menu"]);
-    this.mMenu.getXform().setSize(70, 80);
-    this.mMenu.getXform().setPosition(0, 5);
+    this.mMenu.getXform().setSize(45, 50);
+    this.mMenu.getXform().setPosition(0, 2.5);
 };
 
 // This is the draw function, make sure to setup proper drawing environment, and more

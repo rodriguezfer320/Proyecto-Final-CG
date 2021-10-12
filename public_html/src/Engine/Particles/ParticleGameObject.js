@@ -26,7 +26,7 @@ function ParticleGameObject(texture, atX, atY, cyclesToLive) {
     GameObject.call(this, renderableObj);
     
     var p = new Particle(xf.getPosition());
-    this.setPhysicsComponent(p);
+    this.setPhysicsComponent(p);  
     
     this.mDeltaColor = [0, 0, 0, 0];
     this.mSizeDelta = 0;
@@ -51,7 +51,7 @@ ParticleGameObject.prototype.setFinalColor = function(f) {
  * Set the size delta of the particle
  * @param {Number} d Sife of particle
  * @returns {void}
- * @memberOf ParticleGameObject
+ * @memberOf ParticleGameObject 
  */
 ParticleGameObject.prototype.setSizeDelta = function(d) {
     this.mSizeDelta = d;

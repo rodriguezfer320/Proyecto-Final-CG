@@ -28,28 +28,35 @@ SceneFileParser.prototype._convertToNum = function (a) {
     }
 };
 
-SceneFileParser.prototype.parseCamera = function () {
+SceneFileParser.prototype.parseCameras = function () {
     let elm = this._getElm("Camera");
-    let x = Number(elm[0].getAttribute("x"));
-    let y = Number(elm[0].getAttribute("y"));
-    let width = Number(elm[0].getAttribute("width"));
-    let viewport = elm[0].getAttribute("viewport").split(" ");
-    let bound = Number(elm[0].getAttribute("bound"));
-    let color = elm[0].getAttribute("color").split(" ");
+    let i, x, y, width, viewport, bound, color;
+    let cams = [];
 
-    // make sure viewport and color are number
-    this._convertToNum(viewport);
-    this._convertToNum(color);
+    for (i = 0; i < elm.length; i++) {
+        x = Number(elm[i].getAttribute("x"));
+        y = Number(elm[i].getAttribute("y"));
+        width = Number(elm[i].getAttribute("width"));
+        viewport = elm[i].getAttribute("viewport").split(" ");
+        bound = Number(elm[i].getAttribute("bound"));
+        color = elm[i].getAttribute("color").split(" ");
 
-    let cam = new Camera(
-        vec2.fromValues(x, y), // position of the camera
-        width,                //  width of camera
-        viewport,            //   viewport (orgX, orgY, width, height)
-        bound
-    );
-    cam.setBackgroundColor(color);
+        // make sure viewport and color are number
+        this._convertToNum(viewport);
+        this._convertToNum(color);
 
-    return cam;
+        let cam = new Camera(
+            vec2.fromValues(x, y), // position of the camera
+            width,                //  width of camera
+            viewport,            //   viewport (orgX, orgY, width, height)
+            bound
+        );
+        cam.setBackgroundColor(color);
+
+        cams.push(cam);
+    }
+
+    return cams;
 };
 
 SceneFileParser.prototype.parseLights = function () {
@@ -223,7 +230,7 @@ SceneFileParser.prototype.parseWaves = function (textures, normals, lightSet) {
 
 SceneFileParser.prototype.parseDoors = function (textures, normals, lightSet) {
     let elm = this._getElm("Door");
-    let i, x, y, w, h, type, mDoor;
+    let i, x, y, w, h, pc, type, mDoor;
     let allDoors = new GameObjectSet();
 
     for (i = 0; i < elm.length; i++) {
@@ -231,9 +238,10 @@ SceneFileParser.prototype.parseDoors = function (textures, normals, lightSet) {
         y = Number(elm[i].getAttribute("y"));
         w = Number(elm[i].getAttribute("weight"));
         h = Number(elm[i].getAttribute("height"));
+        pc = Number(elm[i].getAttribute("playerCollision"));
         type = elm[i].getAttribute("type");
 
-        mDoor = new Door(x, y, w, h, textures[type], normals[type], lightSet);
+        mDoor = new Door(x, y, w, h, pc, textures[type], normals[type], lightSet);
 
         gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mDoor);
 
@@ -264,7 +272,7 @@ SceneFileParser.prototype.parsePushButton = function (textures, normals, lightSe
     return allPushButtons;
 };
 
-SceneFileParser.prototype.parseCharacters = function (textures, normals, lightSet) {
+SceneFileParser.prototype.parseCharacters = function (textures, normals, lightSet, kSounds) {
     let elm = this._getElm("Character");
     let i, x, y, type, mCharacter;
     let allCharacters = new GameObjectSet();
@@ -274,7 +282,7 @@ SceneFileParser.prototype.parseCharacters = function (textures, normals, lightSe
         y = Number(elm[i].getAttribute("y"));
         type = elm[i].getAttribute("type");
 
-        mCharacter = new Character(x, y, textures[type], normals[type], lightSet, type);
+        mCharacter = new Character(x, y, textures[type], normals[type], lightSet, type, kSounds);
 
         gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mCharacter);
         gEngine.LayerManager.addAsShadowCaster(mCharacter);
@@ -287,7 +295,7 @@ SceneFileParser.prototype.parseCharacters = function (textures, normals, lightSe
 
 SceneFileParser.prototype.parseDiamond = function (textures, normals, lightSet) {
     let elm = this._getElm("Diamond");
-    let i, x, y, w, h, type, mDiamond;
+    let i, x, y, w, h, pc, type, mDiamond;
     let allDiamonds = new GameObjectSet();
 
     for (i = 0; i < elm.length; i++) {
@@ -295,13 +303,47 @@ SceneFileParser.prototype.parseDiamond = function (textures, normals, lightSet) 
         y = Number(elm[i].getAttribute("y"));
         w = Number(elm[i].getAttribute("weight"));
         h = Number(elm[i].getAttribute("height"));
+        pc = Number(elm[i].getAttribute("playerCollision"));
         type = elm[i].getAttribute("type");
 
-        mDiamond = new Diamond(x, y, w, h, textures[type], normals[type], lightSet, type);
+        mDiamond = new Diamond(x, y, w, h, pc, textures[type], normals[type], lightSet, type);
         gEngine.LayerManager.addToLayer(gEngine.eLayer.eActors, mDiamond);
 
-        allDiamonds.addToSet(mDiamond); 
+        allDiamonds.addToSet(mDiamond);
     }
     return allDiamonds;
 };
 
+SceneFileParser.prototype.parseParticle = function (textures) {
+    let elm = this._getElm("Particle");
+    let i, x, y, p, type;
+
+    for (i = 0; i < elm.length; i++) {
+        x = Number(elm[i].getAttribute("x"));
+        y = Number(elm[i].getAttribute("y"));
+        type = elm[i].getAttribute("type");
+
+        var life = 30 + Math.random() * 200;
+        p = new ParticleGameObject(textures[type], x, y, life);
+        p.getRenderable().setColor([0.15, 0.83, 0.15, 1]);
+    
+        // size of the particle
+        var r = 1.5 + Math.random() * 0.5;
+        p.getXform().setSize(r, r);
+        
+        // final color
+        var fr = 0.15 + Math.random();
+        var fg = 0.83 + 0.01 * Math.random();
+        var fb = 0.15 + 0.01 * Math.random();
+        p.setFinalColor([fr, fg, fb, 0.6]);
+        
+        // velocity on the particle
+        var fx = 10 - 20 * Math.random();
+        var fy = 10 * Math.random();
+        p.getPhysicsComponent().setVelocity([fx, fy]);
+        
+        // size delta
+        p.setSizeDelta(0.98);
+    }
+    return p;
+};

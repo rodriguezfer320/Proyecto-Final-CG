@@ -13,10 +13,10 @@
 
 function MainMenu() {
     this.kTextures = {
-        background: "assets/background.png",
-        menu: "assets/menu/main/welcome.png",
-        menu_play: "assets/menu/main/welcome_play_selected.png",
-        menu_exit: "assets/menu/main/welcome_exit_selected.png"
+        background: "assets/images/backgrounds/background.png",
+        menu: "assets/images/menu/main/welcome.png",
+        menu_play: "assets/images/menu/main/welcome_play_selected.png",
+        menu_exit: "assets/images/menu/main/welcome_exit_selected.png"
     };
 
     this.mCamera = null;
@@ -69,8 +69,8 @@ MainMenu.prototype.initialize = function () {
     this.mBackground.getXform().setPosition(0, 0);
 
     this.mMenu = new TextureRenderable(this.kTextures["menu"]);
-    this.mMenu.getXform().setSize(70, 80);
-    this.mMenu.getXform().setPosition(0, 5);
+    this.mMenu.getXform().setSize(45, 50);
+    this.mMenu.getXform().setPosition(0, 2.5);
 };
 
 // This is the draw function, make sure to setup proper drawing environment, and more
@@ -98,12 +98,17 @@ MainMenu.prototype.update = function () {
         }
 
         if(gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)){
+            this.mLoadSelection = new Game();
             gEngine.GameLoop.stop();
         }
     }else if(x >= 477 && x <= 642 && y >= 282 && y <= 438){
         if(this.mMenuState === MainMenu.eMenuState.eMenu
             || this.mMenuState === MainMenu.eMenuState.eMenuPlay){
                 this.mMenuState = MainMenu.eMenuState.eMenuExit;
+        }
+
+        if(gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)){
+            //
         }
     }else if(this.mMenuState === MainMenu.eMenuState.eMenuPlay
         || this.mMenuState === MainMenu.eMenuState.eMenuExit){
