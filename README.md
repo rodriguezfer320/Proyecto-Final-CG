@@ -58,6 +58,6 @@
     </ul>
     <div style="text-align: center;">
        <h3>UNIVERSIDAD DEL VALLE</h3>
-        <h4>Escuela de Ingeniería de Sistemas y Computación</h4>
+        <h4>Escuela de Ingeniería de Sistemas y Computación (EISC)</h4>
     </div>
 </div>
